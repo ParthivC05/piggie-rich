@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/components/HowToPlay.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1750331058345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750331094191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\r\n \r\n const HowToPlay = () => {\r\n   return (\r\n-    <section className=\"bg-black text-white px-6 py-16\">\r\n+    <section className=\"bg-black text-white py-16\">\r\n       {/* Heading */}\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-2xl md:text-4xl font-bold text-cyan-400 relative inline-block\">\r\n           <span className=\"relative z-10\">HOW TO PLAY</span>\r\n"
+                },
+                {
+                    "date": 1750331423669,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\"max-w-4xl mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\" mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                },
+                {
+                    "date": 1750331509917,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\" mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\"px-3 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                },
+                {
+                    "date": 1750331515708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\"px-3 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\"px- mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                },
+                {
+                    "date": 1750331524864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\"px- mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\"px-4 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                },
+                {
+                    "date": 1750331550899,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\"px-4 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\"px-4 lg: mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                }
+            ],
+            "date": 1750331058345,
+            "name": "Commit-0",
+            "content": "import React from 'react';\r\n\r\nconst HowToPlay = () => {\r\n  return (\r\n    <section className=\"bg-black text-white px-6 py-16\">\r\n      {/* Heading */}\r\n      <div className=\"text-center mb-12\">\r\n        <h2 className=\"text-2xl md:text-4xl font-bold text-cyan-400 relative inline-block\">\r\n          <span className=\"relative z-10\">HOW TO PLAY</span>\r\n          <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n        </h2>\r\n      </div>\r\n\r\n      <div className=\"max-w-4xl mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n        {/* Intro */}\r\n        <div>\r\n          <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n          <p className=\"text-gray-300 mt-2\">\r\n            Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className=\"font-bold\">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className=\"font-bold\">VOID WHERE PROHIBITED BY LAW</span>.\r\n          </p>\r\n        </div>\r\n\r\n        {/* Steps */}\r\n        <div>\r\n          <h4 className=\"font-semibold mb-2\">Follow these steps to get your account set up, to play, and to redeem:</h4>\r\n          <ol className=\"list-decimal pl-5 space-y-1 text-gray-200\">\r\n            <li>Download the game(s) you wish to play if the software is app based.</li>\r\n            <li>Deposit funds to obtain points which are used to play games.</li>\r\n            <li>Transfer points to the game(s) you desire to play via website chat.</li>\r\n            <li>Enjoy the games!</li>\r\n            <li>To withdraw points, use the chat.</li>\r\n          </ol>\r\n        </div>\r\n\r\n        {/* Redemption Rules */}\r\n        <div>\r\n          <h4 className=\"font-semibold mb-2\">REDEMPTION RULES</h4>\r\n          <ul className=\"space-y-1 text-gray-300\">\r\n            <li>$10 deposit = Minimum redeem $20 and maximum redeem $100 max</li>\r\n            <li>$20 deposit = Minimum redeem $40 and maximum redeem $200 max</li>\r\n            <li>$30 deposit = Minimum redeem $60 and maximum redeem $300 max</li>\r\n            <li>$40 deposit = Minimum redeem $80 and maximum redeem $400 max</li>\r\n            <li>$50 deposit = Minimum redeem $100 and maximum redeem $500 max</li>\r\n          </ul>\r\n          <p className=\"mt-4 text-gray-400\">\r\n            You must double the amount of your deposit as your minimum redeem. <br />\r\n            We redeem to zero so you play off all points over your redeem amount. <br /><br />\r\n            Minimum deposit $10 <br />\r\n            Maximum redeem $500 per 24 hours <br />\r\n            Zero dollar deposit equals zero dollar redemption <br />\r\n            In-game free play/bonuses are nonredeemable <br /><br />\r\n            Redeems are fulfilled via PayPal between 9AM – midnight EST\r\n          </p>\r\n        </div>\r\n      </div>\r\n    </section>\r\n  );\r\n};\r\n\r\nexport default HowToPlay;\r\n"
+        }
+    ]
+}

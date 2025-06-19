@@ -1,0 +1,50 @@
+{
+    "sourceFile": "src/App.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1750312533173,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750312536234,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,5 +12,5 @@\n     </>\n   )\n }\n \n-export default App\n\\ No newline at end of file\n+export default App\n"
+                },
+                {
+                    "date": 1750312536289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,5 +13,4 @@\n   )\n }\n \n export default App\n-\n"
+                },
+                {
+                    "date": 1750313272932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n \n import './App.css'\n+import HeroSection from './components/HeroSection'\n import  Navbar  from './components/Navbar'\n \n function App() {\n  \n \n   return (\n-    <>\n+    <div>\n       <Navbar/>\n-      <HeroSection\n+      <HeroSection/>\n     </>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1750313284100,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,12 +6,12 @@\n function App() {\n  \n \n   return (\n-    <div>\n+    <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n-    </>\n+    </div>\n   )\n }\n \n export default App\n"
+                },
+                {
+                    "date": 1750327814683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n   return (\n     <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n+      \\\n     </div>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1750327821120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n   return (\n     <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n-      \\\n+      <\n     </div>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1750329681507,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n \n import './App.css'\n+import FreeToPlaySection from './components/FreeToPlaySection'\n import HeroSection from './components/HeroSection'\n import  Navbar  from './components/Navbar'\n \n function App() {\n@@ -9,9 +10,10 @@\n   return (\n     <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n-      <\n+      <FreeToPlaySection/>\n+      <Sweep\n     </div>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1750331066192,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n import './App.css'\n import FreeToPlaySection from './components/FreeToPlaySection'\n import HeroSection from './components/HeroSection'\n import  Navbar  from './components/Navbar'\n+import SweepstakesPlatforms from './components/SweepStakes'\n \n function App() {\n  \n \n@@ -11,9 +12,10 @@\n     <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n       <FreeToPlaySection/>\n-      <Sweep\n+      <SweepstakesPlatforms/>\n+      <HowToPla\n     </div>\n   )\n }\n \n"
+                }
+            ],
+            "date": 1750312533173,
+            "name": "Commit-0",
+            "content": "\nimport './App.css'\nimport  Navbar  from './components/Navbar'\n\nfunction App() {\n \n\n  return (\n    <>\n      <Navbar/>\n      <HeroSection\n    </>\n  )\n}\n\nexport default App\n"
+        }
+    ]
+}

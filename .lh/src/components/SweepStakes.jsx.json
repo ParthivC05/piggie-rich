@@ -1,0 +1,142 @@
+{
+    "sourceFile": "src/components/SweepStakes.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 31,
+            "patches": [
+                {
+                    "date": 1750329240796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1750329249168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,14 +25,9 @@\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n           >\r\n-            {/* Badge */}\r\n-            {platform.badge && (\r\n-              <div className=\"absolute top-2 left-2 bg-white text-red-600 font-bold text-xs px-2 py-1 rounded shadow\">\r\n-                {platform.badge}\r\n-              </div>\r\n-            )}\r\n+        \r\n \r\n             {/* Image */}\r\n             <img\r\n               src={platform.image}\r\n"
+                },
+                {
+                    "date": 1750329254855,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \r\n // Game platform images and optional badges\r\n const platforms = [\r\n   { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png', badge: 'NEW!' },\r\n-  { title: 'Fire Kirin', image: '/src/assets/fire-kirin.png', badge: 'HOT!' },\r\n+  { title: 'Fire Kirin', image: '/src/assets/fire-kirin.png',},\r\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion-stars.png' },\r\n"
+                },
+                {
+                    "date": 1750329404876,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,10 @@\n import React from 'react';\r\n \r\n // Game platform images and optional badges\r\n const platforms = [\r\n-  { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png', badge: 'NEW!' },\r\n-  { title: 'Fire Kirin', image: '/src/assets/fire-kirin.png',},\r\n+  { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png',  },\r\n+  { title: 'Fire Kirin', image: '/src/assets/fire-kirin-hit.png',},\r\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion-stars.png' },\r\n"
+                },
+                {
+                    "date": 1750329488403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,13 +2,13 @@\n \r\n // Game platform images and optional badges\r\n const platforms = [\r\n   { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png',  },\r\n-  { title: 'Fire Kirin', image: '/src/assets/fire-kirin-hit.png',},\r\n+  { title: 'Fire Kirin', image: '/src/assets/fire-kirin-hot.png',},\r\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n-  { title: 'Orion Stars', image: '/src/assets/orion-stars.png' },\r\n+  { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329493843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n+  { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329505032,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n-  { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n+  { title: '', image: '/src/assets/orion.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329512751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n-  { title: '', image: '/src/assets/orion.png' },\r\n+  { title: 'Game Vault', image: '/src/assets/gam.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329541761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,10 @@\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n-  { title: 'Game Vault', image: '/src/assets/gam.png' },\r\n+  { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n+  { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329549781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n-  { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n+  { title: 'Game Vault', image: '/src/assets/ultra-panda.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329555018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n-  { title: 'Game Vault', image: '/src/assets/ultra-panda.png' },\r\n+  { title: 'Ultra', image: '/src/assets/ultra-panda.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329560328,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n   { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n-  { title: 'Ultra', image: '/src/assets/ultra-panda.png' },\r\n+  { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329569010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n+  { title: 'Ultra Panda', image: '/src/assets/.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329576462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n-  { title: 'Ultra Panda', image: '/src/assets/.png' },\r\n+  { title: '', image: '/src/assets/quake.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329642895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n   { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n-  { title: '', image: '/src/assets/quake.png' },\r\n+  { title: 'Quake', image: '/src/assets/quake.png' },\r\n+  { title: 'Quake', image: '/src/assets/quake.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329649932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n   { title: 'Quake', image: '/src/assets/quake.png' },\r\n-  { title: 'Quake', image: '/src/assets/quake.png' },\r\n+  { title: 'Quake', image: '/src/assets/v-.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329657492,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n   { title: 'Quake', image: '/src/assets/quake.png' },\r\n-  { title: 'Quake', image: '/src/assets/v-.png' },\r\n+  { title: 'V', image: '/src/assets/v-blink.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329663568,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n   { title: 'Quake', image: '/src/assets/quake.png' },\r\n-  { title: 'V', image: '/src/assets/v-blink.png' },\r\n+  { title: 'V-Bink', image: '/src/assets/v-blink.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1750329767719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n   { title: 'Orion Stars', image: '/src/assets/orion.png' },\r\n   { title: 'Game Vault', image: '/src/assets/game-vault.png' },\r\n   { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },\r\n   { title: 'Quake', image: '/src/assets/quake.png' },\r\n-  { title: 'V-Bink', image: '/src/assets/v-blink.png' },\r\n+  { title: 'V-Blink', image: '/src/assets/v-blink.png' },\r\n ];\r\n \r\n const SweepstakesPlatforms = () => {\r\n   return (\r\n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-7xl mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8  mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750329786100,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8  mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-7xl mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n@@ -35,9 +35,9 @@\n             {/* Image */}\r\n             <img\r\n               src={platform.image}\r\n               alt={platform.title}\r\n-              className=\"w-full h-48 object-cover hover:scale-105 transition-transform duration-300\"\r\n+              className=\"w-full  object-cover hover:scale-105 transition-transform duration-300\"\r\n             />\r\n           </div>\r\n         ))}\r\n       </div>\r\n"
+                },
+                {
+                    "date": 1750329935435,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-7xl mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8 max-w-7xl mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330324865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8 max-w-7xl mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 max-w-7xl mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330335417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n       <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 max-w-7xl mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n-            className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n+            className=\"relative rounded-lg border-4 border-purple-900 overflow-hidden\"\r\n           >\r\n         \r\n \r\n             {/* Image */}\r\n"
+                },
+                {
+                    "date": 1750330388410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,13 +23,13 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 max-w-7xl mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10  mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n-            className=\"relative rounded-lg border-4 border-purple-900 overflow-hidden\"\r\n+            className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n           >\r\n         \r\n \r\n             {/* Image */}\r\n"
+                },
+                {
+                    "date": 1750330398203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10  mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 py-52 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330421925,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 py-52 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330446828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 pt- mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330452681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 pt- mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330555843,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 px-52 pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 lg:px-52 pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330570296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-10 lg:px-52 pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330577368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 lg-6 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750330586735,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 lg-6 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                }
+            ],
+            "date": 1750329240796,
+            "name": "Commit-0",
+            "content": "import React from 'react';\r\n\r\n// Game platform images and optional badges\r\nconst platforms = [\r\n  { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png', badge: 'NEW!' },\r\n  { title: 'Fire Kirin', image: '/src/assets/fire-kirin.png', badge: 'HOT!' },\r\n  { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n  { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },\r\n  { title: 'Juwa', image: '/src/assets/juwa.png' },\r\n  { title: 'Orion Stars', image: '/src/assets/orion-stars.png' },\r\n];\r\n\r\nconst SweepstakesPlatforms = () => {\r\n  return (\r\n    <section className=\"bg-black text-white py-16 px-4\">\r\n      {/* Title */}\r\n      <div className=\"text-center mb-10\">\r\n        <h2 className=\"text-3xl md:text-4xl font-bold mb-2\">SWEEPSTAKES PLATFORMS</h2>\r\n        <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n      </div>\r\n\r\n      {/* Grid */}\r\n      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-8 max-w-7xl mx-auto\">\r\n        {platforms.map((platform, index) => (\r\n          <div\r\n            key={index}\r\n            className=\"relative rounded-lg border-2 border-purple-900 overflow-hidden\"\r\n          >\r\n            {/* Badge */}\r\n            {platform.badge && (\r\n              <div className=\"absolute top-2 left-2 bg-white text-red-600 font-bold text-xs px-2 py-1 rounded shadow\">\r\n                {platform.badge}\r\n              </div>\r\n            )}\r\n\r\n            {/* Image */}\r\n            <img\r\n              src={platform.image}\r\n              alt={platform.title}\r\n              className=\"w-full h-48 object-cover hover:scale-105 transition-transform duration-300\"\r\n            />\r\n          </div>\r\n        ))}\r\n      </div>\r\n    </section>\r\n  );\r\n};\r\n\r\nexport default SweepstakesPlatforms;\r\n"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+import React from 'react';
+import ImageSlider from './ImageSlider';
+
+const HeroSection = () => {
+  return (
+    <section className="bg-black text-white  flex flex-col md:flex-row items-center justify-between gap-10 px-4 md:px-16 ">
+      
+      {/* Left: slider card */}
+      <div className="flex justify-center w-full md:w-auto">
+        <ImageSlider />
+      </div>
+
+      {/* Right: heading + buttons */}
+      <div className="flex-1 flex flex-col items-center  justify-center text-center ">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-10 md:mb-12 leading-tight">
+          America’s #1 Sweepstakes Experience
+        </h1>
+
+        <div className="flex flex-col md:flex-row gap-6">
+          <button className="bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold">
+            Register
+          </button>
+          <button className="bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold">
+            Deposit
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default HeroSection;
