@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/Navbar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1750337220224,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1750337220224,
+            "name": "Commit-0",
+            "content": "import React, { useState } from 'react';\r\nimport logoImg from '../assets/logo.png'; \r\nimport { FaBars, FaTimes } from 'react-icons/fa';\r\n\r\nconst Navbar = () => {\r\n  const [isOpen, setIsOpen] = useState(false);\r\n\r\n  return (\r\n    <nav className=\"bg-black text-white px-6 py-4 flex items-center justify-between shadow relative\">\r\n      <div className=\"flex items-center gap-2\">\r\n        <img src={logoImg} alt=\"Logo\" className=\"h-8 w-auto\" />\r\n      </div>\r\n\r\n      <div className=\"md:hidden\">\r\n        <button onClick={() => setIsOpen(!isOpen)}>\r\n          {isOpen ? (\r\n            <FaTimes className=\"text-2xl text-white\" />\r\n          ) : (\r\n            <FaBars className=\"text-2xl text-white\" />\r\n          )}\r\n        </button>\r\n      </div>\r\n\r\n      {/* Menu Links - Desktop */}\r\n      <div className=\"hidden md:flex items-center gap-6\">\r\n        <a href=\"#\" className=\"text-white font-semibold hover:text-blue-400\">Home</a>\r\n        <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Deposit</a>\r\n        <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Chat</a>\r\n        <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Register</a>\r\n        <button className=\"bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold\">\r\n          LOGIN\r\n        </button>\r\n      </div>\r\n\r\n      {/* Mobile Menu */}\r\n      {isOpen && (\r\n        <div className=\"absolute top-full left-0 w-full bg-black px-6 py-4 flex flex-col gap-4 md:hidden z-10\">\r\n          <a href=\"#\" className=\"text-white font-semibold hover:text-blue-400\">Home</a>\r\n          <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Deposit</a>\r\n          <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Chat</a>\r\n          <a href=\"#\" className=\"text-blue-500 hover:text-blue-400\">Register</a>\r\n          <button className=\"bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded font-semibold w-full text-left\">\r\n            LOGIN\r\n          </button>\r\n        </div>\r\n      )}\r\n    </nav>\r\n  );\r\n};\r\n\r\nexport default Navbar;\r\n"
+        }
+    ]
+}

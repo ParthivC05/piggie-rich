@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 31,
+            "activePatchIndex": 32,
             "patches": [
                 {
                     "date": 1750329240796,
@@ -132,6 +132,10 @@
                 {
                     "date": 1750330586735,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n         <p className=\"text-gray-300\">Platforms have multiple games</p>\r\n       </div>\r\n \r\n       {/* Grid */}\r\n-      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 lg-6 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6 lg:gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n         {platforms.map((platform, index) => (\r\n           <div\r\n             key={index}\r\n             className=\"relative rounded-lg border-8 border-purple-900 overflow-hidden\"\r\n"
+                },
+                {
+                    "date": 1750337226400,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,6 @@\n import React from 'react';\r\n \r\n-// Game platform images and optional badges\r\n const platforms = [\r\n   { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png',  },\r\n   { title: 'Fire Kirin', image: '/src/assets/fire-kirin-hot.png',},\r\n   { title: 'Fortune King', image: '/src/assets/fortune-king.png' },\r\n"
                 }
             ],
             "date": 1750329240796,

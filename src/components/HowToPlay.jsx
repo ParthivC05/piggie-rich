@@ -3,7 +3,6 @@ import React from 'react';
 const HowToPlay = () => {
   return (
     <section className="bg-black text-white py-16">
-      {/* Heading */}
       <div className="text-center mb-12">
         <h2 className="text-2xl md:text-4xl font-bold text-cyan-400 relative inline-block">
           <span className="relative z-10">HOW TO PLAY</span>
@@ -12,7 +11,6 @@ const HowToPlay = () => {
       </div>
 
       <div className="px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6">
-        {/* Intro */}
         <div>
           <h3 className="text-xl font-semibold">Piggie Rich</h3>
           <p className="text-gray-300 mt-2">
@@ -20,7 +18,6 @@ const HowToPlay = () => {
           </p>
         </div>
 
-        {/* Steps */}
         <div>
           <h4 className="font-semibold mb-2">Follow these steps to get your account set up, to play, and to redeem:</h4>
           <ol className="list-decimal pl-5 space-y-1 text-gray-200">
@@ -32,7 +29,6 @@ const HowToPlay = () => {
           </ol>
         </div>
 
-        {/* Redemption Rules */}
         <div>
           <h4 className="font-semibold mb-2">REDEMPTION RULES</h4>
           <ul className="space-y-1 text-gray-300">

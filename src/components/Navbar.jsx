@@ -7,12 +7,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-black text-white px-6 py-4 flex items-center justify-between shadow relative">
-      {/* Logo */}
       <div className="flex items-center gap-2">
         <img src={logoImg} alt="Logo" className="h-8 w-auto" />
       </div>
 
-      {/* Hamburger Icon - Mobile Only */}
       <div className="md:hidden">
         <button onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? (
@@ -23,7 +21,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Menu Links - Desktop */}
       <div className="hidden md:flex items-center gap-6">
         <a href="#" className="text-white font-semibold hover:text-blue-400">Home</a>
         <a href="#" className="text-blue-500 hover:text-blue-400">Deposit</a>
@@ -34,7 +31,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="absolute top-full left-0 w-full bg-black px-6 py-4 flex flex-col gap-4 md:hidden z-10">
           <a href="#" className="text-white font-semibold hover:text-blue-400">Home</a>
