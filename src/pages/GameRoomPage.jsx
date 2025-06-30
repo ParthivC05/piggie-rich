@@ -55,7 +55,7 @@ const GameRoomPage = () => {
     <div>
       {!showGame && (
         <a
-          href="https://slotslaunch.com/iframe/16338?token=abcd"
+          href="https://slotslaunch.com/iframe/16338?token=cbWYg0l8fGqelMITHKtq4cnyO7Pqs9X3pfijYlqtdFEgWOebPC"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-3 inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
@@ -66,7 +66,7 @@ const GameRoomPage = () => {
 
       {showGame && (
         <iframe
-          src="https://slotslaunch.com/iframe/16338?token=abcd"
+          src="https://slotslaunch.com/iframe/16338?token=cbWYg0l8fGqelMITHKtq4cnyO7Pqs9X3pfijYlqtdFEgWOebPC"
           width="100%"
           height="600"
           style={{ border: "none", marginTop: "20px" }}
