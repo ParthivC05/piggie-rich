@@ -1,0 +1,50 @@
+{
+    "sourceFile": "src/pages/HomePage.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1751272450812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751272458546,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,52 +1,9 @@\n-import React from 'react';\r\n-import { useNavigate } from 'react-router-dom';\r\n+import React from 'react'\r\n \r\n-const games = [\r\n-  { title: 'Fire Link', image: '/src/assets/fire-link.webp' },\r\n-  { title: 'Buffalo', image: '/src/assets/buffalo.webp' },\r\n-  { title: 'Fishing Paradise', image: '/src/assets/fishing-paradise.webp' },\r\n-  { title: 'Huff Pigs', image: '/src/assets/huff-n-even-more.webp' },\r\n-  { title: 'Fortune King', image: '/src/assets/fortune-king.webp' },\r\n-  { title: 'Hyper Karts', image: '/src/assets/hyper-karts.jpg' },\r\n-  { title: 'Queenie', image: '/src/assets/queenie.webp' },\r\n-  { title: 'Rich Piggies', image: '/src/assets/rich-little-piggies.webp' },\r\n-  { title: 'Little Demons', image: '/src/assets/lil-demon.jpg' },\r\n-  { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n-  { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n-  { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n-];\r\n-\r\n-const FreeToPlaySection = () => {\r\n-  const navigate = useNavigate();\r\n-\r\n+const HomePage = () => {\r\n   return (\r\n-    <section className=\"bg-black text-white px-4 py-16\">\r\n-      <div className=\"text-center mb-12\">\r\n-        <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n-        <p className=\"text-gray-300 max-w-3xl mx-auto\">\r\n-          Play Free games with no download required, no registration, and no purchase necessary.\r\n-        </p>\r\n-      </div>\r\n+    <div>HomePage</div>\r\n+  )\r\n+}\r\n \r\n-      <div className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n-        {games.map((game, index) => (\r\n-          <div key={index} className=\"flex flex-col items-center\">\r\n-            <img\r\n-              src={game.image}\r\n-              alt={game.title}\r\n-              className=\"w-full h-40 object-contain rounded shadow-md\"\r\n-            />\r\n-            <button\r\n-              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\"\r\n-              onClick={() => navigate('/game-room')}\r\n-            >\r\n-              PLAY FREE\r\n-            </button>\r\n-          </div>\r\n-        ))}\r\n-      </div>\r\n\\ No newline at end of file\n-    </section>\r\n-  );\r\n-};\r\n-\r\n-export default FreeToPlaySection;\n+export default HomePage\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751272473174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,13 @@\n import React from 'react'\r\n \r\n const HomePage = () => {\r\n   return (\r\n-    <div>HomePage</div>\r\n+    <div>   <Navbar/>\r\n+      <HeroSection/>\r\n+      <FreeToPlaySection/>\r\n+      <SweepstakesPlatforms/>\r\n+      <HowToPlay/></div>\r\n   )\r\n }\r\n \r\n export default HomePage\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751272478376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,16 @@\n-import React from 'react'\r\n+import React from \"react\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n-    <div>   <Navbar/>\r\n-      <HeroSection/>\r\n-      <FreeToPlaySection/>\r\n-      <SweepstakesPlatforms/>\r\n-      <HowToPlay/></div>\r\n-  )\r\n-}\r\n+    <div>\r\n\\ No newline at end of file\n+      \r\n+      <Navbar />\r\n+      <HeroSection />\r\n+      <FreeToPlaySection />\r\n+      <SweepstakesPlatforms />\r\n+      <HowToPlay />\r\n+    </div>\r\n+  );\r\n+};\r\n \r\n-export default HomePage\n+export default HomePage;\r\n"
+                },
+                {
+                    "date": 1751272486455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n import React from \"react\";\r\n+import Navbar from \"../components/Navbar\";\r\n+import HeroSection from \"../components/HeroSection\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n     <div>\r\n@@ -12,5 +14,5 @@\n     </div>\r\n   );\r\n };\r\n \r\n-export default HomePage;\n\\ No newline at end of file\n+export default HomePage;\r\n"
+                },
+                {
+                    "date": 1751272493220,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n import React from \"react\";\r\n import Navbar from \"../components/Navbar\";\r\n import HeroSection from \"../components/HeroSection\";\r\n+import FreeToPlaySection from \"../components/FreeToPlaySection\";\r\n+import SweepstakesPlatforms from \"../components/SweepStakes\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n     <div>\r\n"
+                },
+                {
+                    "date": 1751272617846,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       <Navbar />\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n-      <HowToPlay />\r\n+      {/* <HowToPlay /> */}\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1751272714436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,8 @@\n       <Navbar />\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n-      {/* <HowToPlay /> */}\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1751272720589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n       <Navbar />\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n+      <HowPla\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                }
+            ],
+            "date": 1751272450812,
+            "name": "Commit-0",
+            "content": "import React from 'react';\r\nimport { useNavigate } from 'react-router-dom';\r\n\r\nconst games = [\r\n  { title: 'Fire Link', image: '/src/assets/fire-link.webp' },\r\n  { title: 'Buffalo', image: '/src/assets/buffalo.webp' },\r\n  { title: 'Fishing Paradise', image: '/src/assets/fishing-paradise.webp' },\r\n  { title: 'Huff Pigs', image: '/src/assets/huff-n-even-more.webp' },\r\n  { title: 'Fortune King', image: '/src/assets/fortune-king.webp' },\r\n  { title: 'Hyper Karts', image: '/src/assets/hyper-karts.jpg' },\r\n  { title: 'Queenie', image: '/src/assets/queenie.webp' },\r\n  { title: 'Rich Piggies', image: '/src/assets/rich-little-piggies.webp' },\r\n  { title: 'Little Demons', image: '/src/assets/lil-demon.jpg' },\r\n  { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n  { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n  { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n];\r\n\r\nconst FreeToPlaySection = () => {\r\n  const navigate = useNavigate();\r\n\r\n  return (\r\n    <section className=\"bg-black text-white px-4 py-16\">\r\n      <div className=\"text-center mb-12\">\r\n        <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n        <p className=\"text-gray-300 max-w-3xl mx-auto\">\r\n          Play Free games with no download required, no registration, and no purchase necessary.\r\n        </p>\r\n      </div>\r\n\r\n      <div className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n        {games.map((game, index) => (\r\n          <div key={index} className=\"flex flex-col items-center\">\r\n            <img\r\n              src={game.image}\r\n              alt={game.title}\r\n              className=\"w-full h-40 object-contain rounded shadow-md\"\r\n            />\r\n            <button\r\n              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\"\r\n              onClick={() => navigate('/game-room')}\r\n            >\r\n              PLAY FREE\r\n            </button>\r\n          </div>\r\n        ))}\r\n      </div>\r\n    </section>\r\n  );\r\n};\r\n\r\nexport default FreeToPlaySection;"
+        }
+    ]
+}

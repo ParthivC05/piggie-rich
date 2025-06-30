@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1750312533173,
@@ -40,6 +40,38 @@
                 {
                     "date": 1750331066192,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n import './App.css'\n import FreeToPlaySection from './components/FreeToPlaySection'\n import HeroSection from './components/HeroSection'\n import  Navbar  from './components/Navbar'\n+import SweepstakesPlatforms from './components/SweepStakes'\n \n function App() {\n  \n \n@@ -11,9 +12,10 @@\n     <div className='bg-black'>\n       <Navbar/>\n       <HeroSection/>\n       <FreeToPlaySection/>\n-      <Sweep\n+      <SweepstakesPlatforms/>\n+      <HowToPla\n     </div>\n   )\n }\n \n"
+                },
+                {
+                    "date": 1751272468403,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,22 +1,19 @@\n-\n-import './App.css'\n-import FreeToPlaySection from './components/FreeToPlaySection'\n-import HeroSection from './components/HeroSection'\n-import  Navbar  from './components/Navbar'\n-import SweepstakesPlatforms from './components/SweepStakes'\n-\n-function App() {\n- \n-\n-  return (\n-    <div className='bg-black'>\n-      <Navbar/>\n-      <HeroSection/>\n-      <FreeToPlaySection/>\n-      <SweepstakesPlatforms/>\n-      <HowToPla\n-    </div>\n-  )\n-}\n-\n-export default App\n+\r\n+import './App.css'\r\n+import FreeToPlaySection from './components/FreeToPlaySection'\r\n+import HeroSection from './components/HeroSection'\r\n+import HowToPlay from './components/HowToPlay'\r\n+import  Navbar  from './components/Navbar'\r\n+import SweepstakesPlatforms from './components/SweepStakes'\r\n+\r\n+function App() {\r\n+ \r\n+\r\n+  return (\r\n+    <div className='bg-black'>\r\n+   \r\n+    </div>\r\n+  )\r\n+}\r\n+\r\n+export default App\r\n"
+                },
+                {
+                    "date": 1751272499654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,8 @@\n \r\n import './App.css'\r\n-import FreeToPlaySection from './components/FreeToPlaySection'\r\n-import HeroSection from './components/HeroSection'\r\n-import HowToPlay from './components/HowToPlay'\r\n-import  Navbar  from './components/Navbar'\r\n-import SweepstakesPlatforms from './components/SweepStakes'\r\n \r\n+\r\n function App() {\r\n  \r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1751272505913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n  \r\n \r\n   return (\r\n     <div className='bg-black'>\r\n-   \r\n+      <HomePage\r\n     </div>\r\n   )\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1751272523096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,15 @@\n \r\n import './App.css'\r\n+import HomePage from './pages/HomePage'\r\n \r\n \r\n function App() {\r\n  \r\n \r\n   return (\r\n     <div className='bg-black'>\r\n-      <HomePage\r\n+      \r\n     </div>\r\n   )\r\n }\r\n \r\n"
+                },
+                {
+                    "date": 1751272560819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,19 @@\n-\r\n import './App.css'\r\n import HomePage from './pages/HomePage'\r\n+import GameRoomPage from './pages/GameRoomPage'\r\n+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\r\n \r\n-\r\n function App() {\r\n- \r\n-\r\n   return (\r\n     <div className='bg-black'>\r\n-      \r\n+      <Router>\r\n+        <Routes>\r\n+          <Route path=\"/\" element={<HomePage />} />\r\n+          <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n+        </Routes>\r\n+      </Router>\r\n     </div>\r\n   )\r\n }\r\n \r\n-export default App\r\n+export default App\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751272645611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     <div className='bg-black'>\r\n       <Router>\r\n         <Routes>\r\n           <Route path=\"/\" element={<HomePage />} />\r\n-          <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n+          <Route path=\"/game-room\" element={<GameRoomPag />} />\r\n         </Routes>\r\n       </Router>\r\n     </div>\r\n   )\r\n"
+                },
+                {
+                    "date": 1751272652776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,5 @@\n import './App.css'\r\n-import HomePage from './pages/HomePage'\r\n-import GameRoomPage from './pages/GameRoomPage'\r\n import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\r\n \r\n function App() {\r\n   return (\r\n"
+                },
+                {
+                    "date": 1751272658665,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,16 @@\n import './App.css'\r\n import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\r\n+import HomePage from './pages/HomePage'\r\n+import GameRoomPage from './pages/GameRoomPage'\r\n \r\n function App() {\r\n   return (\r\n     <div className='bg-black'>\r\n       <Router>\r\n         <Routes>\r\n           <Route path=\"/\" element={<HomePage />} />\r\n-          <Route path=\"/game-room\" element={<GameRoomPag />} />\r\n+          <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n         </Routes>\r\n       </Router>\r\n     </div>\r\n   )\r\n"
                 }
             ],
             "date": 1750312533173,

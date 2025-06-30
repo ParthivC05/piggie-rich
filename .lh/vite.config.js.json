@@ -1,0 +1,30 @@
+{
+    "sourceFile": "vite.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1751273315159,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751273428061,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,8 @@\n import { defineConfig } from 'vite'\n import react from '@vitejs/plugin-react'\n+import tailwindcss from '@tailwindcss/vite'\n \n+// https://vite.dev/config/\n export default defineConfig({\n-  plugins: [react()],\n-  server: {\n-    proxy: {\n-      '/slots-api': {\n-        target: 'https://slotslaunch.com',\n-        changeOrigin: true,\n-        rewrite: (path) => path.replace(/^\\/slots-api/, '/api'),\n-        headers: {\n-          Origin: 'http://localhost:5173'\n-        }\n-      }\n-    }\n-  }\n+  plugins: [react(),tailwindcss()],\n })\n"
+                },
+                {
+                    "date": 1751273494319,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,17 @@\n import { defineConfig } from 'vite'\n import react from '@vitejs/plugin-react'\n import tailwindcss from '@tailwindcss/vite'\n \n-// https://vite.dev/config/\n export default defineConfig({\n-  plugins: [react(),tailwindcss()],\n-})\n+  plugins: [react(), tailwindcss()],\n+  server: {\n+    proxy: {\n+      // Proxy /slots-api to the real API endpoint\n+      '/slots-api': {\n+        target: 'https://slotslaunch.com/api',\n+        changeOrigin: true,\n+        rewrite: (path) => path.replace(/^\\/slots-api/, ''),\n+      },\n+    },\n+  },\n+})\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751281355301,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,8 @@\n export default defineConfig({\n   plugins: [react(), tailwindcss()],\n   server: {\n     proxy: {\n-      // Proxy /slots-api to the real API endpoint\n       '/slots-api': {\n         target: 'https://slotslaunch.com/api',\n         changeOrigin: true,\n         rewrite: (path) => path.replace(/^\\/slots-api/, ''),\n"
+                }
+            ],
+            "date": 1751273315159,
+            "name": "Commit-0",
+            "content": "import { defineConfig } from 'vite'\nimport react from '@vitejs/plugin-react'\n\nexport default defineConfig({\n  plugins: [react()],\n  server: {\n    proxy: {\n      '/slots-api': {\n        target: 'https://slotslaunch.com',\n        changeOrigin: true,\n        rewrite: (path) => path.replace(/^\\/slots-api/, '/api'),\n        headers: {\n          Origin: 'http://localhost:5173'\n        }\n      }\n    }\n  }\n})\n"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 58,
             "patches": [
                 {
                     "date": 1750327686156,
@@ -192,6 +192,54 @@
                 {
                     "date": 1750331861148,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n           Play Free games with no download required, no registration, and no purchase necessary.\r\n         </p>\r\n       </div>\r\n \r\n-      <div className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 md:px-40 lg:px-52 lg:pt-12 mx-auto\">\r\n+      <div className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n         {games.map((game, index) => (\r\n           <div key={index} className=\"flex flex-col items-center\">\r\n             <img\r\n               src={game.image}\r\n"
+                },
+                {
+                    "date": 1751272263476,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n               src={game.image}\r\n               alt={game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n-            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\">\r\n+            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onC>\r\n               PLAY FREE\r\n             </button>\r\n           </div>\r\n         ))}\r\n"
+                },
+                {
+                    "date": 1751272269867,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n               src={game.image}\r\n               alt={game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n-            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onC>\r\n+            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onClick={()=>}>\r\n               PLAY FREE\r\n             </button>\r\n           </div>\r\n         ))}\r\n"
+                },
+                {
+                    "date": 1751272279375,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,8 +15,10 @@\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n \r\n const FreeToPlaySection = () => {\r\n+\r\n+  const na\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n@@ -32,9 +34,9 @@\n               src={game.image}\r\n               alt={game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n-            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onClick={()=>}>\r\n+            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onClick={()=>navigate}>\r\n               PLAY FREE\r\n             </button>\r\n           </div>\r\n         ))}\r\n"
+                },
+                {
+                    "date": 1751272290303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n ];\r\n \r\n const FreeToPlaySection = () => {\r\n \r\n-  const na\r\n+  const navigate = useNavigate()\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n"
+                },
+                {
+                    "date": 1751272301722,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n ];\r\n \r\n const FreeToPlaySection = () => {\r\n \r\n-  const navigate = useNavigate()\r\n+\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n"
+                },
+                {
+                    "date": 1751272307136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n   { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n-\r\n+  const navigate = useNavigate()\r\n const FreeToPlaySection = () => {\r\n \r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1751272320119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n   { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n-  const navigate = useNavigate()\r\n+  const navigate = navigate()\r\n const FreeToPlaySection = () => {\r\n \r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1751272328404,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,8 @@\n   { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n   { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n-  const navigate = navigate()\r\n const FreeToPlaySection = () => {\r\n \r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1751272336760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n const FreeToPlaySection = () => {\r\n \r\n-\r\n+const navigate\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n"
+                },
+                {
+                    "date": 1751272342291,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n const FreeToPlaySection = () => {\r\n \r\n-const navigate\r\n+const navigate= useNa\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n"
+                },
+                {
+                    "date": 1751272348807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n const FreeToPlaySection = () => {\r\n \r\n-const navigate= useNa\r\n+\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n"
+                },
+                {
+                    "date": 1751272402410,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n import React from 'react';\r\n+import { useNavigate } from 'react-router-dom';\r\n \r\n const games = [\r\n   { title: 'Fire Link', image: '/src/assets/fire-link.webp' },\r\n   { title: 'Buffalo', image: '/src/assets/buffalo.webp' },\r\n@@ -13,11 +14,12 @@\n   { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },\r\n   { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },\r\n   { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },\r\n ];\r\n+\r\n const FreeToPlaySection = () => {\r\n+  const navigate = useNavigate();\r\n \r\n-\r\n   return (\r\n     <section className=\"bg-black text-white px-4 py-16\">\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-3xl md:text-4xl font-bold mb-4\">FREE TO PLAY</h2>\r\n@@ -33,9 +35,12 @@\n               src={game.image}\r\n               alt={game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n-            <button className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\" onClick={()=>navigate}>\r\n+            <button\r\n+              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\"\r\n+              onClick={() => navigate('/game-room')}\r\n+            >\r\n               PLAY FREE\r\n             </button>\r\n           </div>\r\n         ))}\r\n@@ -43,5 +48,5 @@\n     </section>\r\n   );\r\n };\r\n \r\n-export default FreeToPlaySection;\r\n+export default FreeToPlaySection;\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1750327686156,

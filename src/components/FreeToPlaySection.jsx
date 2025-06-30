@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const games = [
   { title: 'Fire Link', image: '/src/assets/fire-link.webp' },
@@ -16,6 +17,8 @@ const games = [
 ];
 
 const FreeToPlaySection = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="bg-black text-white px-4 py-16">
       <div className="text-center mb-12">
@@ -33,7 +36,10 @@ const FreeToPlaySection = () => {
               alt={game.title}
               className="w-full h-40 object-contain rounded shadow-md"
             />
-            <button className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold">
+            <button
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold"
+              onClick={() => navigate('/game-room')}
+            >
               PLAY FREE
             </button>
           </div>
