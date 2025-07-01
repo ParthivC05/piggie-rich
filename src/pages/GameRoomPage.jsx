@@ -217,7 +217,7 @@ import GamesList from '../components/GameList'
 const GameRoomPage = () => {
   return (
     <div>
-
+      
       <GamesList/>
     </div>
   )

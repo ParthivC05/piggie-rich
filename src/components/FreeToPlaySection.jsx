@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const games = [
-  { title: 'Fire Link', image: '/src/assets/fire-link.webp' },
-  { title: 'Buffalo', image: '/src/assets/buffalo.webp' },
-  { title: 'Fishing Paradise', image: '/src/assets/fishing-paradise.webp' },
-  { title: 'Huff Pigs', image: '/src/assets/huff-n-even-more.webp' },
-  { title: 'Fortune King', image: '/src/assets/fortune-king.webp' },
-  { title: 'Hyper Karts', image: '/src/assets/hyper-karts.jpg' },
-  { title: 'Queenie', image: '/src/assets/queenie.webp' },
-  { title: 'Rich Piggies', image: '/src/assets/rich-little-piggies.webp' },
-  { title: 'Little Demons', image: '/src/assets/lil-demon.jpg' },
-  { title: 'Fish-Fever', image: '/src/assets/fish-fever.jpg' },
-  { title: 'Cash-Eruption', image: '/src/assets/cash-eruption.jpg' },
-  { title: 'Resurrecting', image: '/src/assets/resurrecting-riches.jpg' },
-];
-
 const FreeToPlaySection = () => {
+  const [games, setGames] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const token = import.meta.env.VITE_API_TOKEN;
+
+    fetch(`${apiUrl}?token=${token}`)
+      .then(res => res.json())
+      .then(data => {
+        // Adjust this according to your API response structure
+        if (data && Array.isArray(data.data)) {
+          setGames(data.data);
+        } else if (data && Array.isArray(data.games)) {
+          setGames(data.games);
+        } else {
+          setGames([]);
+        }
+      })
+      .catch(() => setGames([]));
+  }, []);
 
   return (
     <section className="bg-black text-white px-4 py-16">
@@ -29,11 +34,11 @@ const FreeToPlaySection = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto">
-        {games.map((game, index) => (
-          <div key={index} className="flex flex-col items-center">
+        {games.slice(0, 12).map((game, index) => (
+          <div key={game.id || index} className="flex flex-col items-center">
             <img
-              src={game.image}
-              alt={game.title}
+              src={game.image || game.thumb || "https://via.placeholder.com/200x120?text=Game+Image"}
+              alt={game.name || game.title}
               className="w-full h-40 object-contain rounded shadow-md"
             />
             <button

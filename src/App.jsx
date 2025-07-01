@@ -1,12 +1,14 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import GameRoomPage from './pages/GameRoomPage'
 
 function App() {
   return (
-    <div className='bg-black'>
+    <div className=''>
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/game-room" element={<GameRoomPage />} />

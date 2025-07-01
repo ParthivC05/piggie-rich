@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 16,
+            "activePatchIndex": 18,
             "patches": [
                 {
                     "date": 1750312533173,
@@ -72,6 +72,14 @@
                 {
                     "date": 1751272658665,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,16 @@\n import './App.css'\r\n import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\r\n+import HomePage from './pages/HomePage'\r\n+import GameRoomPage from './pages/GameRoomPage'\r\n \r\n function App() {\r\n   return (\r\n     <div className='bg-black'>\r\n       <Router>\r\n         <Routes>\r\n           <Route path=\"/\" element={<HomePage />} />\r\n-          <Route path=\"/game-room\" element={<GameRoomPag />} />\r\n+          <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n         </Routes>\r\n       </Router>\r\n     </div>\r\n   )\r\n"
+                },
+                {
+                    "date": 1751351359284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,15 @@\n import './App.css'\r\n import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'\r\n+import Navbar from './components/Navbar'\r\n import HomePage from './pages/HomePage'\r\n import GameRoomPage from './pages/GameRoomPage'\r\n \r\n function App() {\r\n   return (\r\n     <div className='bg-black'>\r\n       <Router>\r\n+        <Navbar />\r\n         <Routes>\r\n           <Route path=\"/\" element={<HomePage />} />\r\n           <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n         </Routes>\r\n"
+                },
+                {
+                    "date": 1751351771352,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n import GameRoomPage from './pages/GameRoomPage'\r\n \r\n function App() {\r\n   return (\r\n-    <div className='bg-black'>\r\n+    <div className=''>\r\n       <Router>\r\n         <Navbar />\r\n         <Routes>\r\n           <Route path=\"/\" element={<HomePage />} />\r\n"
                 }
             ],
             "date": 1750312533173,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 8,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1751272450812,
@@ -40,6 +40,10 @@
                 {
                     "date": 1751272720589,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,9 @@\n       <Navbar />\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n+      <HowPla\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1751351368649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,18 +2,19 @@\n import Navbar from \"../components/Navbar\";\r\n import HeroSection from \"../components/HeroSection\";\r\n import FreeToPlaySection from \"../components/FreeToPlaySection\";\r\n import SweepstakesPlatforms from \"../components/SweepStakes\";\r\n+import HowToPlay from \"../components/HowToPlay\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n     <div>\r\n       \r\n-      <Navbar />\r\n+      {/* <Navbar /> */}\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n-      <HowPla\r\n+      <HowToPlay/>\r\n     </div>\r\n   );\r\n };\r\n \r\n"
                 }
             ],
             "date": 1751272450812,

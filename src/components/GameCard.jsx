@@ -16,41 +16,21 @@ const GameCard = ({ game }) => {
   return (
     <>
       {showEmbed ? (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            zIndex: 9999,
-            background: "#000",
-          }}
-        >
+        <div className="fixed inset-0 w-screen h-screen z-[9999] bg-white flex flex-col">
           <button
             onClick={handleClose}
-            style={{
-              position: "absolute",
-              top: 16,
-              right: 16,
-              zIndex: 10000,
-              background: "#fff",
-              color: "#000",
-              padding: "8px 16px",
-              borderRadius: "8px",
-              fontWeight: "bold",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow"
           >
             Close
           </button>
-          <GameEmbed gameId={game.id} />
+          <div className="flex-1">
+            <GameEmbed gameId={game.id} />
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center p-4">
           <img
-            src={game.image || "https://via.placeholder.com/200x120?text=Game+Image"}
+            src={game.thumb || "https://via.placeholder.com/200x120?text=Game+Image"}
             alt={game.name}
             className="w-52 h-32 object-cover rounded"
           />

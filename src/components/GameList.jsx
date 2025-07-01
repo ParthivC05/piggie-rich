@@ -9,7 +9,7 @@ const GamesList = () => {
     const fetchGames = async () => {
       try {
         const res = await fetch(
-          `https://slotslaunch.com/api/games?token=${import.meta.env.VITE_API_TOKEN}&public=1&per_page=10`
+          `https://slotslaunch.com/api/games?token=${import.meta.env.VITE_API_TOKEN}&public=1&per_page=12`
         );
         const data = await res.json();
 
