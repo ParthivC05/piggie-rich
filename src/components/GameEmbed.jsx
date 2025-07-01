@@ -7,9 +7,7 @@ const GameEmbed = ({ gameId }) => {
   return (
     <iframe
       src={iframeUrl}
-      width="100%"
-      height="600px"
-      frameBorder="0"
+      style={{ width: "100vw", height: "100vh", border: "none" }}
       allowFullScreen
       title="Game Frame"
     ></iframe>
