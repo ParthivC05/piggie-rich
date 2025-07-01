@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1751355699691,
@@ -32,6 +32,10 @@
                 {
                     "date": 1751368017234,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,29 +10,30 @@\n \r\n   const handleChange = (e) => {\r\n     setForm({ ...form, [e.target.name]: e.target.value });\r\n   };\r\n-const handleSubmit = async (e) => {\r\n-  e.preventDefault();\r\n-  setMessage(\"\");\r\n-  try {\r\n-    const res = await fetch(\"http://localhost:5000/api/login\", {\r\n-      method: \"POST\",\r\n-      headers: { \"Content-Type\": \"application/json\" },\r\n-      body: JSON.stringify(form),\r\n-    });\r\n-    const data = await res.json();\r\n-    if (res.ok) {\r\n-      localStorage.setItem(\"token\", data.token);\r\n-      toast.success(\"Login successful!\");\r\n-      setTimeout(() => navigate(\"/\"));\r\n-    } else {\r\n-      toast.error(data.error || \"Login failed.\");\r\n+\r\n+  const handleSubmit = async (e) => {\r\n+    e.preventDefault();\r\n+    setMessage(\"\");\r\n+    try {\r\n+      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {\r\n+        method: \"POST\",\r\n+        headers: { \"Content-Type\": \"application/json\" },\r\n+        body: JSON.stringify(form),\r\n+      });\r\n+      const data = await res.json();\r\n+      if (res.ok) {\r\n+        localStorage.setItem(\"token\", data.token);\r\n+        toast.success(\"Login successful!\");\r\n+        setTimeout(() => navigate(\"/\"), 1500);\r\n+      } else {\r\n+        toast.error(data.error || \"Login failed.\");\r\n+      }\r\n+    } catch (err) {\r\n+      toast.error(\"Server error.\");\r\n     }\r\n-  } catch (err) {\r\n-    toast.error(\"Server error.\");\r\n-  }\r\n-};\r\n+  };\r\n \r\n   return (\r\n     <div className=\"min-h-screen flex items-center justify-center bg-gray-100\">\r\n       <ToastContainer />\r\n"
+                },
+                {
+                    "date": 1751370047498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   const handleSubmit = async (e) => {\r\n     e.preventDefault();\r\n     setMessage(\"\");\r\n     try {\r\n-      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {\r\n+      const res = await fetch(`${import.meta.env.VITE__API_URL}/login`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n"
                 }
             ],
             "date": 1751355699691,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1751355684764,
@@ -24,6 +24,10 @@
                 {
                     "date": 1751368025330,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n       toast.error(\"Passwords do not match.\");\r\n       return;\r\n     }\r\n     try {\r\n-      const res = await fetch(\"http://localhost:5000/api/register\", {\r\n+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n"
+                },
+                {
+                    "date": 1751370057528,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n       toast.error(\"Passwords do not match.\");\r\n       return;\r\n     }\r\n     try {\r\n-      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {\r\n+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/register`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n"
                 }
             ],
             "date": 1751355684764,
