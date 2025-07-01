@@ -1,57 +1,159 @@
-import React, { useState } from 'react';
-import logoImg from '../assets/logo.png'; 
-import { FaBars, FaTimes } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import logoImg from "/logo.png"; 
 
-const Navbar = () => {
+const Navbar = ({ toggleChatSidebar }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
 
-  // Dynamic classes
-  const navBg = isHome ? 'bg-black text-white' : 'bg-white text-black';
-  const linkBase = isHome ? 'text-white hover:text-blue-400' : 'text-black hover:text-blue-500';
-  const btnBase = isHome
-    ? 'bg-blue-500 hover:bg-blue-600 text-white'
-    : 'bg-blue-500 hover:bg-blue-600 text-white';
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/login");
+  };
+
+  const navBg = isHome ? "bg-black text-white" : "bg-white text-black";
+  const linkBase = isHome
+    ? "text-white hover:text-blue-400"
+    : "text-black hover:text-blue-500";
+  const btnBase = "bg-blue-500 hover:bg-blue-600 text-white";
 
   return (
-    <nav className={`${navBg} px-6 py-4 flex items-center justify-between shadow relative transition-colors duration-300`}>
-      <div className="flex items-center gap-2">
+    <nav
+      className={`${navBg} px-4 sm:px-6 py-4 flex items-center justify-between shadow-md relative`}
+    >
+      <Link to="/" className="flex items-center gap-2">
         <img src={logoImg} alt="Logo" className="h-8 w-auto" />
-      </div>
+      </Link>
 
-      <div className="md:hidden">
-        <button onClick={() => setIsOpen(!isOpen)}>
+      <div className="md:hidden z-20">
+        <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
           {isOpen ? (
-            <FaTimes className={`text-2xl ${isHome ? 'text-white' : 'text-black'}`} />
+            <FaTimes className="text-2xl" />
           ) : (
-            <FaBars className={`text-2xl ${isHome ? 'text-white' : 'text-black'}`} />
+            <FaBars className="text-2xl" />
           )}
         </button>
       </div>
 
       <div className="hidden md:flex items-center gap-6">
-        <a href="#" className={`${linkBase} font-semibold`}>Home</a>
-        <a href="#" className={linkBase}>Deposit</a>
-        <a href="#" className={linkBase}>Chat</a>
-        <a href="#" className={linkBase}>Register</a>
-        <button className={`${btnBase} px-4 py-2 rounded font-semibold`}>
-          LOGIN
+        <Link to="/" className={`${linkBase} font-semibold`}>
+          Home
+        </Link>
+        <Link to="/deposit" className={linkBase}>
+          Deposit
+        </Link>
+        <button onClick={toggleChatSidebar} className={linkBase}>
+          Chat
         </button>
+        {!isLoggedIn && (
+          <Link to="/register" className={linkBase}>
+            Register
+          </Link>
+        )}
+        {!isLoggedIn ? (
+          <Link
+            to="/login"
+            className={`${btnBase} px-4 py-2 rounded font-semibold`}
+          >
+            LOGIN
+          </Link>
+        ) : (
+          <>
+            <button
+              className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300"
+              onClick={() => navigate("/profile")}
+            >
+              <FaUserCircle className="text-xl" /> Profile
+            </button>
+            <button
+              className={`${btnBase} px-4 py-2 rounded font-semibold`}
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
 
-      {isOpen && (
-        <div className={`${navBg} absolute top-full left-0 w-full px-6 py-4 flex flex-col gap-4 md:hidden z-10`}>
-          <a href="#" className={`${linkBase} font-semibold`}>Home</a>
-          <a href="#" className={linkBase}>Deposit</a>
-          <a href="#" className={linkBase}>Chat</a>
-          <a href="#" className={linkBase}>Register</a>
-          <button className={`${btnBase} w-full text-left`}>
-            LOGIN
+      <div
+        className={`md:hidden absolute top-full left-0 w-full ${navBg} shadow-md transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
+        }`}
+      >
+        <div className="flex flex-col px-6 py-4 gap-4">
+          <Link
+            to="/"
+            className={`${linkBase} text-left w-full font-semibold`}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+          <Link
+            to="/deposit"
+            className={`${linkBase} text-left w-full`}
+            onClick={() => setIsOpen(false)}
+          >
+            Deposit
+          </Link>
+          <button
+            onClick={() => {
+              toggleChatSidebar();
+              setIsOpen(false);
+            }}
+            className={`${linkBase} text-left w-full`}
+          >
+            Chat
           </button>
+          {!isLoggedIn && (
+            <Link
+              to="/register"
+              className={`${linkBase} text-left w-full`}
+              onClick={() => setIsOpen(false)}
+            >
+              Register
+            </Link>
+          )}
+          {!isLoggedIn ? (
+            <Link
+              to="/login"
+              className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full`}
+              onClick={() => setIsOpen(false)}
+            >
+              LOGIN
+            </Link>
+          ) : (
+            <>
+              <button
+                className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300"
+                onClick={() => {
+                  setIsOpen(false);
+                  navigate("/profile");
+                }}
+              >
+                <FaUserCircle className="text-xl" /> Profile
+              </button>
+              <button
+                className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full`}
+                onClick={() => {
+                  setIsOpen(false);
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
+            </>
+          )}
         </div>
-      )}
+      </div>
     </nav>
   );
 };

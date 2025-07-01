@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751366812782,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751366812782,
+            "name": "Commit-0",
+            "content": "{\n  \"name\": \"backend\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n    \n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"type\": \"commonjs\",\n  \"dependencies\": {\n    \"bcryptjs\": \"^3.0.2\",\n    \"cors\": \"^2.8.5\",\n    \"dotenv\": \"^17.0.0\",\n    \"express\": \"^5.1.0\",\n    \"jsonwebtoken\": \"^9.0.2\",\n    \"mongodb\": \"^6.17.0\",\n    \"mongoose\": \"^8.16.1\"\n  }\n}\n"
+        }
+    ]
+}

@@ -1,16 +1,16 @@
 import React from 'react';
 
 const platforms = [
-  { title: 'Golden Dragon', image: '/src/assets/golden-dragon.png',  },
-  { title: 'Fire Kirin', image: '/src/assets/fire-kirin-hot.png',},
-  { title: 'Fortune King', image: '/src/assets/fortune-king.png' },
-  { title: 'Fire Phoenix', image: '/src/assets/fire-phoenix.png' },
-  { title: 'Juwa', image: '/src/assets/juwa.png' },
-  { title: 'Orion Stars', image: '/src/assets/orion.png' },
-  { title: 'Game Vault', image: '/src/assets/game-vault.png' },
-  { title: 'Ultra Panda', image: '/src/assets/ultra-panda.png' },
-  { title: 'Quake', image: '/src/assets/quake.png' },
-  { title: 'V-Blink', image: '/src/assets/v-blink.png' },
+  { title: 'Golden Dragon', image: '/golden-dragon.png', link: 'https://www.playgd.mobi/SSLobby/m5014.0/web-mobile/index.html' },
+  { title: 'Fire Kirin', image: '/fire-kirin-hot.png', link: 'http://start.firekirin.xyz:8580/index.html' },
+  { title: 'Fortune King', image: '/fortune-king.png', link: 'https://fortuneking777.com/' },
+  { title: 'Fire Phoenix', image: '/fire-phoenix.png', link: 'https://fpc-mob.com/MobFPLobby/v2.0/index.html?t=0.8545086052327413' },
+  { title: 'Juwa', image: '/juwa.png', link: 'https://dl.juwa777.com/' },
+  { title: 'Orion Stars', image: '/orion.png', link: 'https://start.orionstars.vip:8888/index.html' },
+  { title: 'Game Vault', image: '/game-vault.png', link: 'https://download.gamevault999.com/' },
+  { title: 'Ultra Panda', image: '/ultra-panda.png', link: 'https://www.ultrapanda.mobi/' },
+  { title: 'Quake', image: '/quake.png', link: 'https://quakegame.net/' },
+  { title: 'V-Blink', image: '/v-blink.png', link: 'https://www.vblink777.club/' },
 ];
 
 const SweepstakesPlatforms = () => {
@@ -25,14 +25,14 @@ const SweepstakesPlatforms = () => {
         {platforms.map((platform, index) => (
           <div
             key={index}
-            className="relative rounded-lg border-8 border-purple-900 overflow-hidden"
+            className="relative rounded-lg border-8 border-purple-900 overflow-hidden cursor-pointer"
+            onClick={() => window.open(platform.link, "_blank", "noopener,noreferrer")}
+            title={platform.title}
           >
-        
-
             <img
               src={platform.image}
               alt={platform.title}
-              className="w-full  object-cover hover:scale-105 transition-transform duration-300"
+              className="w-full object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         ))}

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 const images = [
-  '/src/assets/slider1.png',
-  '/src/assets/slider2.png',
-  '/src/assets/slider3.png',
-  '/src/assets/slider4.png',
+  '/slider1.png',
+  '/slider2.png',
+  '/slider3.png',
+  '/slider4.png',
 ];
 
 const ImageSlider = () => {

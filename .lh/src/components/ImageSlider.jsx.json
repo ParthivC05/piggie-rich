@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 18,
+            "activePatchIndex": 20,
             "patches": [
                 {
                     "date": 1750313068761,
@@ -80,6 +80,14 @@
                 {
                     "date": 1750337214745,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n   useEffect(() => {\r\n     const interval = setInterval(() => {\r\n       setIndex((i) => (i + 1) % images.length);\r\n-    }, 5000); // 3 seconds per slide\r\n+    }, 5000); \r\n \r\n     return () => clearInterval(interval);\r\n   }, []);\r\n \r\n"
+                },
+                {
+                    "date": 1751361273396,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n import React, { useState, useEffect } from 'react';\r\n \r\n const images = [\r\n-  '/src/assets/slider1.png',\r\n+  '/slider1.png',\r\n   '/src/assets/slider2.png',\r\n   '/src/assets/slider3.png',\r\n   '/src/assets/slider4.png',\r\n ];\r\n"
+                },
+                {
+                    "date": 1751361280561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React, { useState, useEffect } from 'react';\r\n \r\n const images = [\r\n   '/slider1.png',\r\n-  '/src/assets/slider2.png',\r\n+  '/slider2.png',\r\n   '/src/assets/slider3.png',\r\n   '/src/assets/slider4.png',\r\n ];\r\n \r\n"
                 }
             ],
             "date": 1750313068761,

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/ProfilePage.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751365504828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751365504828,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from \"react\";\r\nimport { useNavigate } from \"react-router-dom\";\r\n\r\nconst ProfilePage = () => {\r\n  const [user, setUser] = useState(null);\r\n  const navigate = useNavigate();\r\n\r\n  useEffect(() => {\r\n    const token = localStorage.getItem(\"token\");\r\n    if (!token) {\r\n      navigate(\"/login\");\r\n      return;\r\n    }\r\n    fetch(\"http://localhost:5000/api/profile\", {\r\n      headers: {\r\n        Authorization: `Bearer ${token}`,\r\n      },\r\n    })\r\n      .then((res) => {\r\n        if (res.status === 401) {\r\n          localStorage.removeItem(\"token\");\r\n          navigate(\"/login\");\r\n        }\r\n        return res.json();\r\n      })\r\n      .then((data) => setUser(data.user))\r\n      .catch(() => navigate(\"/login\"));\r\n  }, [navigate]);\r\n\r\n  if (!user) {\r\n    return (\r\n      <div className=\"min-h-screen flex items-center justify-center bg-gray-100\">\r\n        <div className=\"text-xl\">Loading profile...</div>\r\n      </div>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <div className=\"min-h-screen flex items-center justify-center bg-gray-100\">\r\n      <div className=\"bg-white p-8 rounded shadow-md w-full max-w-md\">\r\n        <h2 className=\"text-2xl font-bold mb-6 text-center\">Profile</h2>\r\n        <div className=\"mb-3\"><strong>Username:</strong> {user.username}</div>\r\n        <div className=\"mb-3\"><strong>First Name:</strong> {user.firstName}</div>\r\n        <div className=\"mb-3\"><strong>Last Name:</strong> {user.lastName}</div>\r\n        <div className=\"mb-3\"><strong>Email:</strong> {user.email}</div>\r\n        <div className=\"mb-3\"><strong>Phone:</strong> {user.phone}</div>\r\n        <div className=\"mb-3\"><strong>Date of Birth:</strong> {user.dob}</div>\r\n      </div>\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default ProfilePage;"
+        }
+    ]
+}
