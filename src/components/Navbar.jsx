@@ -51,7 +51,7 @@ const Navbar = ({ toggleChatSidebar }) => {
         <Link to="/deposit" className={linkBase}>
           Deposit
         </Link>
-        <button onClick={toggleChatSidebar} className={linkBase}>
+        <button onClick={toggleChatSidebar} className={`${linkBase} cursor-pointer`}>
           Chat
         </button>
         {!isLoggedIn && (
@@ -69,13 +69,13 @@ const Navbar = ({ toggleChatSidebar }) => {
         ) : (
           <>
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300"
+              className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300 hover:cursor-pointer"
               onClick={() => navigate("/profile")}
             >
               <FaUserCircle className="text-xl" /> Profile
             </button>
             <button
-              className={`${btnBase} px-4 py-2 rounded font-semibold`}
+              className={`${btnBase} px-4 py-2 rounded font-semibold hover:cursor-pointer`}
               onClick={handleLogout}
             >
               Logout
@@ -133,7 +133,7 @@ const Navbar = ({ toggleChatSidebar }) => {
           ) : (
             <>
               <button
-                className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300"
+                className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300 hover:cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
                   navigate("/profile");
@@ -142,7 +142,7 @@ const Navbar = ({ toggleChatSidebar }) => {
                 <FaUserCircle className="text-xl" /> Profile
               </button>
               <button
-                className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full`}
+                className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full hover:cursor-pointer`}
                 onClick={() => {
                   setIsOpen(false);
                   handleLogout();

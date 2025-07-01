@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 62,
+            "activePatchIndex": 65,
             "patches": [
                 {
                     "date": 1750327686156,
@@ -256,6 +256,18 @@
                 {
                     "date": 1751369874701,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [games, setGames] = useState([]);\r\n   const navigate = useNavigate();\r\n \r\n   useEffect(() => {\r\n-    const apiUrl = import.meta.env.https://slotslaunch.com/api/games;\r\n+    const apiUrl = import.meta.env.VITE__API_URL;\r\n     const token = import.meta.env.VITE_API_TOKEN;\r\n \r\n     fetch(`${apiUrl}?token=${token}`)\r\n       .then(res => res.json())\r\n"
+                },
+                {
+                    "date": 1751373206674,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,15 +5,14 @@\n   const [games, setGames] = useState([]);\r\n   const navigate = useNavigate();\r\n \r\n   useEffect(() => {\r\n-    const apiUrl = import.meta.env.VITE__API_URL;\r\n+    const apiUrl = import.meta.env.VITE_GAMES_API_URL;\r\n     const token = import.meta.env.VITE_API_TOKEN;\r\n \r\n     fetch(`${apiUrl}?token=${token}`)\r\n       .then(res => res.json())\r\n       .then(data => {\r\n-        // Adjust this according to your API response structure\r\n         if (data && Array.isArray(data.data)) {\r\n           setGames(data.data);\r\n         } else if (data && Array.isArray(data.games)) {\r\n           setGames(data.games);\r\n"
+                },
+                {
+                    "date": 1751373216730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               alt={game.name || game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n             <button\r\n-              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold\"\r\n+              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:\"\r\n               onClick={() => navigate('/game-room')}\r\n             >\r\n               PLAY FREE\r\n             </button>\r\n"
+                },
+                {
+                    "date": 1751373224848,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,9 +40,9 @@\n               alt={game.name || game.title}\r\n               className=\"w-full h-40 object-contain rounded shadow-md\"\r\n             />\r\n             <button\r\n-              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:\"\r\n+              className=\"mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:cursor-pointer\"\r\n               onClick={() => navigate('/game-room')}\r\n             >\r\n               PLAY FREE\r\n             </button>\r\n"
                 }
             ],
             "date": 1750327686156,

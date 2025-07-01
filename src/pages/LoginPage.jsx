@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -44,9 +44,13 @@ const LoginPage = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <input name="username" required placeholder="Username" className="mb-3 w-full border rounded px-3 py-2" value={form.username} onChange={handleChange} />
         <input name="password" type="password" required placeholder="Password" className="mb-6 w-full border rounded px-3 py-2" value={form.password} onChange={handleChange} />
-        <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600">
+        <button type="submit" className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 hover:cursor-pointer">
           Login
         </button>
+         <div className="mt-4 text-center">
+        <span>Don't have an account? </span>
+        <Link to="/register" className="text-blue-500 hover:underline cursor-pointer">Register</Link>
+      </div>
       </form>
     </div>
   );

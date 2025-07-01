@@ -12,7 +12,6 @@ const FreeToPlaySection = () => {
     fetch(`${apiUrl}?token=${token}`)
       .then(res => res.json())
       .then(data => {
-        // Adjust this according to your API response structure
         if (data && Array.isArray(data.data)) {
           setGames(data.data);
         } else if (data && Array.isArray(data.games)) {
@@ -42,7 +41,7 @@ const FreeToPlaySection = () => {
               className="w-full h-40 object-contain rounded shadow-md"
             />
             <button
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold"
+              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:cursor-pointer"
               onClick={() => navigate('/game-room')}
             >
               PLAY FREE

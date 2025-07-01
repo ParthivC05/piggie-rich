@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1751355699691,
@@ -36,6 +36,14 @@
                 {
                     "date": 1751370047498,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   const handleSubmit = async (e) => {\r\n     e.preventDefault();\r\n     setMessage(\"\");\r\n     try {\r\n-      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {\r\n+      const res = await fetch(`${import.meta.env.VITE__API_URL}/login`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n"
+                },
+                {
+                    "date": 1751373336543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n   const handleSubmit = async (e) => {\r\n     e.preventDefault();\r\n     setMessage(\"\");\r\n     try {\r\n-      const res = await fetch(`${import.meta.env.VITE__API_URL}/login`, {\r\n+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/login`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n@@ -43,9 +43,9 @@\n       >\r\n         <h2 className=\"text-2xl font-bold mb-6 text-center\">Login</h2>\r\n         <input name=\"username\" required placeholder=\"Username\" className=\"mb-3 w-full border rounded px-3 py-2\" value={form.username} onChange={handleChange} />\r\n         <input name=\"password\" type=\"password\" required placeholder=\"Password\" className=\"mb-6 w-full border rounded px-3 py-2\" value={form.password} onChange={handleChange} />\r\n-        <button type=\"submit\" className=\"w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600\">\r\n+        <button type=\"submit\" className=\"w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 \">\r\n           Login\r\n         </button>\r\n       </form>\r\n     </div>\r\n"
+                },
+                {
+                    "date": 1751373434622,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,11 +43,15 @@\n       >\r\n         <h2 className=\"text-2xl font-bold mb-6 text-center\">Login</h2>\r\n         <input name=\"username\" required placeholder=\"Username\" className=\"mb-3 w-full border rounded px-3 py-2\" value={form.username} onChange={handleChange} />\r\n         <input name=\"password\" type=\"password\" required placeholder=\"Password\" className=\"mb-6 w-full border rounded px-3 py-2\" value={form.password} onChange={handleChange} />\r\n-        <button type=\"submit\" className=\"w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 \">\r\n+        <button type=\"submit\" className=\"w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 hover:cursor-pointer\">\r\n           Login\r\n         </button>\r\n+         <div className=\"mt-4 text-center\">\r\n+        <span>Don't have an account? </span>\r\n+        <Link to=\"/register\" className=\"text-blue-500 hover:underline cursor-pointer\">Register</Link>\r\n+      </div>\r\n       </form>\r\n     </div>\r\n   );\r\n };\r\n"
                 }
             ],
             "date": 1751355699691,

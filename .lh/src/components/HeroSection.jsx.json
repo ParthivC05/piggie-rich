@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 33,
+            "activePatchIndex": 37,
             "patches": [
                 {
                     "date": 1750313222460,
@@ -140,6 +140,22 @@
                 {
                     "date": 1751361465981,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,5 +32,7 @@\n         </div>\r\n       </div>\r\n     </section>\r\n   );\r\n-};\n\\ No newline at end of file\n+};\r\n+\r\n+export default HeroSection;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751372884172,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         </h1>\r\n \r\n         <div className=\"flex flex-col md:flex-row gap-6\">\r\n           <button\r\n-            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold\"\r\n+            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:curs\"\r\n             onClick={() => navigate('/register')}\r\n           >\r\n             Register\r\n           </button>\r\n"
+                },
+                {
+                    "date": 1751372891932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         </h1>\r\n \r\n         <div className=\"flex flex-col md:flex-row gap-6\">\r\n           <button\r\n-            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:curs\"\r\n+            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:cursor-pointer\"\r\n             onClick={() => navigate('/register')}\r\n           >\r\n             Register\r\n           </button>\r\n"
+                },
+                {
+                    "date": 1751372901104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n           >\r\n             Register\r\n           </button>\r\n           <button\r\n-            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold\"\r\n+            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:cursor-pointer\"\r\n             onClick={() => navigate('/deposit')}\r\n           >\r\n             Deposit\r\n           </button>\r\n"
+                },
+                {
+                    "date": 1751372952918,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n import { useNavigate } from 'react-router-dom';\r\n \r\n const HeroSection = () => {\r\n   const navigate = useNavigate();\r\n+  const isLoggedIn = !!localStorage.getItem(\"token\");\r\n \r\n   return (\r\n     <section className=\"bg-black text-white flex flex-col md:flex-row items-center justify-between gap-10 px-4 md:px-16 \">\r\n       <div className=\"flex justify-center w-full md:w-auto\">\r\n@@ -16,16 +17,18 @@\n           America’s #1 Sweepstakes Experience\r\n         </h1>\r\n \r\n         <div className=\"flex flex-col md:flex-row gap-6\">\r\n+          {!isLoggedIn && (\r\n+            <button\r\n+              className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:cursor-pointer\"\r\n+              onClick={() => navigate('/register')}\r\n+            >\r\n+              Register\r\n+            </button>\r\n+          )}\r\n           <button\r\n             className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:cursor-pointer\"\r\n-            onClick={() => navigate('/register')}\r\n-          >\r\n-            Register\r\n-          </button>\r\n-          <button\r\n-            className=\"bg-blue-500 hover:bg-blue-600 px-10 py-3 rounded font-semibold hover:cursor-pointer\"\r\n             onClick={() => navigate('/deposit')}\r\n           >\r\n             Deposit\r\n           </button>\r\n"
                 }
             ],
             "date": 1750313222460,

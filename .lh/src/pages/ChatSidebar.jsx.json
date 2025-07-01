@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1751359024729,
@@ -28,6 +28,10 @@
                 {
                     "date": 1751360310524,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,16 +7,14 @@\n   const [email, setEmail] = useState(\"\");\r\n \r\n   return (\r\n     <div className=\"fixed top-0 right-0 w-80 h-full bg-[#1da1f2] text-white shadow-lg z-50 flex flex-col justify-between\">\r\n-      {/* Header */}\r\n       <div className=\"flex justify-end p-4\">\r\n         <button onClick={onClose} className=\"text-white text-xl\">\r\n           <FaTimes />\r\n         </button>\r\n       </div>\r\n \r\n-      {/* Main Content */}\r\n       <div className=\"px-6 pb-4 flex-grow\">\r\n         {step === 1 ? (\r\n           <>\r\n             <p className=\"mb-4 text-lg italic\">Hi! How can we help you?</p>\r\n@@ -64,9 +62,8 @@\n           </>\r\n         )}\r\n       </div>\r\n \r\n-      {/* Footer */}\r\n       <div className=\"bg-white text-center text-gray-700 text-sm py-2\">\r\n         Welcome to Piggie Rich\r\n       </div>\r\n     </div>\r\n"
+                },
+                {
+                    "date": 1751373298214,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -52,9 +52,9 @@\n                   className=\"w-full px-3 py-2 border rounded focus:outline-none focus:ring\"\r\n                 />\r\n               </div>\r\n               <button\r\n-                className=\"bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full\"\r\n+                className=\"bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full hover\"\r\n                 onClick={() => alert(`Starting chat with ${name}, ${email}`)}\r\n               >\r\n                 ➤ Start Chat\r\n               </button>\r\n"
                 }
             ],
             "date": 1751359024729,
