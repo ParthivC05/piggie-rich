@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import GameEmbed from "./GameEmbed";
 
 const GameCard = ({ game }) => {
-  const [showEmbed, setShowEmbed] = useState(false);
+  const token = import.meta.env.VITE_API_TOKEN;
 
   const handlePlayNow = () => {
-    setShowEmbed(true);
+    const iframeUrl = `https://slotslaunch.com/iframe/${game.id}?token=${token}`;
+    const newWindow = window.open("", "_blank", "noopener,noreferrer,width=900,height=700");
+    if (newWindow) {
+      newWindow.document.write(`
+        <html>
+          <head>
+            <title>${game.name}</title>
+            <style>
+              body { margin: 0; background: #000; }
+              iframe { width: 100vw; height: 100vh; border: none; }
+            </style>
+          </head>
+          <body>
+            <iframe src="${iframeUrl}" allowfullscreen frameborder="0" title="Game Frame"></iframe>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+    }
   };
 
   return (
@@ -21,11 +39,6 @@ const GameCard = ({ game }) => {
       >
         PLAY NOW
       </button>
-      {showEmbed && (
-        <div className="w-full mt-4">
-          <GameEmbed gameId={game.id} />
-        </div>
-      )}
     </div>
   );
 };
