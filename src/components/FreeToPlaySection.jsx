@@ -6,7 +6,7 @@ const FreeToPlaySection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_GAMES_API_URL;
     const token = import.meta.env.VITE_API_TOKEN;
 
     fetch(`${apiUrl}?token=${token}`)

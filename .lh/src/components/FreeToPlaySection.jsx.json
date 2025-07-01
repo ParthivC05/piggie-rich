@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 60,
+            "activePatchIndex": 62,
             "patches": [
                 {
                     "date": 1750327686156,
@@ -248,6 +248,14 @@
                 {
                     "date": 1751350504651,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,9 +33,9 @@\n         </p>\r\n       </div>\r\n \r\n       <div className=\"grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto\">\r\n-        {games.map((game, index) => (\r\n+        {games.slice(0, 12).map((game, index) => (\r\n           <div key={game.id || index} className=\"flex flex-col items-center\">\r\n             <img\r\n               src={game.image || game.thumb || \"https://via.placeholder.com/200x120?text=Game+Image\"}\r\n               alt={game.name || game.title}\r\n"
+                },
+                {
+                    "date": 1751369777759,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [games, setGames] = useState([]);\r\n   const navigate = useNavigate();\r\n \r\n   useEffect(() => {\r\n-    const apiUrl = import.meta.env.VITE_API_URL;\r\n+    const apiUrl = import.meta.env.https://slotslaunch.com/api/games;\r\n     const token = import.meta.env.VITE_API_TOKEN;\r\n \r\n     fetch(`${apiUrl}?token=${token}`)\r\n       .then(res => res.json())\r\n"
+                },
+                {
+                    "date": 1751369874701,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n   const [games, setGames] = useState([]);\r\n   const navigate = useNavigate();\r\n \r\n   useEffect(() => {\r\n-    const apiUrl = import.meta.env.https://slotslaunch.com/api/games;\r\n+    const apiUrl = import.meta.env.VITE__API_URL;\r\n     const token = import.meta.env.VITE_API_TOKEN;\r\n \r\n     fetch(`${apiUrl}?token=${token}`)\r\n       .then(res => res.json())\r\n"
                 }
             ],
             "date": 1750327686156,
