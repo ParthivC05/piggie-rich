@@ -3,11 +3,19 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1751346786450,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751347389148,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,12 @@\n-// GameCard.jsx\r\n-import React from \"react\";\r\n+import React, { useState } from \"react\";\r\n+import GameEmbed from \"./GameEmbed\";\r\n \r\n const GameCard = ({ game }) => {\r\n+  const [showEmbed, setShowEmbed] = useState(false);\r\n+\r\n   const handlePlayNow = () => {\r\n-    const iframeUrl = `https://slotslaunch.com/iframe/${game.id}?token=${import.meta.env.VITE_API_TOKEN}`;\r\n-    window.open(iframeUrl, \"_blank\"); // Or use modal with iframe\r\n+    setShowEmbed(true);\r\n   };\r\n \r\n   return (\r\n     <div className=\"flex flex-col items-center\">\r\n@@ -19,9 +20,14 @@\n         className=\"bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md\"\r\n       >\r\n         PLAY NOW\r\n       </button>\r\n+      {showEmbed && (\r\n+        <div className=\"w-full mt-4\">\r\n+          <GameEmbed gameId={game.id} />\r\n+        </div>\r\n+      )}\r\n     </div>\r\n   );\r\n };\r\n \r\n-export default GameCard;\r\n+export default GameCard;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751347428189,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,5 @@\n import React, { useState } from \"react\";\r\n-import GameEmbed from \"./GameEmbed\";\r\n \r\n const GameCard = ({ game }) => {\r\n   const [showEmbed, setShowEmbed] = useState(false);\r\n \r\n"
                 }
             ],
             "date": 1751346786450,

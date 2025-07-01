@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/GameEmbed.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751347417730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751347417730,
+            "name": "Commit-0",
+            "content": "import React, { useState } from \"react\";\r\nimport GameEmbed from \"./GameEmbed\";\r\n\r\nconst GameCard = ({ game }) => {\r\n  const [showEmbed, setShowEmbed] = useState(false);\r\n\r\n  const handlePlayNow = () => {\r\n    setShowEmbed(true);\r\n  };\r\n\r\n  return (\r\n    <div className=\"flex flex-col items-center\">\r\n      <img\r\n        src={game.image || \"https://via.placeholder.com/200x120?text=Game+Image\"}\r\n        alt={game.name}\r\n        className=\"w-52 h-32 object-cover rounded\"\r\n      />\r\n      <button\r\n        onClick={handlePlayNow}\r\n        className=\"bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md\"\r\n      >\r\n        PLAY NOW\r\n      </button>\r\n      {showEmbed && (\r\n        <div className=\"w-full mt-4\">\r\n          <GameEmbed gameId={game.id} />\r\n        </div>\r\n      )}\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default GameCard;"
+        }
+    ]
+}

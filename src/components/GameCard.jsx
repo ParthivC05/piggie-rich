@@ -1,10 +1,11 @@
-// GameCard.jsx
-import React from "react";
+import React, { useState } from "react";
+import GameEmbed from "./GameEmbed";
 
 const GameCard = ({ game }) => {
+  const [showEmbed, setShowEmbed] = useState(false);
+
   const handlePlayNow = () => {
-    const iframeUrl = `https://slotslaunch.com/iframe/${game.id}?token=${import.meta.env.VITE_API_TOKEN}`;
-    window.open(iframeUrl, "_blank"); // Or use modal with iframe
+    setShowEmbed(true);
   };
 
   return (
@@ -20,6 +21,11 @@ const GameCard = ({ game }) => {
       >
         PLAY NOW
       </button>
+      {showEmbed && (
+        <div className="w-full mt-4">
+          <GameEmbed gameId={game.id} />
+        </div>
+      )}
     </div>
   );
 };
