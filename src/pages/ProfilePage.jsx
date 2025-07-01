@@ -11,7 +11,7 @@ const ProfilePage = () => {
       navigate("/login");
       return;
     }
-    fetch("http://localhost:5000/api/profile", {
+    fetch(`${import.meta.env.VITE_AUTH_API_URL}/profile`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

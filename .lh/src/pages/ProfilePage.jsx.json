@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1751365504828,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751370227593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n     if (!token) {\r\n       navigate(\"/login\");\r\n       return;\r\n     }\r\n-    fetch(\"http://localhost:5000/api/profile\", {\r\n+    fetch(`${import.meta.env.VITE_AUTH_API_URL}/profile`, {\r\n       headers: {\r\n         Authorization: `Bearer ${token}`,\r\n       },\r\n     })\r\n"
                 }
             ],
             "date": 1751365504828,
