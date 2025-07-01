@@ -11,27 +11,28 @@ const LoginPage = () => {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setMessage("");
-  try {
-    const res = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem("token", data.token);
-      toast.success("Login successful!");
-      setTimeout(() => navigate("/"));
-    } else {
-      toast.error(data.error || "Login failed.");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setMessage("");
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        toast.success("Login successful!");
+        setTimeout(() => navigate("/"), 1500);
+      } else {
+        toast.error(data.error || "Login failed.");
+      }
+    } catch (err) {
+      toast.error("Server error.");
     }
-  } catch (err) {
-    toast.error("Server error.");
-  }
-};
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

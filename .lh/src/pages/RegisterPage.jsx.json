@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1751355684764,
@@ -20,6 +20,10 @@
                 {
                     "date": 1751364326968,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n       });\r\n       const data = await res.json();\r\n       if (res.ok) {\r\n         toast.success(\"Registration successful!\");\r\n-        setTimeout(() => navigate(\"/\"), 1500);\r\n+        setTimeout(() => navigate(\"/login\"), 1500);\r\n       } else {\r\n         toast.error(data.error || \"Registration failed.\");\r\n       }\r\n     } catch (err) {\r\n"
+                },
+                {
+                    "date": 1751368025330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n       toast.error(\"Passwords do not match.\");\r\n       return;\r\n     }\r\n     try {\r\n-      const res = await fetch(\"http://localhost:5000/api/register\", {\r\n+      const res = await fetch(`${import.meta.env.VITE_API_URL}/register`, {\r\n         method: \"POST\",\r\n         headers: { \"Content-Type\": \"application/json\" },\r\n         body: JSON.stringify(form),\r\n       });\r\n"
                 }
             ],
             "date": 1751355684764,
