@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/middleware/auth.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452052906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452052906,
+            "name": "Commit-0",
+            "content": "const jwt = require('jsonwebtoken');\r\n\r\nmodule.exports = (req, res, next) => {\r\n  const authHeader = req.headers.authorization;\r\n  if (!authHeader) return res.status(401).json({ error: \"No token provided\" });\r\n  const token = authHeader.split(\" \")[1];\r\n  try {\r\n    const decoded = jwt.verify(token, process.env.JWT_SECRET);\r\n    req.userId = decoded.userId;\r\n    req.role = decoded.role;\r\n    next();\r\n  } catch {\r\n    return res.status(401).json({ error: \"Invalid token\" });\r\n  }\r\n};"
+        }
+    ]
+}

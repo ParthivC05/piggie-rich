@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1751272450812,
@@ -44,6 +44,14 @@
                 {
                     "date": 1751351368649,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,18 +2,19 @@\n import Navbar from \"../components/Navbar\";\r\n import HeroSection from \"../components/HeroSection\";\r\n import FreeToPlaySection from \"../components/FreeToPlaySection\";\r\n import SweepstakesPlatforms from \"../components/SweepStakes\";\r\n+import HowToPlay from \"../components/HowToPlay\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n     <div>\r\n       \r\n-      <Navbar />\r\n+      {/* <Navbar /> */}\r\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n-      <HowPla\r\n+      <HowToPlay/>\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1751439146882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n       <HowToPlay/>\r\n+      <Footer\r\n     </div>\r\n   );\r\n };\r\n \r\n"
+                },
+                {
+                    "date": 1751439422574,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n import HeroSection from \"../components/HeroSection\";\r\n import FreeToPlaySection from \"../components/FreeToPlaySection\";\r\n import SweepstakesPlatforms from \"../components/SweepStakes\";\r\n import HowToPlay from \"../components/HowToPlay\";\r\n+import Footer from \"../components/Footer\";\r\n \r\n const HomePage = () => {\r\n   return (\r\n     <div>\r\n@@ -13,9 +14,9 @@\n       <HeroSection />\r\n       <FreeToPlaySection />\r\n       <SweepstakesPlatforms />\r\n       <HowToPlay/>\r\n-      <Footer\r\n+      {/* <Footer/> */}\r\n     </div>\r\n   );\r\n };\r\n \r\n"
                 }
             ],
             "date": 1751272450812,

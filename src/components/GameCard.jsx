@@ -19,7 +19,7 @@ const GameCard = ({ game }) => {
         <div className="fixed inset-0 w-screen h-screen z-[9999] bg-white flex flex-col">
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow"
+            className="absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow hover:cursor-pointer"
           >
             Close
           </button>
@@ -36,7 +36,7 @@ const GameCard = ({ game }) => {
           />
           <button
             onClick={handlePlayNow}
-            className="bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md"
+            className="bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md hover:cursor-pointer"
           >
             PLAY NOW
           </button>

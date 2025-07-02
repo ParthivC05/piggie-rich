@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
-import logoImg from "/logo.png"; 
+import logoImg from "/logo.png";
 
 const Navbar = ({ toggleChatSidebar }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +31,7 @@ const Navbar = ({ toggleChatSidebar }) => {
       className={`${navBg} px-4 sm:px-6 py-4 flex items-center justify-between shadow-md relative`}
     >
       <Link to="/" className="flex items-center gap-2">
-        <img src={logoImg} alt="Logo" className="h-8 w-auto" />
+        <img src={logoImg} alt="Logo" className="h-20 w-auto" />
       </Link>
 
       <div className="md:hidden z-20">
@@ -51,7 +51,17 @@ const Navbar = ({ toggleChatSidebar }) => {
         <Link to="/deposit" className={linkBase}>
           Deposit
         </Link>
-        <button onClick={toggleChatSidebar} className={`${linkBase} cursor-pointer`}>
+        <button
+          onClick={() => {
+            if (
+              window.Tawk_API &&
+              typeof window.Tawk_API.maximize === "function"
+            ) {
+              window.Tawk_API.maximize();
+            }
+          }}
+          className={`${linkBase} cursor-pointer`}
+        >
           Chat
         </button>
         {!isLoggedIn && (
@@ -106,10 +116,15 @@ const Navbar = ({ toggleChatSidebar }) => {
           </Link>
           <button
             onClick={() => {
-              toggleChatSidebar();
+              if (
+                window.Tawk_API &&
+                typeof window.Tawk_API.maximize === "function"
+              ) {
+                window.Tawk_API.maximize();
+              }
               setIsOpen(false);
             }}
-            className={`${linkBase} text-left w-full`}
+            className={`${linkBase} text-left w-full cursor-pointer`}
           >
             Chat
           </button>

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/components/Footer.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751439131921,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751439131921,
+            "name": "Commit-0",
+            "content": "// src/components/Footer.jsx\r\nimport { Link } from \"react-router-dom\";\r\n\r\nconst Footer = () => {\r\n  return (\r\n    <footer className=\"bg-black text-center text-sm text-gray-400 py-6\">\r\n      <div className=\"container mx-auto\">\r\n        <p>\r\n          Copyright 2025 | Prosperity Solutions Group LLC | All Rights Reserved\r\n        </p>\r\n        <div className=\"space-x-4 mt-2\">\r\n          <Link to=\"/terms\" className=\"text-white hover:underline\">\r\n            Terms and Conditions\r\n          </Link>\r\n          <span>|</span>\r\n          <Link to=\"/privacy\" className=\"text-white hover:underline\">\r\n            Privacy Policy\r\n          </Link>\r\n        </div>\r\n      </div>\r\n    </footer>\r\n  );\r\n};\r\n\r\nexport default Footer;\r\n"
+        }
+    ]
+}

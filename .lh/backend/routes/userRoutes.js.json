@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/routes/userRoutes.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452196086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452196086,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\nconst router = express.Router();\r\nconst userController = require('../controllers/userController');\r\nconst auth = require('../middleware/auth');\r\n\r\nrouter.get('/profile', auth, userController.getProfile);\r\nrouter.get('/test-user/:id', userController.getUserById);\r\n\r\nmodule.exports = router;"
+        }
+    ]
+}

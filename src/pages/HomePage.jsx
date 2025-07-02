@@ -4,6 +4,7 @@ import HeroSection from "../components/HeroSection";
 import FreeToPlaySection from "../components/FreeToPlaySection";
 import SweepstakesPlatforms from "../components/SweepStakes";
 import HowToPlay from "../components/HowToPlay";
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <FreeToPlaySection />
       <SweepstakesPlatforms />
       <HowToPlay/>
+      {/* <Footer/> */}
     </div>
   );
 };

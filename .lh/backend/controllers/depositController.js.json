@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/controllers/depositController.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452612052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452612052,
+            "name": "Commit-0",
+            "content": "const Deposit = require('../models/Deposit');\r\n\r\nexports.createDeposit = async (req, res) => {\r\n  try {\r\n    const {\r\n      customerPhone,\r\n      customerEmail,\r\n      gameUsername,\r\n      game,\r\n      amount,\r\n      paypalOrderId,\r\n      payer\r\n    } = req.body;\r\n\r\n    const deposit = new Deposit({\r\n      userId: req.userId,\r\n      customerPhone,\r\n      customerEmail,\r\n      gameUsername,\r\n      game,\r\n      amount,\r\n      paypalOrderId,\r\n      payer\r\n    });\r\n\r\n    await deposit.save();\r\n    res.status(201).json({ success: true, deposit });\r\n  } catch (err) {\r\n    res.status(400).json({ success: false, error: err.message });\r\n  }\r\n};"
+        }
+    ]
+}

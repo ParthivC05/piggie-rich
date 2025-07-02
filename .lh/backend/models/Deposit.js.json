@@ -1,0 +1,22 @@
+{
+    "sourceFile": "backend/models/Deposit.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1751452590537,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751455565325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   gameUsername: String,\r\n   game: String,\r\n   amount: Number,\r\n   paypalOrderId: String,\r\n-  payer: Object, // Store PayPal payer details if needed\r\n+  payer: Object, \r\n   status: { type: String, default: \"completed\" },\r\n   createdAt: { type: Date, default: Date.now }\r\n });\r\n \r\n"
+                }
+            ],
+            "date": 1751452590537,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose');\r\n\r\nconst depositSchema = new mongoose.Schema({\r\n  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },\r\n  customerPhone: String,\r\n  customerEmail: String,\r\n  gameUsername: String,\r\n  game: String,\r\n  amount: Number,\r\n  paypalOrderId: String,\r\n  payer: Object, // Store PayPal payer details if needed\r\n  status: { type: String, default: \"completed\" },\r\n  createdAt: { type: Date, default: Date.now }\r\n});\r\n\r\nmodule.exports = mongoose.model('Deposit', depositSchema);"
+        }
+    ]
+}

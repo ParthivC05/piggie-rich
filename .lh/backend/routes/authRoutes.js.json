@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/routes/authRoutes.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452162380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452162380,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\nconst router = express.Router();\r\nconst authController = require('../controllers/authController');\r\n\r\nrouter.post('/register', authController.register);\r\nrouter.post('/login', authController.login);\r\n\r\nmodule.exports = router;"
+        }
+    ]
+}

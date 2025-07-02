@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/models/User.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452022120,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452022120,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose');\r\n\r\nconst userSchema = new mongoose.Schema({\r\n  username: { type: String, unique: true },\r\n  password: String,\r\n  dob: String,\r\n  firstName: String,\r\n  lastName: String,\r\n  email: { type: String, unique: true },\r\n  phone: String,\r\n  role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n});\r\n\r\nmodule.exports = mongoose.model('User', userSchema);"
+        }
+    ]
+}

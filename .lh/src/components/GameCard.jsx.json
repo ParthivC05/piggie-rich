@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 21,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1751346786450,
@@ -92,6 +92,18 @@
                 {
                     "date": 1751351846712,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,9 @@\n             <GameEmbed gameId={game.id} />\r\n           </div>\r\n         </div>\r\n       ) : (\r\n-        <div className=\"flex flex-col items-center bg-white rounded shadow p-4\">\r\n+        <div className=\"flex flex-col items-center b rounded shadow p-4\">\r\n           <img\r\n             src={game.thumb || \"https://via.placeholder.com/200x120?text=Game+Image\"}\r\n             alt={game.name}\r\n             className=\"w-52 h-32 object-cover rounded\"\r\n"
+                },
+                {
+                    "date": 1751374080008,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,18 +18,18 @@\n       {showEmbed ? (\r\n         <div className=\"fixed inset-0 w-screen h-screen z-[9999] bg-white flex flex-col\">\r\n           <button\r\n             onClick={handleClose}\r\n-            className=\"absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow\"\r\n+            className=\"absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow \"\r\n           >\r\n             Close\r\n           </button>\r\n           <div className=\"flex-1\">\r\n             <GameEmbed gameId={game.id} />\r\n           </div>\r\n         </div>\r\n       ) : (\r\n-        <div className=\"flex flex-col items-center b rounded shadow p-4\">\r\n+        <div className=\"flex flex-col items-center p-4\">\r\n           <img\r\n             src={game.thumb || \"https://via.placeholder.com/200x120?text=Game+Image\"}\r\n             alt={game.name}\r\n             className=\"w-52 h-32 object-cover rounded\"\r\n"
+                },
+                {
+                    "date": 1751374093453,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n       {showEmbed ? (\r\n         <div className=\"fixed inset-0 w-screen h-screen z-[9999] bg-white flex flex-col\">\r\n           <button\r\n             onClick={handleClose}\r\n-            className=\"absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow \"\r\n+            className=\"absolute top-4 right-4 z-50 bg-black text-white px-4 py-2 rounded font-bold shadow hover:cursor-pointer\"\r\n           >\r\n             Close\r\n           </button>\r\n           <div className=\"flex-1\">\r\n"
+                },
+                {
+                    "date": 1751374099462,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -35,9 +35,9 @@\n             className=\"w-52 h-32 object-cover rounded\"\r\n           />\r\n           <button\r\n             onClick={handlePlayNow}\r\n-            className=\"bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md\"\r\n+            className=\"bg-sky-500 text-white font-bold py-2 px-6 mt-2 hover:bg-sky-600 rounded-md hover\"\r\n           >\r\n             PLAY NOW\r\n           </button>\r\n         </div>\r\n"
                 }
             ],
             "date": 1751346786450,

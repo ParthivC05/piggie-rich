@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/routes/depositRoutes.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751452630756,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751452630756,
+            "name": "Commit-0",
+            "content": "const express = require('express');\r\nconst router = express.Router();\r\nconst depositController = require('../controllers/depositController');\r\nconst auth = require('../middleware/auth');\r\n\r\nrouter.post('/deposit', auth, depositController.createDeposit);\r\n\r\nmodule.exports = router;"
+        }
+    ]
+}

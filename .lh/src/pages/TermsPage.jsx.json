@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/pages/TermsPage.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751446034638,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751446034638,
+            "name": "Commit-0",
+            "content": "import React from 'react';\r\n\r\nconst TermsAndConditions = () => {\r\n  return (\r\n    <div className=\"px-4 py-8 max-w-4xl mx-auto text-justify\">\r\n      <h1 className=\"text-3xl font-bold mb-6 text-center\">Terms and Conditions</h1>\r\n\r\n      <p>\r\n        By accessing or using our website, you agree to comply with and be bound by these Terms and Conditions.\r\n        If you do not agree with any part, please do not use our services.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">1. User Eligibility</h2>\r\n      <p>\r\n        Users must be at least 18 years old or of legal age in their jurisdiction to use this platform.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">2. Account Responsibility</h2>\r\n      <p>\r\n        You are responsible for maintaining the confidentiality of your login credentials and for all activities\r\n        that occur under your account.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">3. Game Rules</h2>\r\n      <p>\r\n        Each game on the platform has its own rules. Users must read and follow those rules to avoid disqualification.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">4. Payments</h2>\r\n      <p>\r\n        Payments and withdrawals may be subject to third-party processing times, fees, and regulations.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">5. Acceptable Use</h2>\r\n      <p>\r\n        Users agree not to engage in unlawful, abusive, or unauthorized activity such as cheating or attempting\r\n        to reverse-engineer the platform.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">6. Suspension</h2>\r\n      <p>\r\n        We reserve the right to suspend or terminate accounts that violate these terms or engage in suspicious activity.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">7. Limitation of Liability</h2>\r\n      <p>\r\n        We are not liable for any indirect, incidental, or consequential damages resulting from the use of our services.\r\n      </p>\r\n\r\n      <h2 className=\"text-xl font-semibold mt-6 mb-2\">8. Changes to Terms</h2>\r\n      <p>\r\n        These terms may be updated periodically. Continued use of the service constitutes acceptance of any changes.\r\n      </p>\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default TermsAndConditions;\r\n"
+        }
+    ]
+}
