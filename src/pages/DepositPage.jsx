@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const staticGames = [
   "ULTRAPANDA/ULTRAMONSTER",
@@ -82,9 +84,10 @@ const DepositPage = () => {
           "AUJPcF2I-FeMDbuLelzwShs0pknuG8kXN6saOJCbHQPCLJv_PCGwjWZI40tmQr9XosOHQfd93FdQq3_f",
       }}
     >
+      <ToastContainer />
       <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row justify-center items-start p-4 md:p-10 gap-10">
         <div className="bg-white rounded-lg shadow-md p-6 w-full md:w-1/2">
-          <h2 className="text-xl font-bold mb-2">Piggie Rich Deposit</h2>
+          <h2 className="text-xl font-bold mb-2">Waiwaisweeps Deposit</h2>
           <p className="text-sm text-gray-600 mb-4">
             Enter your deposit amount and select at least one platform.
           </p>
@@ -150,37 +153,47 @@ const DepositPage = () => {
                     ],
                   });
                 }}
-                onApprove={(data, actions) => {
-                  return actions.order.capture().then((details) => {
+                onApprove={async (data, actions) => {
+                  return actions.order.capture().then(async (details) => {
                     setPaid(true);
-                    alert(
-                      `Transaction completed by ${details.payer.name.given_name}`
-                    );
-
-                    // Collect extra info from user (phone, email, game username)
-                    fetch(`${import.meta.env.VITE_AUTH_API_URL}/deposit`, {
-                      method: "POST",
-                      headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${localStorage.getItem(
-                          "token"
-                        )}`,
-                      },
-                      body: JSON.stringify({
-                        customerPhone: userPhone, 
-                        customerEmail: userEmail, 
-                        gameUsername: gameUsername,
-                        game: selectedPlatform,
-                        amount,
-                        paypalOrderId: data.orderID,
-                        payer: details.payer,
-                      }),
-                    });
+                    try {
+                      const res = await fetch(
+                        `${import.meta.env.VITE_AUTH_API_URL}/deposit`,
+                        {
+                          method: "POST",
+                          headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem(
+                              "token"
+                            )}`,
+                          },
+                          body: JSON.stringify({
+                            customerPhone: userPhone,
+                            customerEmail: userEmail,
+                            gameUsername: gameUsername,
+                            game: selectedPlatform,
+                            amount,
+                            paypalOrderId: data.orderID,
+                            payer: details.payer,
+                          }),
+                        }
+                      );
+                      const resp = await res.json();
+                      if (res.ok && resp.success) {
+                        toast.success("Deposit successful!");
+                      } else {
+                        toast.error(
+                          resp.error || "Deposit failed. Please contact support."
+                        );
+                      }
+                    } catch (err) {
+                      toast.error("Deposit failed. Please try again.");
+                    }
                   });
                 }}
                 onError={(err) => {
                   console.error("PayPal Checkout Error", err);
-                  alert("Payment failed.");
+                  toast.error("Payment failed.");
                 }}
               />
             ) : (

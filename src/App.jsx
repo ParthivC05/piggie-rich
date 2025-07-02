@@ -17,6 +17,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -24,52 +25,48 @@ function AppContent() {
 
   const toggleChatSidebar = () => setIsChatOpen((prev) => !prev);
 
-    useEffect(() => {
-  const script = document.createElement("script");
-  script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
-  script.async = true;
-  script.charset = "UTF-8";
-  script.setAttribute("crossorigin", "*");
-  document.body.appendChild(script);
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
+    script.async = true;
+    script.charset = "UTF-8";
+    script.setAttribute("crossorigin", "*");
+    document.body.appendChild(script);
 
-  // Wait for Tawk_API to be available, then set up listeners
-  const setupTawkListeners = () => {
-    if (window.Tawk_API) {
-      window.Tawk_API.onChatStarted = function () {
-        console.log("Chat started!");
-      };
-      window.Tawk_API.onChatEnded = function () {
-        console.log("Chat ended!");
-      };
-      window.Tawk_API.onMessageReceived = function (message) {
-        console.log("Message received from agent:", message);
-        // You can handle the message here (show notification, etc)
-      };
-      // Add more event handlers as needed: https://developer.tawk.to/jsapi/
-    } else {
-      setTimeout(setupTawkListeners, 500);
-    }
-  };
-  setupTawkListeners();
+    const setupTawkListeners = () => {
+      if (window.Tawk_API) {
+        window.Tawk_API.onChatStarted = function () {
+          console.log("Chat started!");
+        };
+        window.Tawk_API.onChatEnded = function () {
+          console.log("Chat ended!");
+        };
+        window.Tawk_API.onMessageReceived = function (message) {
+          console.log("Message received from agent:", message);
+        };
+      } else {
+        setTimeout(setupTawkListeners, 500);
+      }
+    };
+    setupTawkListeners();
 
-  return () => {
-    document.body.removeChild(script);
-  };
-}, []);
-
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const showNavbar =
     location.pathname === "/" ||
     location.pathname === "/game-room" ||
     location.pathname === "/profile" ||
-    location.pathname === "/register"||
+    location.pathname === "/register" ||
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
-     const showFooter =
+  const showFooter =
     location.pathname === "/" ||
-    location.pathname === "/game-room"||
-    location.pathname === "/terms"||
+    location.pathname === "/game-room" ||
+    location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
   return (
@@ -79,7 +76,16 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/game-room" element={<GameRoomPage />} />
-        <Route path="/deposit" element={<DepositPage />} />
+
+        <Route
+          path="/deposit"
+          element={
+            <ProtectedRoute>
+              <DepositPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />

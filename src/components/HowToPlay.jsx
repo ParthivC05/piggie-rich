@@ -12,9 +12,9 @@ const HowToPlay = () => {
 
       <div className="px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6">
         <div>
-          <h3 className="text-xl font-semibold">Piggie Rich</h3>
+          <h3 className="text-xl font-semibold">Waiwaisweeps</h3>
           <p className="text-gray-300 mt-2">
-            Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className="font-bold">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className="font-bold">VOID WHERE PROHIBITED BY LAW</span>.
+            Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Waiwaisweeps is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className="font-bold">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className="font-bold">VOID WHERE PROHIBITED BY LAW</span>.
           </p>
         </div>
 

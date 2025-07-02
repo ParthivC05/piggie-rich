@@ -64,7 +64,7 @@ const ChatSidebar = ({ onClose }) => {
       </div>
 
       <div className="bg-white text-center text-gray-700 text-sm py-2">
-        Welcome to Piggie Rich
+        Welcome to Waiwaisweeps
       </div>
     </div>
   );

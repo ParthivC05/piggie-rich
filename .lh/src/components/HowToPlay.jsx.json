@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1750331058345,
@@ -36,6 +36,18 @@
                 {
                     "date": 1750337205947,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,17 +2,16 @@\n \r\n const HowToPlay = () => {\r\n   return (\r\n     <section className=\"bg-black text-white py-16\">\r\n-      {/* Heading */}\r\n       <div className=\"text-center mb-12\">\r\n         <h2 className=\"text-2xl md:text-4xl font-bold text-cyan-400 relative inline-block\">\r\n           <span className=\"relative z-10\">HOW TO PLAY</span>\r\n           <div className=\"absolute w-full h-1 bg-cyan-500 top-full left-0 mt-2\" />\r\n         </h2>\r\n       </div>\r\n \r\n-      <div className=\"px-4 lg: mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n+      <div className=\"px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         {/* Intro */}\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n"
+                },
+                {
+                    "date": 1751457621509,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,17 +10,15 @@\n         </h2>\r\n       </div>\r\n \r\n       <div className=\"px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n-        {/* Intro */}\r\n         <div>\r\n-          <h3 className=\"text-xl font-semibold\">Piggie Rich</h3>\r\n+          <h3 className=\"text-xl font-semibold\">W</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n             Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className=\"font-bold\">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className=\"font-bold\">VOID WHERE PROHIBITED BY LAW</span>.\r\n           </p>\r\n         </div>\r\n \r\n-        {/* Steps */}\r\n         <div>\r\n           <h4 className=\"font-semibold mb-2\">Follow these steps to get your account set up, to play, and to redeem:</h4>\r\n           <ol className=\"list-decimal pl-5 space-y-1 text-gray-200\">\r\n             <li>Download the game(s) you wish to play if the software is app based.</li>\r\n@@ -30,9 +28,8 @@\n             <li>To withdraw points, use the chat.</li>\r\n           </ol>\r\n         </div>\r\n \r\n-        {/* Redemption Rules */}\r\n         <div>\r\n           <h4 className=\"font-semibold mb-2\">REDEMPTION RULES</h4>\r\n           <ul className=\"space-y-1 text-gray-300\">\r\n             <li>$10 deposit = Minimum redeem $20 and maximum redeem $100 max</li>\r\n"
+                },
+                {
+                    "date": 1751457627162,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n       </div>\r\n \r\n       <div className=\"px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         <div>\r\n-          <h3 className=\"text-xl font-semibold\">W</h3>\r\n+          <h3 className=\"text-xl font-semibold\">Waiwaisweeps</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n             Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className=\"font-bold\">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className=\"font-bold\">VOID WHERE PROHIBITED BY LAW</span>.\r\n           </p>\r\n         </div>\r\n"
+                },
+                {
+                    "date": 1751457654708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n       <div className=\"px-4 lg:px-8 mx-auto text-sm md:text-base leading-relaxed space-y-6\">\r\n         <div>\r\n           <h3 className=\"text-xl font-semibold\">Waiwaisweeps</h3>\r\n           <p className=\"text-gray-300 mt-2\">\r\n-            Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className=\"font-bold\">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className=\"font-bold\">VOID WHERE PROHIBITED BY LAW</span>.\r\n+            Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Waiwaisweeps is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className=\"font-bold\">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className=\"font-bold\">VOID WHERE PROHIBITED BY LAW</span>.\r\n           </p>\r\n         </div>\r\n \r\n         <div>\r\n"
                 }
             ],
             "date": 1750331058345,
