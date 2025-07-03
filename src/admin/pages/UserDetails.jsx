@@ -26,7 +26,6 @@ const UserDetail = () => {
 
   useEffect(() => {
     fetchUser();
-   
   }, [id]);
 
   const handleEdit = async (e) => {
@@ -70,91 +69,117 @@ const UserDetail = () => {
     setLoading(false);
   };
 
-  if (!user) return <AdminLayout>Loading...</AdminLayout>;
+  if (!user) {
+    return (
+      <AdminLayout>
+        <div className="text-center py-12 text-xl text-gray-600">Loading user details...</div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
-      <h1 className="text-2xl font-bold mb-4">User Detail</h1>
-      {editMode ? (
-        <form onSubmit={handleEdit} className="mb-4 space-y-2">
-          <div>
-            <label className="block font-semibold">Username:</label>
-            <input
-              className="border p-2 rounded w-full"
-              value={editForm.username}
-              onChange={e => setEditForm(f => ({ ...f, username: e.target.value }))}
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-semibold">Email:</label>
-            <input
-              className="border p-2 rounded w-full"
-              value={editForm.email}
-              onChange={e => setEditForm(f => ({ ...f, email: e.target.value }))}
-              required
-            />
-          </div>
-          <div>
-            <label className="block font-semibold">Role:</label>
-            <select
-              className="border p-2 rounded w-full"
-              value={editForm.role}
-              onChange={e => setEditForm(f => ({ ...f, role: e.target.value }))}
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option value="cashier">Cashier</option>
-            </select>
-          </div>
-          <div className="flex gap-2 mt-2">
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              disabled={loading}
-            >
-              {loading ? "Saving..." : "Save"}
-            </button>
-            <button
-              type="button"
-              className="bg-gray-300 px-4 py-2 rounded"
-              onClick={() => setEditMode(false)}
-              disabled={loading}
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      ) : (
-        <>
-          <div className="mb-2"><strong>Username:</strong> {user.username}</div>
-          <div className="mb-2"><strong>Email:</strong> {user.email}</div>
-          <div className="mb-2"><strong>Role:</strong> {user.role}</div>
-          <div className="mb-2"><strong>Status:</strong> {user.blocked ? "Blocked" : "Active"}</div>
-          <div className="flex gap-2 mt-4">
-            <button
-              className="bg-blue-500 text-white px-4 py-2 rounded"
-              onClick={() => setEditMode(true)}
-            >
-              Edit
-            </button>
-            <button
-              className={`px-4 py-2 rounded text-white ${user.blocked ? "bg-green-600" : "bg-yellow-500"}`}
-              onClick={handleBlockToggle}
-              disabled={loading}
-            >
-              {user.blocked ? "Unblock" : "Block"}
-            </button>
-            <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
-              onClick={handleDelete}
-              disabled={loading}
-            >
-              Delete
-            </button>
-          </div>
-        </>
-      )}
+      <div className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl p-6 mb-8 shadow-inner">
+        <h1 className="text-4xl font-extrabold text-blue-800">User Details</h1>
+      </div>
+
+      <div className="bg-white p-8 rounded-2xl shadow-lg">
+        {editMode ? (
+          <form onSubmit={handleEdit} className="space-y-6">
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Username</label>
+              <input
+                className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={editForm.username}
+                onChange={e => setEditForm(f => ({ ...f, username: e.target.value }))}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Email</label>
+              <input
+                className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={editForm.email}
+                onChange={e => setEditForm(f => ({ ...f, email: e.target.value }))}
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">Role</label>
+              <select
+                className="border p-2 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+                value={editForm.role}
+                onChange={e => setEditForm(f => ({ ...f, role: e.target.value }))}
+              >
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="cashier">Cashier</option>
+              </select>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg shadow-md"
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save"}
+              </button>
+              <button
+                type="button"
+                className="bg-gray-200 hover:bg-gray-300 px-5 py-2 rounded-lg"
+                onClick={() => setEditMode(false)}
+                disabled={loading}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          <>
+            <div className="space-y-4 text-lg">
+              <div><span className="font-semibold">Username:</span> {user.username}</div>
+              <div><span className="font-semibold">Email:</span> {user.email}</div>
+              <div><span className="font-semibold">Role:</span> {user.role}</div>
+              <div>
+                <span className="font-semibold">Status:</span>{" "}
+                <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                  user.blocked ? "bg-red-100 text-red-600" : "bg-green-100 text-green-600"
+                }`}>
+                  {user.blocked ? "Blocked" : "Active"}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-8">
+              <button
+                className="bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg shadow-md"
+                onClick={() => setEditMode(true)}
+              >
+                Edit
+              </button>
+              <button
+                className={`px-5 py-2 rounded-lg text-white shadow-md ${
+                  user.blocked
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-yellow-500 hover:bg-yellow-600"
+                }`}
+                onClick={handleBlockToggle}
+                disabled={loading}
+              >
+                {user.blocked ? "Unblock" : "Block"}
+              </button>
+              <button
+                className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg shadow-md"
+                onClick={handleDelete}
+                disabled={loading}
+              >
+                Delete
+              </button>
+            </div>
+          </>
+        )}
+      </div>
     </AdminLayout>
   );
 };

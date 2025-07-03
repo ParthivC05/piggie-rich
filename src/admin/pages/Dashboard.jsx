@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
+import { FaUsers, FaDollarSign, FaLock, FaExchangeAlt, FaUserShield, FaCashRegister } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -20,34 +21,62 @@ const AdminDashboard = () => {
       .then((data) => setStats(data));
   }, []);
 
+  const statCards = [
+    {
+      label: "Total Users",
+      value: stats.userCount,
+      icon: <FaUsers className="text-3xl text-blue-500" />,
+      bg: "from-blue-100 to-blue-200",
+    },
+    {
+      label: "Transactions",
+      value: stats.transactionCount,
+      icon: <FaExchangeAlt className="text-3xl text-green-500" />,
+      bg: "from-green-100 to-green-200",
+    },
+    {
+      label: "Total Deposits",
+      value: `$${stats.totalDeposits}`,
+      icon: <FaDollarSign className="text-3xl text-yellow-500" />,
+      bg: "from-yellow-100 to-yellow-200",
+    },
+    {
+      label: "Blocked Users",
+      value: stats.blockedCount,
+      icon: <FaLock className="text-3xl text-red-500" />,
+      bg: "from-red-100 to-red-200",
+    },
+    {
+      label: "Cashiers",
+      value: stats.cashierCount,
+      icon: <FaCashRegister className="text-3xl text-purple-500" />,
+      bg: "from-purple-100 to-purple-200",
+    },
+    {
+      label: "Admins",
+      value: stats.adminCount,
+      icon: <FaUserShield className="text-3xl text-indigo-500" />,
+      bg: "from-indigo-100 to-indigo-200",
+    },
+  ];
+
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white rounded shadow p-6">
-          <h2 className="text-xl font-semibold mb-4">Quick Stats</h2>
-          <ul className="space-y-2">
-            <li>
-              <strong>Total Users:</strong> {stats.userCount}
-            </li>
-            <li>
-              <strong>Total Deposits/Transactions:</strong> {stats.transactionCount}
-            </li>
-            <li>
-              <strong>Total Deposited Amount:</strong> ${stats.totalDeposits}
-            </li>
-            <li>
-              <strong>Blocked Users:</strong> {stats.blockedCount}
-            </li>
-            <li>
-              <strong>Cashiers:</strong> {stats.cashierCount}
-            </li>
-            <li>
-              <strong>Admins:</strong> {stats.adminCount}
-            </li>
-          </ul>
-        </div>
-        
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">Admin Dashboard</h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {statCards.map((stat) => (
+          <div
+            key={stat.label}
+            className={`p-6 rounded-xl shadow-md bg-gradient-to-br ${stat.bg} hover:scale-[1.02] transition-transform duration-200`}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-lg font-semibold text-gray-700">{stat.label}</div>
+              {stat.icon}
+            </div>
+            <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+          </div>
+        ))}
       </div>
     </AdminLayout>
   );
