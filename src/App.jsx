@@ -19,6 +19,9 @@ import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+// --- Admin Dashboard import ---
+import AdminDashboard from "./admin/pages/Dashboard";
+
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const location = useLocation();
@@ -82,6 +85,16 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <DepositPage />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* --- Admin Dashboard Route --- */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
             </ProtectedRoute>
           }
         />

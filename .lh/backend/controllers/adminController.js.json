@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/controllers/adminController.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751515181931,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751515181931,
+            "name": "Commit-0",
+            "content": "const User = require('../models/User');\r\nconst Deposit = require('../models/Deposit');\r\n\r\nexports.getAllUsers = async (req, res) => {\r\n  try {\r\n    const users = await User.find().select('-password');\r\n    res.json({ users });\r\n  } catch (err) {\r\n    res.status(500).json({ error: err.message });\r\n  }\r\n};\r\n\r\nexports.getAllDeposits = async (req, res) => {\r\n  try {\r\n    const deposits = await Deposit.find().populate('userId', 'username email');\r\n    res.json({ deposits });\r\n  } catch (err) {\r\n    res.status(500).json({ error: err.message });\r\n  }\r\n};"
+        }
+    ]
+}

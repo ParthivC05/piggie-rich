@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 22,
+            "activePatchIndex": 23,
             "patches": [
                 {
                     "date": 1751362656160,
@@ -96,6 +96,10 @@
                 {
                     "date": 1751452702409,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,8 +11,8 @@\n \r\n // Routes\r\n app.use('/api', require('./routes/authRoutes'));\r\n app.use('/api', require('./routes/userRoutes'));\r\n-// ...existing code...\r\n app.use('/api', require('./routes/depositRoutes'));\r\n-// ...existing code...\r\n+\r\n+\r\n module.exports = app;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751515229607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,7 +12,8 @@\n // Routes\r\n app.use('/api', require('./routes/authRoutes'));\r\n app.use('/api', require('./routes/userRoutes'));\r\n app.use('/api', require('./routes/depositRoutes'));\r\n+app.use('/api', require('./routes/adminRoutes'));\r\n \r\n \r\n module.exports = app;\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751362656160,

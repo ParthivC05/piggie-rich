@@ -13,6 +13,7 @@ mongoose.connect(process.env.MONGO_URI);
 app.use('/api', require('./routes/authRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/depositRoutes'));
+app.use('/api', require('./routes/adminRoutes'));
 
 
 module.exports = app;

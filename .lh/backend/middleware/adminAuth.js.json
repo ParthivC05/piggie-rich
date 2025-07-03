@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/middleware/adminAuth.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751515701786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751515701786,
+            "name": "Commit-0",
+            "content": "module.exports = (req, res, next) => {\r\n  if (req.role !== \"admin\") {\r\n    return res.status(403).json({ error: \"Access denied. Admins only.\" });\r\n  }\r\n  next();\r\n};"
+        }
+    ]
+}
