@@ -26,9 +26,13 @@ function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const location = useLocation();
 
+  const isAdminPanel = location.pathname.startsWith("/admin");
+
   const toggleChatSidebar = () => setIsChatOpen((prev) => !prev);
 
   useEffect(() => {
+    if (isAdminPanel) return; // Don't load chat in admin panel
+
     const script = document.createElement("script");
     script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
     script.async = true;
@@ -56,7 +60,7 @@ function AppContent() {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  }, [isAdminPanel]);
 
   const showNavbar =
     location.pathname === "/" ||
@@ -77,9 +81,22 @@ function AppContent() {
       {showNavbar && <Navbar toggleChatSidebar={toggleChatSidebar} />}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/game-room" element={<GameRoomPage />} />
-
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/game-room"
+          element={
+            <ProtectedRoute>
+              <GameRoomPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/deposit"
           element={
@@ -88,7 +105,14 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
         {/* --- Admin Dashboard Route --- */}
         <Route
           path="/admin/dashboard"
@@ -101,14 +125,16 @@ function AppContent() {
 
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
       </Routes>
 
       {showFooter && <Footer />}
 
-      {isChatOpen && <ChatSidebar onClose={() => setIsChatOpen(false)} />}
+      {/* Only show chat sidebar if not in admin panel */}
+      {!isAdminPanel && isChatOpen && (
+        <ChatSidebar onClose={() => setIsChatOpen(false)} />
+      )}
     </div>
   );
 }

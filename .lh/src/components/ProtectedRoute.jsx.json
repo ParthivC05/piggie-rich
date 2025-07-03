@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 1,
+            "activePatchIndex": 2,
             "patches": [
                 {
                     "date": 1751457225234,
@@ -12,6 +12,10 @@
                 {
                     "date": 1751457471591,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,4 @@\n-// src/components/ProtectedRoute.jsx\r\n import { Navigate } from \"react-router-dom\";\r\n \r\n const ProtectedRoute = ({ children }) => {\r\n   const token = localStorage.getItem(\"token\");\r\n"
+                },
+                {
+                    "date": 1751534921844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,23 @@\n-import { Navigate } from \"react-router-dom\";\r\n+import { Navigate, useLocation } from \"react-router-dom\";\r\n \r\n const ProtectedRoute = ({ children }) => {\r\n   const token = localStorage.getItem(\"token\");\r\n-  return token ? children : <Navigate to=\"/login\" />;\r\n+  const role = localStorage.getItem(\"role\");\r\n+  const location = useLocation();\r\n+\r\n+  if (!token) return <Navigate to=\"/login\" />;\r\n+\r\n+  // If user tries to access admin route but is not admin, redirect to home\r\n+  if (location.pathname.startsWith(\"/admin\") && role !== \"admin\") {\r\n+    return <Navigate to=\"/\" />;\r\n+  }\r\n+\r\n+  // If admin tries to access user route, redirect to admin dashboard\r\n+  if (!location.pathname.startsWith(\"/admin\") && role === \"admin\") {\r\n+    return <Navigate to=\"/admin/dashboard\" />;\r\n+  }\r\n+\r\n+  return children;\r\n };\r\n \r\n export default ProtectedRoute;\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751457225234,

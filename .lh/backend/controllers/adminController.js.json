@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1751515181931,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751517124511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,5 +16,53 @@\n     res.json({ deposits });\r\n   } catch (err) {\r\n     res.status(500).json({ error: err.message });\r\n   }\r\n+};\r\n+\r\n+exports.deleteUser = async (req, res) => {\r\n+  try {\r\n+    await User.findByIdAndDelete(req.params.id);\r\n+    res.json({ success: true });\r\n+  } catch (err) {\r\n+    res.status(500).json({ error: err.message });\r\n+  }\r\n+};\r\n+\r\n+exports.blockUser = async (req, res) => {\r\n+  try {\r\n+    const { blocked } = req.body;\r\n+    const user = await User.findByIdAndUpdate(\r\n+      req.params.id,\r\n+      { blocked: !!blocked },\r\n+      { new: true }\r\n+    );\r\n+    res.json({ success: true, user });\r\n+  } catch (err) {\r\n+    res.status(500).json({ error: err.message });\r\n+  }\r\n+};\r\n+\r\n+exports.editUser = async (req, res) => {\r\n+  try {\r\n+    const { username, email, role, phone } = req.body;\r\n+    const user = await User.findByIdAndUpdate(\r\n+      req.params.id,\r\n+      { username, email, role, phone },\r\n+      { new: true }\r\n+    );\r\n+    res.json({ success: true, user });\r\n+  } catch (err) {\r\n+    res.status(500).json({ error: err.message });\r\n+  }\r\n+};\r\n+\r\n+exports.getUserLogs = async (req, res) => {\r\n+  try {\r\n+    const logs = await Deposit.find({ userId: req.params.id })\r\n+      .sort({ createdAt: -1 })\r\n+      .limit(5);\r\n+    res.json({ logs });\r\n+  } catch (err) {\r\n+    res.status(500).json({ error: err.message });\r\n+  }\r\n };\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751515181931,

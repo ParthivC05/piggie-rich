@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   phone: String,
   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },
+  blocked: { type: Boolean, default: false } // <-- add this line
 });
 
 module.exports = mongoose.model('User', userSchema);
