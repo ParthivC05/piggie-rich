@@ -14,6 +14,8 @@ app.use('/api', require('./routes/authRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/depositRoutes'));
 app.use('/api', require('./routes/adminRoutes'));
+require('./models/Transaction'); // Add this line
+require('./models/CMS'); // Add this line if using CMS model
 
 
 module.exports = app;

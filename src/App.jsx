@@ -19,8 +19,13 @@ import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// --- Admin Dashboard import ---
+// --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
+import UserList from "./admin/pages/UserList";
+import UserDetail from "./admin/pages/UserDetails";
+import Transactions from "./admin/pages/Transaction";
+import CMS from "./admin/pages/CMS";
+import AccessControl from "./admin/pages/AccessControl";
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -81,6 +86,7 @@ function AppContent() {
       {showNavbar && <Navbar toggleChatSidebar={toggleChatSidebar} />}
 
       <Routes>
+        {/* User routes */}
         <Route
           path="/"
           element={
@@ -113,7 +119,8 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-        {/* --- Admin Dashboard Route --- */}
+
+        {/* --- Admin Panel Routes --- */}
         <Route
           path="/admin/dashboard"
           element={
@@ -122,7 +129,48 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute>
+              <UserList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/users/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetail />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/transactions"
+          element={
+            <ProtectedRoute>
+              <Transactions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/cms"
+          element={
+            <ProtectedRoute>
+              <CMS />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/access-control"
+          element={
+            <ProtectedRoute>
+              <AccessControl />
+            </ProtectedRoute>
+          }
+        />
 
+        {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/models/CMS.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537936275,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537936275,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose');\r\n\r\nconst cmsSchema = new mongoose.Schema({\r\n  privacy: String,\r\n  terms: String,\r\n  updatedAt: { type: Date, default: Date.now }\r\n});\r\n\r\nmodule.exports = mongoose.model('CMS', cmsSchema);"
+        }
+    ]
+}

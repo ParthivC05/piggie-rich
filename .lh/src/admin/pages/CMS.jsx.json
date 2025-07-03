@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/admin/pages/CMS.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537658122,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537658122,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from \"react\";\r\nimport AdminLayout from \"../components/AdminLayout\";\r\n\r\nconst CMS = () => {\r\n  const [privacy, setPrivacy] = useState(\"\");\r\n  const [terms, setTerms] = useState(\"\");\r\n  const token = localStorage.getItem(\"token\");\r\n\r\n  useEffect(() => {\r\n    fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/cms`, {\r\n      headers: { Authorization: `Bearer ${token}` }\r\n    })\r\n      .then(res => res.json())\r\n      .then(data => {\r\n        setPrivacy(data.privacy || \"\");\r\n        setTerms(data.terms || \"\");\r\n      });\r\n  }, []);\r\n\r\n  const handleSave = async () => {\r\n    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/cms`, {\r\n      method: \"PUT\",\r\n      headers: { Authorization: `Bearer ${token}`, \"Content-Type\": \"application/json\" },\r\n      body: JSON.stringify({ privacy, terms }),\r\n    });\r\n    alert(\"Content updated!\");\r\n  };\r\n\r\n  return (\r\n    <AdminLayout>\r\n      <h1 className=\"text-2xl font-bold mb-4\">CMS</h1>\r\n      <div className=\"mb-4\">\r\n        <h2 className=\"font-semibold mb-2\">Privacy Policy</h2>\r\n        <textarea className=\"w-full border p-2 mb-4\" rows={8} value={privacy} onChange={e => setPrivacy(e.target.value)} />\r\n      </div>\r\n      <div className=\"mb-4\">\r\n        <h2 className=\"font-semibold mb-2\">Terms & Conditions</h2>\r\n        <textarea className=\"w-full border p-2 mb-4\" rows={8} value={terms} onChange={e => setTerms(e.target.value)} />\r\n      </div>\r\n      <button className=\"bg-blue-500 text-white px-4 py-2 rounded\" onClick={handleSave}>Save</button>\r\n    </AdminLayout>\r\n  );\r\n};\r\n\r\nexport default CMS;"
+        }
+    ]
+}

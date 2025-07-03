@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/admin/pages/AccessControl.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537683844,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537683844,
+            "name": "Commit-0",
+            "content": "import React, { useState } from \"react\";\r\nimport AdminLayout from \"../components/AdminLayout\";\r\n\r\nconst AccessControl = () => {\r\n  const [email, setEmail] = useState(\"\");\r\n  const [password, setPassword] = useState(\"\");\r\n  const [role, setRole] = useState(\"cashier\");\r\n  const token = localStorage.getItem(\"token\");\r\n\r\n  const handleAdd = async () => {\r\n    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/add-user`, {\r\n      method: \"POST\",\r\n      headers: { Authorization: `Bearer ${token}`, \"Content-Type\": \"application/json\" },\r\n      body: JSON.stringify({ email, password, role }),\r\n    });\r\n    alert(\"User added!\");\r\n    setEmail(\"\");\r\n    setPassword(\"\");\r\n  };\r\n\r\n  return (\r\n    <AdminLayout>\r\n      <h1 className=\"text-2xl font-bold mb-4\">Access Control</h1>\r\n      <div className=\"mb-4\">\r\n        <input className=\"border p-2 mr-2\" placeholder=\"Email\" value={email} onChange={e => setEmail(e.target.value)} />\r\n        <input className=\"border p-2 mr-2\" placeholder=\"Password\" type=\"password\" value={password} onChange={e => setPassword(e.target.value)} />\r\n        <select className=\"border p-2 mr-2\" value={role} onChange={e => setRole(e.target.value)}>\r\n          <option value=\"cashier\">Cashier</option>\r\n          <option value=\"admin\">Admin</option>\r\n        </select>\r\n        <button className=\"bg-blue-500 text-white px-4 py-2 rounded\" onClick={handleAdd}>Add</button>\r\n      </div>\r\n    </AdminLayout>\r\n  );\r\n};\r\n\r\nexport default AccessControl;"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/admin/components/AdminLayout.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537555760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537555760,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\nimport AdminSidebar from \"./AdminSidebar\";\r\n\r\nconst AdminLayout = ({ children }) => (\r\n  <div className=\"flex min-h-screen\">\r\n    <AdminSidebar />\r\n    <main className=\"flex-1 bg-gray-100 p-8\">{children}</main>\r\n  </div>\r\n);\r\n\r\nexport default AdminLayout;"
+        }
+    ]
+}

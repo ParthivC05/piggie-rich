@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/admin/components/AdminSidebar.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537537463,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537537463,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\nimport { NavLink } from \"react-router-dom\";\r\n\r\nconst links = [\r\n  { to: \"/admin/dashboard\", label: \"Dashboard\" },\r\n  { to: \"/admin/users\", label: \"Users\" },\r\n  { to: \"/admin/transactions\", label: \"Transactions\" },\r\n  { to: \"/admin/cms\", label: \"CMS\" },\r\n  { to: \"/admin/access-control\", label: \"Access Control\" },\r\n];\r\n\r\nconst AdminSidebar = () => (\r\n  <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6\">\r\n    <div className=\"mb-10 text-2xl font-bold text-center\">Admin Panel</div>\r\n    <nav className=\"flex flex-col gap-4\">\r\n      {links.map((link) => (\r\n        <NavLink\r\n          key={link.to}\r\n          to={link.to}\r\n          className={({ isActive }) =>\r\n            `block px-4 py-2 rounded hover:bg-gray-700 transition ${\r\n              isActive ? \"bg-blue-700\" : \"\"\r\n            }`\r\n          }\r\n        >\r\n          {link.label}\r\n        </NavLink>\r\n      ))}\r\n    </nav>\r\n  </aside>\r\n);\r\n\r\nexport default AdminSidebar;"
+        }
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "backend/models/Transaction.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751537919549,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751537919549,
+            "name": "Commit-0",
+            "content": "const mongoose = require('mongoose');\r\n\r\nconst transactionSchema = new mongoose.Schema({\r\n  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },\r\n  type: { type: String, enum: ['deposit', 'redemption', 'gameplay'], required: true },\r\n  amount: { type: Number, required: true },\r\n  game: String,\r\n  description: String,\r\n  status: { type: String, default: \"completed\" },\r\n  createdAt: { type: Date, default: Date.now }\r\n});\r\n\r\nmodule.exports = mongoose.model('Transaction', transactionSchema);"
+        }
+    ]
+}
