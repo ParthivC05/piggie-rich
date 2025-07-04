@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 71,
+            "activePatchIndex": 72,
             "patches": [
                 {
                     "date": 1750312533173,
@@ -292,6 +292,10 @@
                 {
                     "date": 1751457331933,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -74,9 +74,9 @@\n \r\n       <Routes>\r\n         <Route path=\"/\" element={<HomePage />} />\r\n         <Route path=\"/game-room\" element={<GameRoomPage />} />\r\n-        <Pro\r\n+        <Prot\r\n         <Route path=\"/deposit\" element={<DepositPage />} />\r\n         <Route path=\"/login\" element={<LoginPage />} />\r\n         <Route path=\"/register\" element={<RegisterPage />} />\r\n         <Route path=\"/profile\" element={<ProfilePage />} />\r\n"
+                },
+                {
+                    "date": 1751626090292,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -205,9 +205,9 @@\n         />\r\n \r\n         <Route path=\"/cashier\" element={<CashierLayout />}>\r\n           <Route path=\"users\" element={<CashierUserList />} />\r\n-          <Route path=\"users/:id\" element={<CashierUserDetails   />} />\r\n+          <Route path=\"users/:id\" element={<CashierUserDetails  />} />\r\n           <Route path=\"transactions\" element={<CashierTransactions />} />\r\n         </Route>\r\n \r\n       </Routes>\r\n"
                 }
             ],
             "date": 1750312533173,

@@ -31,7 +31,7 @@ import AccessControl from "./admin/pages/AccessControl";
 
 import CashierLayout from "./cashier/CashierLayout";
 import CashierUserList from "./cashier/UserList";
-import CashierUserDetails from "./cashier/UserDetails";
+import CashierUserDetails from "./cashier/CashierUserDetails";
 import CashierTransactions from "./cashier/Transactions";
 
 function AppContent() {
