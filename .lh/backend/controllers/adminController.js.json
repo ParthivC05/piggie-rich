@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 25,
             "patches": [
                 {
                     "date": 1751515181931,
@@ -48,6 +48,66 @@
                 {
                     "date": 1751599442299,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -57,10 +57,32 @@\n   await User.findByIdAndDelete(req.params.id);\r\n   res.json({ success: true });\r\n };\r\n \r\n+// 7. Get all deposits with filtering\r\n+exports.getDeposits = async (req, res) => {\r\n+  const { userId, game, minAmount, maxAmount, startDate, endDate, status } = req.query;\r\n+  const filter = {};\r\n+  \r\n+  if (userId) filter.userId = userId;\r\n+  if (game) filter.game = { $regex: game, $options: 'i' };\r\n+  if (minAmount) filter.amount = { ...filter.amount, $gte: Number(minAmount) };\r\n+  if (maxAmount) filter.amount = { ...filter.amount, $lte: Number(maxAmount) };\r\n+  if (status) filter.status = status;\r\n+  if (startDate || endDate) {\r\n+    filter.createdAt = {};\r\n+    if (startDate) filter.createdAt.$gte = new Date(startDate);\r\n+    if (endDate) filter.createdAt.$lte = new Date(endDate);\r\n+  }\r\n+  \r\n+  const deposits = await Deposit.find(filter)\r\n+    .populate('userId', 'username email firstName lastName')\r\n+    .sort({ createdAt: -1 });\r\n+  res.json({ deposits });\r\n+};\r\n \r\n \r\n+\r\n // 8. CMS get/update\r\n exports.getCMS = async (req, res) => {\r\n   let cms = await CMS.findOne();\r\n   if (!cms) cms = await CMS.create({ privacy: \"\", terms: \"\" });\r\n"
+                },
+                {
+                    "date": 1751601109509,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,13 +8,26 @@\n   const userCount = await User.countDocuments();\r\n   const blockedCount = await User.countDocuments({ blocked: true });\r\n   const cashierCount = await User.countDocuments({ role: \"cashier\" });\r\n   const adminCount = await User.countDocuments({ role: \"admin\" });\r\n+  \r\n+  // Deposit statistics\r\n+  const depositCount = await Deposit.countDocuments();\r\n+  const totalDeposits = await Deposit.aggregate([\r\n+    { $group: { _id: null, total: { $sum: \"$amount\" } } }\r\n+  ]);\r\n+  const completedDeposits = await Deposit.countDocuments({ status: \"completed\" });\r\n+  const pendingDeposits = await Deposit.countDocuments({ status: \"pending\" });\r\n+  \r\n   res.json({\r\n     userCount,\r\n     blockedCount,\r\n     cashierCount,\r\n     adminCount,\r\n+    depositCount,\r\n+    totalDeposits: totalDeposits[0]?.total || 0,\r\n+    completedDeposits,\r\n+    pendingDeposits,\r\n   });\r\n };\r\n \r\n // 2. User listing\r\n"
+                },
+                {
+                    "date": 1751601229418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,20 +14,16 @@\n   const depositCount = await Deposit.countDocuments();\r\n   const totalDeposits = await Deposit.aggregate([\r\n     { $group: { _id: null, total: { $sum: \"$amount\" } } }\r\n   ]);\r\n-  const completedDeposits = await Deposit.countDocuments({ status: \"completed\" });\r\n-  const pendingDeposits = await Deposit.countDocuments({ status: \"pending\" });\r\n   \r\n   res.json({\r\n     userCount,\r\n     blockedCount,\r\n     cashierCount,\r\n     adminCount,\r\n     depositCount,\r\n     totalDeposits: totalDeposits[0]?.total || 0,\r\n-    completedDeposits,\r\n-    pendingDeposits,\r\n   });\r\n };\r\n \r\n // 2. User listing\r\n"
+                },
+                {
+                    "date": 1751601446377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,27 +4,40 @@\n const bcrypt = require('bcryptjs');\r\n \r\n // 1. Dashboard stats\r\n exports.getStats = async (req, res) => {\r\n-  const userCount = await User.countDocuments();\r\n-  const blockedCount = await User.countDocuments({ blocked: true });\r\n-  const cashierCount = await User.countDocuments({ role: \"cashier\" });\r\n-  const adminCount = await User.countDocuments({ role: \"admin\" });\r\n-  \r\n-  // Deposit statistics\r\n-  const depositCount = await Deposit.countDocuments();\r\n-  const totalDeposits = await Deposit.aggregate([\r\n-    { $group: { _id: null, total: { $sum: \"$amount\" } } }\r\n-  ]);\r\n-  \r\n-  res.json({\r\n-    userCount,\r\n-    blockedCount,\r\n-    cashierCount,\r\n-    adminCount,\r\n-    depositCount,\r\n-    totalDeposits: totalDeposits[0]?.total || 0,\r\n-  });\r\n+  try {\r\n+    const userCount = await User.countDocuments();\r\n+    const blockedCount = await User.countDocuments({ blocked: true });\r\n+    const cashierCount = await User.countDocuments({ role: \"cashier\" });\r\n+    const adminCount = await User.countDocuments({ role: \"admin\" });\r\n+    \r\n+    // Deposit statistics\r\n+    const depositCount = await Deposit.countDocuments();\r\n+    const totalDeposits = await Deposit.aggregate([\r\n+      { $group: { _id: null, total: { $sum: \"$amount\" } } }\r\n+    ]);\r\n+    \r\n+    // Debug logging\r\n+    console.log('Deposit count:', depositCount);\r\n+    console.log('Total deposits aggregation result:', totalDeposits);\r\n+    console.log('Total deposits value:', totalDeposits[0]?.total);\r\n+    \r\n+    const result = {\r\n+      userCount,\r\n+      blockedCount,\r\n+      cashierCount,\r\n+      adminCount,\r\n+      depositCount,\r\n+      totalDeposits: totalDeposits[0]?.total || 0,\r\n+    };\r\n+    \r\n+    console.log('Final stats result:', result);\r\n+    res.json(result);\r\n+  } catch (error) {\r\n+    console.error('Error in getStats:', error);\r\n+    res.status(500).json({ error: error.message });\r\n+  }\r\n };\r\n \r\n // 2. User listing\r\n exports.getAllUsers = async (req, res) => {\r\n"
+                },
+                {
+                    "date": 1751601462968,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,22 @@\n     const adminCount = await User.countDocuments({ role: \"admin\" });\r\n     \r\n     // Deposit statistics\r\n     const depositCount = await Deposit.countDocuments();\r\n+    \r\n+    // More robust aggregation to handle potential string amounts\r\n     const totalDeposits = await Deposit.aggregate([\r\n-      { $group: { _id: null, total: { $sum: \"$amount\" } } }\r\n+      {\r\n+        $addFields: {\r\n+          numericAmount: { $toDouble: \"$amount\" }\r\n+        }\r\n+      },\r\n+      {\r\n+        $group: {\r\n+          _id: null,\r\n+          total: { $sum: \"$numericAmount\" }\r\n+        }\r\n+      }\r\n     ]);\r\n     \r\n     // Debug logging\r\n     console.log('Deposit count:', depositCount);\r\n"
+                },
+                {
+                    "date": 1751601468850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n       blockedCount,\r\n       cashierCount,\r\n       adminCount,\r\n       depositCount,\r\n-      totalDeposits: totalDeposits[0]?.total || 0,\r\n+      totalDeposits: totalDeposits.length > 0 ? totalDeposits[0].total : 0,\r\n     };\r\n     \r\n     console.log('Final stats result:', result);\r\n     res.json(result);\r\n"
+                },
+                {
+                    "date": 1751601475815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,8 +33,12 @@\n     console.log('Deposit count:', depositCount);\r\n     console.log('Total deposits aggregation result:', totalDeposits);\r\n     console.log('Total deposits value:', totalDeposits[0]?.total);\r\n     \r\n+    // Check a few sample deposits\r\n+    const sampleDeposits = await Deposit.find().limit(3);\r\n+    console.log('Sample deposits:', sampleDeposits.map(d => ({ id: d._id, amount: d.amount, type: typeof d.amount })));\r\n+    \r\n     const result = {\r\n       userCount,\r\n       blockedCount,\r\n       cashierCount,\r\n"
+                },
+                {
+                    "date": 1751622006082,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,8 @@\n const CMS = require('../models/CMS');\r\n const Deposit = require('../models/Deposit');\r\n const bcrypt = require('bcryptjs');\r\n \r\n-// 1. Dashboard stats\r\n exports.getStats = async (req, res) => {\r\n   try {\r\n     const userCount = await User.countDocuments();\r\n     const blockedCount = await User.countDocuments({ blocked: true });\r\n"
+                },
+                {
+                    "date": 1751622013015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,12 +9,10 @@\n     const blockedCount = await User.countDocuments({ blocked: true });\r\n     const cashierCount = await User.countDocuments({ role: \"cashier\" });\r\n     const adminCount = await User.countDocuments({ role: \"admin\" });\r\n     \r\n-    // Deposit statistics\r\n     const depositCount = await Deposit.countDocuments();\r\n     \r\n-    // More robust aggregation to handle potential string amounts\r\n     const totalDeposits = await Deposit.aggregate([\r\n       {\r\n         $addFields: {\r\n           numericAmount: { $toDouble: \"$amount\" }\r\n@@ -27,9 +25,8 @@\n         }\r\n       }\r\n     ]);\r\n     \r\n-    // Debug logging\r\n     console.log('Deposit count:', depositCount);\r\n     console.log('Total deposits aggregation result:', totalDeposits);\r\n     console.log('Total deposits value:', totalDeposits[0]?.total);\r\n     \r\n"
+                },
+                {
+                    "date": 1751622019262,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -29,9 +29,8 @@\n     console.log('Deposit count:', depositCount);\r\n     console.log('Total deposits aggregation result:', totalDeposits);\r\n     console.log('Total deposits value:', totalDeposits[0]?.total);\r\n     \r\n-    // Check a few sample deposits\r\n     const sampleDeposits = await Deposit.find().limit(3);\r\n     console.log('Sample deposits:', sampleDeposits.map(d => ({ id: d._id, amount: d.amount, type: typeof d.amount })));\r\n     \r\n     const result = {\r\n@@ -50,9 +49,8 @@\n     res.status(500).json({ error: error.message });\r\n   }\r\n };\r\n \r\n-// 2. User listing\r\n exports.getAllUsers = async (req, res) => {\r\n   const users = await User.find().select('-password');\r\n   res.json({ users });\r\n };\r\n"
+                },
+                {
+                    "date": 1751622024949,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,16 +54,14 @@\n   const users = await User.find().select('-password');\r\n   res.json({ users });\r\n };\r\n \r\n-// 3. User detail\r\n exports.getUserById = async (req, res) => {\r\n   const user = await User.findById(req.params.id).select('-password');\r\n   if (!user) return res.status(404).json({ error: \"User not found\" });\r\n   res.json({ user });\r\n };\r\n \r\n-// 4. Edit user\r\n exports.editUser = async (req, res) => {\r\n   const { username, email, role, phone, firstName, lastName, dob } = req.body;\r\n   const user = await User.findByIdAndUpdate(\r\n     req.params.id,\r\n"
+                },
+                {
+                    "date": 1751622031737,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,9 +70,8 @@\n   );\r\n   res.json({ success: true, user });\r\n };\r\n \r\n-// 5. Block/unblock user\r\n exports.blockUser = async (req, res) => {\r\n   const { blocked } = req.body;\r\n   const user = await User.findByIdAndUpdate(\r\n     req.params.id,\r\n"
+                },
+                {
+                    "date": 1751622038421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -80,15 +80,13 @@\n   );\r\n   res.json({ success: true, user });\r\n };\r\n \r\n-// 6. Delete user\r\n exports.deleteUser = async (req, res) => {\r\n   await User.findByIdAndDelete(req.params.id);\r\n   res.json({ success: true });\r\n };\r\n \r\n-// 7. Get all deposits with filtering\r\n exports.getDeposits = async (req, res) => {\r\n   const { userId, game, minAmount, maxAmount, startDate, endDate, status } = req.query;\r\n   const filter = {};\r\n   \r\n"
+                },
+                {
+                    "date": 1751622048697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n };\r\n \r\n \r\n \r\n-// 8. CMS get/update\r\n+\r\n exports.getCMS = async (req, res) => {\r\n   let cms = await CMS.findOne();\r\n   if (!cms) cms = await CMS.create({ privacy: \"\", terms: \"\" });\r\n   res.json({ privacy: cms.privacy, terms: cms.terms });\r\n@@ -123,9 +123,8 @@\n   cms.updatedAt = new Date();\r\n   await cms.save();\r\n   res.json({ success: true });\r\n };\r\n-\r\n // 9. Access control: add cashier/admin\r\n exports.addUser = async (req, res) => {\r\n   const { email, password, role } = req.body;\r\n   if (!email || !password || !role) return res.status(400).json({ error: \"All fields required\" });\r\n"
+                },
+                {
+                    "date": 1751622054296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -123,8 +123,9 @@\n   cms.updatedAt = new Date();\r\n   await cms.save();\r\n   res.json({ success: true });\r\n };\r\n+\r\n // 9. Access control: add cashier/admin\r\n exports.addUser = async (req, res) => {\r\n   const { email, password, role } = req.body;\r\n   if (!email || !password || !role) return res.status(400).json({ error: \"All fields required\" });\r\n"
+                },
+                {
+                    "date": 1751622062247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -124,9 +124,8 @@\n   await cms.save();\r\n   res.json({ success: true });\r\n };\r\n \r\n-// 9. Access control: add cashier/admin\r\n exports.addUser = async (req, res) => {\r\n   const { email, password, role } = req.body;\r\n   if (!email || !password || !role) return res.status(400).json({ error: \"All fields required\" });\r\n   const existing = await User.findOne({ email });\r\n"
                 }
             ],
             "date": 1751515181931,

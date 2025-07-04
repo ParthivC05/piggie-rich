@@ -51,19 +51,21 @@ const Navbar = ({ toggleChatSidebar }) => {
         <Link to="/deposit" className={linkBase}>
           Deposit
         </Link>
-        <button
-          onClick={() => {
-            if (
-              window.Tawk_API &&
-              typeof window.Tawk_API.maximize === "function"
-            ) {
-              window.Tawk_API.maximize();
-            }
-          }}
-          className={`${linkBase} cursor-pointer`}
-        >
-          Chat
-        </button>
+        {toggleChatSidebar && (
+          <button
+            onClick={() => {
+              if (
+                window.Tawk_API &&
+                typeof window.Tawk_API.maximize === "function"
+              ) {
+                window.Tawk_API.maximize();
+              }
+            }}
+            className={`${linkBase} cursor-pointer`}
+          >
+            Chat
+          </button>
+        )}
         {!isLoggedIn && (
           <Link to="/register" className={linkBase}>
             Register
@@ -114,20 +116,22 @@ const Navbar = ({ toggleChatSidebar }) => {
           >
             Deposit
           </Link>
-          <button
-            onClick={() => {
-              if (
-                window.Tawk_API &&
-                typeof window.Tawk_API.maximize === "function"
-              ) {
-                window.Tawk_API.maximize();
-              }
-              setIsOpen(false);
-            }}
-            className={`${linkBase} text-left w-full cursor-pointer`}
-          >
-            Chat
-          </button>
+          {toggleChatSidebar && (
+            <button
+              onClick={() => {
+                if (
+                  window.Tawk_API &&
+                  typeof window.Tawk_API.maximize === "function"
+                ) {
+                  window.Tawk_API.maximize();
+                }
+                setIsOpen(false);
+              }}
+              className={`${linkBase} text-left w-full cursor-pointer`}
+            >
+              Chat
+            </button>
+          )}
           {!isLoggedIn && (
             <Link
               to="/register"

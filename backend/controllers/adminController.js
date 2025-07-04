@@ -3,34 +3,64 @@ const CMS = require('../models/CMS');
 const Deposit = require('../models/Deposit');
 const bcrypt = require('bcryptjs');
 
-// 1. Dashboard stats
 exports.getStats = async (req, res) => {
-  const userCount = await User.countDocuments();
-  const blockedCount = await User.countDocuments({ blocked: true });
-  const cashierCount = await User.countDocuments({ role: "cashier" });
-  const adminCount = await User.countDocuments({ role: "admin" });
-  res.json({
-    userCount,
-    blockedCount,
-    cashierCount,
-    adminCount,
-  });
+  try {
+    const userCount = await User.countDocuments();
+    const blockedCount = await User.countDocuments({ blocked: true });
+    const cashierCount = await User.countDocuments({ role: "cashier" });
+    const adminCount = await User.countDocuments({ role: "admin" });
+    
+    const depositCount = await Deposit.countDocuments();
+    
+    const totalDeposits = await Deposit.aggregate([
+      {
+        $addFields: {
+          numericAmount: { $toDouble: "$amount" }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: "$numericAmount" }
+        }
+      }
+    ]);
+    
+    console.log('Deposit count:', depositCount);
+    console.log('Total deposits aggregation result:', totalDeposits);
+    console.log('Total deposits value:', totalDeposits[0]?.total);
+    
+    const sampleDeposits = await Deposit.find().limit(3);
+    console.log('Sample deposits:', sampleDeposits.map(d => ({ id: d._id, amount: d.amount, type: typeof d.amount })));
+    
+    const result = {
+      userCount,
+      blockedCount,
+      cashierCount,
+      adminCount,
+      depositCount,
+      totalDeposits: totalDeposits.length > 0 ? totalDeposits[0].total : 0,
+    };
+    
+    console.log('Final stats result:', result);
+    res.json(result);
+  } catch (error) {
+    console.error('Error in getStats:', error);
+    res.status(500).json({ error: error.message });
+  }
 };
 
-// 2. User listing
 exports.getAllUsers = async (req, res) => {
   const users = await User.find().select('-password');
   res.json({ users });
 };
 
-// 3. User detail
 exports.getUserById = async (req, res) => {
   const user = await User.findById(req.params.id).select('-password');
   if (!user) return res.status(404).json({ error: "User not found" });
   res.json({ user });
 };
 
-// 4. Edit user
 exports.editUser = async (req, res) => {
   const { username, email, role, phone, firstName, lastName, dob } = req.body;
   const user = await User.findByIdAndUpdate(
@@ -41,7 +71,6 @@ exports.editUser = async (req, res) => {
   res.json({ success: true, user });
 };
 
-// 5. Block/unblock user
 exports.blockUser = async (req, res) => {
   const { blocked } = req.body;
   const user = await User.findByIdAndUpdate(
@@ -52,13 +81,11 @@ exports.blockUser = async (req, res) => {
   res.json({ success: true, user });
 };
 
-// 6. Delete user
 exports.deleteUser = async (req, res) => {
   await User.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 };
 
-// 7. Get all deposits with filtering
 exports.getDeposits = async (req, res) => {
   const { userId, game, minAmount, maxAmount, startDate, endDate, status } = req.query;
   const filter = {};
@@ -82,7 +109,7 @@ exports.getDeposits = async (req, res) => {
 
 
 
-// 8. CMS get/update
+
 exports.getCMS = async (req, res) => {
   let cms = await CMS.findOne();
   if (!cms) cms = await CMS.create({ privacy: "", terms: "" });
@@ -98,7 +125,6 @@ exports.updateCMS = async (req, res) => {
   res.json({ success: true });
 };
 
-// 9. Access control: add cashier/admin
 exports.addUser = async (req, res) => {
   const { email, password, role } = req.body;
   if (!email || !password || !role) return res.status(400).json({ error: "All fields required" });

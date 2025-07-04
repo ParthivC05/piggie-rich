@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import AdminLayout from "../components/AdminLayout";
 
 const UserDetail = () => {
@@ -42,43 +43,108 @@ const UserDetail = () => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
+    
+    if (!editForm.username.trim()) {
+      toast.error('Username is required');
+      return;
+    }
+    
+    if (!editForm.email.trim()) {
+      toast.error('Email is required');
+      return;
+    }
+    
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(editForm.email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    
+    if (editForm.phone && editForm.phone.trim()) {
+      const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
+      if (!phoneRegex.test(editForm.phone.replace(/[\s\-\(\)]/g, ''))) {
+        toast.error('Please enter a valid phone number');
+        return;
+      }
+    }
+    
     setLoading(true);
-    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editForm),
-    });
-    setEditMode(false);
-    await fetchUser();
-    setLoading(false);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editForm),
+      });
+      
+      if (response.ok) {
+        const roleChangeMessage = editForm.role !== user.role 
+          ? `User role changed from "${user.role}" to "${editForm.role}" successfully!`
+          : 'User details updated successfully!';
+        toast.success(roleChangeMessage);
+        setEditMode(false);
+        await fetchUser();
+      } else {
+        const errorData = await response.json();
+        toast.error(`Failed to update user: ${errorData.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      toast.error('Network error occurred while updating user');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
     setLoading(true);
-    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    setLoading(false);
-    navigate("/admin/users");
+    try {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      
+      if (response.ok) {
+        toast.success(`User "${user.username}" has been deleted successfully!`);
+        navigate("/admin/users");
+      } else {
+        const errorData = await response.json();
+        toast.error(`Failed to delete user: ${errorData.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      toast.error('Network error occurred while deleting user');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleBlockToggle = async () => {
+    const action = user.blocked ? 'unblock' : 'block';
     setLoading(true);
-    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}/block`, {
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ blocked: !user.blocked }),
-    });
-    await fetchUser();
-    setLoading(false);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}/block`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ blocked: !user.blocked }),
+      });
+      
+      if (response.ok) {
+        const actionText = user.blocked ? 'unblocked' : 'blocked';
+        toast.success(`User "${user.username}" has been ${actionText} successfully!`);
+        await fetchUser();
+      } else {
+        const errorData = await response.json();
+        toast.error(`Failed to ${action} user: ${errorData.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      toast.error(`Network error occurred while ${action}ing user`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!user) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import { FaUsers, FaLock, FaUserShield, FaCashRegister } from "react-icons/fa";
+import { FaUsers, FaLock, FaUserShield, FaCashRegister, FaMoneyBillWave, FaChartLine } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -8,6 +8,8 @@ const AdminDashboard = () => {
     blockedCount: 0,
     cashierCount: 0,
     adminCount: 0,
+    depositCount: 0,
+    totalDeposits: 0,
   });
 
   useEffect(() => {
@@ -16,8 +18,21 @@ const AdminDashboard = () => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
-      .then((data) => setStats(data));
+      .then((data) => {
+        console.log('Dashboard stats received:', data);
+        setStats(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching dashboard stats:', error);
+      });
   }, []);
+
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
 
   const statCards = [
     {
@@ -44,6 +59,18 @@ const AdminDashboard = () => {
       icon: <FaUserShield className="text-3xl text-indigo-500" />,
       bg: "from-indigo-100 to-indigo-200",
     },
+    {
+      label: "Total Deposits",
+      value: formatCurrency(stats.totalDeposits),
+      icon: <FaMoneyBillWave className="text-3xl text-green-500" />,
+      bg: "from-green-100 to-green-200",
+    },
+    {
+      label: "Total Transactions",
+      value: stats.depositCount,
+      icon: <FaChartLine className="text-3xl text-teal-500" />,
+      bg: "from-teal-100 to-teal-200",
+    },
   ];
 
   return (
@@ -60,7 +87,7 @@ const AdminDashboard = () => {
               <div className="text-lg font-semibold text-gray-700">{stat.label}</div>
               {stat.icon}
             </div>
-            <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
           </div>
         ))}
       </div>

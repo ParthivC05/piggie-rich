@@ -5,6 +5,8 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import GameRoomPage from "./pages/GameRoomPage";
@@ -36,73 +38,90 @@ function AppContent() {
   const toggleChatSidebar = () => setIsChatOpen((prev) => !prev);
 
   useEffect(() => {
-    if (isAdminPanel) return; // Don't load chat in admin panel
+    // Don't load chat in admin panel, login, or register pages
+    const noChatPages = ['/admin', '/login', '/register'];
+    const shouldLoadChat = !noChatPages.some(page => location.pathname.startsWith(page));
+    
+    let script = null;
 
-    const script = document.createElement("script");
-    script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
-    script.async = true;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
-    document.body.appendChild(script);
-
-    const setupTawkListeners = () => {
-      if (window.Tawk_API) {
-        window.Tawk_API.onChatStarted = function () {
-          console.log("Chat started!");
-        };
-        window.Tawk_API.onChatEnded = function () {
-          console.log("Chat ended!");
-        };
-        window.Tawk_API.onMessageReceived = function (message) {
-          console.log("Message received from agent:", message);
-        };
-      } else {
-        setTimeout(setupTawkListeners, 500);
+    if (shouldLoadChat) {
+      // Check if script already exists to avoid duplicates
+      const existingScript = document.querySelector('script[src*="tawk.to"]');
+      if (!existingScript) {
+        script = document.createElement("script");
+        script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
+        script.async = true;
+        script.charset = "UTF-8";
+        script.setAttribute("crossorigin", "*");
+        document.body.appendChild(script);
       }
-    };
-    setupTawkListeners();
+
+      const setupTawkListeners = () => {
+        if (window.Tawk_API) {
+          window.Tawk_API.onChatStarted = function () {
+            console.log("Chat started!");
+          };
+          window.Tawk_API.onChatEnded = function () {
+            console.log("Chat ended!");
+          };
+          window.Tawk_API.onMessageReceived = function (message) {
+            console.log("Message received from agent:", message);
+          };
+        } else {
+          setTimeout(setupTawkListeners, 500);
+        }
+      };
+      setupTawkListeners();
+    }
 
     return () => {
-      document.body.removeChild(script);
+      // Only remove the script we created in this effect
+      if (script && script.parentNode) {
+        try {
+          script.parentNode.removeChild(script);
+        } catch (error) {
+          // Script might have been removed by another effect or doesn't exist
+          console.log("Script cleanup: Script already removed or doesn't exist");
+        }
+      }
     };
-  }, [isAdminPanel]);
+  }, [location.pathname]);
 
   const showNavbar =
     location.pathname === "/" ||
     location.pathname === "/game-room" ||
     location.pathname === "/profile" ||
     location.pathname === "/register" ||
+    location.pathname === "/login" ||
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
   const showFooter =
     location.pathname === "/" ||
     location.pathname === "/game-room" ||
+    location.pathname === "/login" ||
+    location.pathname === "/register" ||
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
+  // Don't show chat on admin, login, or register pages
+  const noChatPages = ['/admin', '/login', '/register'];
+  const shouldShowChat = !noChatPages.some(page => location.pathname.startsWith(page));
+
   return (
     <div className="relative">
-      {showNavbar && <Navbar toggleChatSidebar={toggleChatSidebar} />}
+      {showNavbar && <Navbar toggleChatSidebar={shouldShowChat ? toggleChatSidebar : null} />}
 
       <Routes>
-       
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/game-room"
-          element={
-            <ProtectedRoute>
-              <GameRoomPage />
-            </ProtectedRoute>
-          }
-        />
+        {/* Public Routes - No Login Required */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/game-room" element={<GameRoomPage />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
+        {/* Protected Routes - Login Required */}
         <Route
           path="/deposit"
           element={
@@ -181,16 +200,13 @@ function AppContent() {
         />
 
         
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+
       </Routes>
 
       {showFooter && <Footer />}
 
     
-      {!isAdminPanel && isChatOpen && (
+      {shouldShowChat && isChatOpen && (
         <ChatSidebar onClose={() => setIsChatOpen(false)} />
       )}
     </div>
@@ -201,6 +217,18 @@ function App() {
   return (
     <Router>
       <AppContent />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </Router>
   );
 }

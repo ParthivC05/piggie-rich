@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 import AdminLayout from "../components/AdminLayout";
 
 const AccessControl = () => {
@@ -8,14 +9,54 @@ const AccessControl = () => {
   const token = localStorage.getItem("token");
 
   const handleAdd = async () => {
-    await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/add-user`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, role }),
-    });
-    alert("User added!");
-    setEmail("");
-    setPassword("");
+    if (!email.trim()) {
+      toast.error('Email is required');
+      return;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+    
+    if (!password.trim()) {
+      toast.error('Password is required');
+      return;
+    }
+    
+    if (password.length < 6) {
+      toast.error('Password must be at least 6 characters long');
+      return;
+    }
+    
+    if (!role) {
+      toast.error('Role is required');
+      return;
+    }
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/add-user`, {
+        method: "POST",
+        headers: { 
+          Authorization: `Bearer ${token}`, 
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({ email, password, role }),
+      });
+      
+      if (response.ok) {
+        toast.success(`User with role "${role}" added successfully!`);
+        setEmail("");
+        setPassword("");
+        setRole("cashier");
+      } else {
+        const errorData = await response.json();
+        toast.error(`Failed to add user: ${errorData.error || 'Unknown error'}`);
+      }
+    } catch (error) {
+      toast.error('Network error occurred while adding user');
+    }
   };
 
   return (

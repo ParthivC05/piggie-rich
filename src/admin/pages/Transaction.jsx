@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import { FaSearch, FaFilter, FaDownload, FaEye } from "react-icons/fa";
+import { FaSearch, FaFilter, FaDownload, FaEye, FaTimes } from "react-icons/fa";
 
 const Transactions = () => {
   const [deposits, setDeposits] = useState([]);
@@ -15,6 +15,8 @@ const Transactions = () => {
     status: "",
   });
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedDeposit, setSelectedDeposit] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const token = localStorage.getItem("token");
 
   const fetchDeposits = async () => {
@@ -83,18 +85,29 @@ const Transactions = () => {
     return statusConfig[status] || "bg-gray-100 text-gray-800";
   };
 
+  const handleViewDetails = (deposit) => {
+    setSelectedDeposit(deposit);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedDeposit(null);
+  };
+
+
+
   return (
     <AdminLayout>
-      <div className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 text-white rounded-3xl p-8 mb-10 shadow-lg">
-        <h1 className="text-5xl font-black tracking-tight drop-shadow-lg">💰 Transactions</h1>
-        <p className="text-xl mt-2 opacity-90">Manage and monitor all deposit transactions</p>
+      <div className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 text-white rounded-3xl p-6 sm:p-8 mb-8 sm:mb-10 shadow-lg">
+        <h1 className="text-3xl sm:text-5xl font-black tracking-tight drop-shadow-lg">💰 Transactions</h1>
+        <p className="text-base sm:text-xl mt-2 opacity-90">Manage and monitor all deposit transactions</p>
       </div>
 
-      <div className="bg-white p-8 rounded-3xl shadow-2xl space-y-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
-        
-        {/* Filter Controls */}
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+      <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl space-y-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
+
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <button
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg"
@@ -110,8 +123,8 @@ const Transactions = () => {
               Refresh
             </button>
           </div>
-          
-          <div className="text-right">
+
+          <div className="text-left sm:text-right">
             <p className="text-lg font-semibold text-gray-700">
               Total Transactions: <span className="text-purple-600">{deposits.length}</span>
             </p>
@@ -123,78 +136,29 @@ const Transactions = () => {
           </div>
         </div>
 
-        {/* Filter Form */}
         {showFilters && (
           <form onSubmit={handleFilterSubmit} className="bg-gray-50 p-6 rounded-2xl space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">User ID</label>
-                <input
-                  name="userId"
-                  placeholder="Search by User ID"
-                  value={filter.userId}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Game</label>
-                <input
-                  name="game"
-                  placeholder="Search by Game"
-                  value={filter.game}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Min Amount</label>
-                <input
-                  name="minAmount"
-                  type="number"
-                  placeholder="Min Amount"
-                  value={filter.minAmount}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Max Amount</label>
-                <input
-                  name="maxAmount"
-                  type="number"
-                  placeholder="Max Amount"
-                  value={filter.maxAmount}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Start Date</label>
-                <input
-                  name="startDate"
-                  type="date"
-                  value={filter.startDate}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">End Date</label>
-                <input
-                  name="endDate"
-                  type="date"
-                  value={filter.endDate}
-                  onChange={handleFilterChange}
-                  className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                />
-              </div>
-              
+              {[
+                { label: "User ID", name: "userId", type: "text", placeholder: "Search by User ID" },
+                { label: "Game", name: "game", type: "text", placeholder: "Search by Game" },
+                { label: "Min Amount", name: "minAmount", type: "number", placeholder: "Min Amount" },
+                { label: "Max Amount", name: "maxAmount", type: "number", placeholder: "Max Amount" },
+                { label: "Start Date", name: "startDate", type: "date" },
+                { label: "End Date", name: "endDate", type: "date" },
+              ].map(({ label, name, type, placeholder }) => (
+                <div key={name}>
+                  <label className="block text-gray-700 font-medium mb-2">{label}</label>
+                  <input
+                    name={name}
+                    type={type}
+                    placeholder={placeholder}
+                    value={filter[name]}
+                    onChange={handleFilterChange}
+                    className="border border-gray-300 bg-white p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
+                  />
+                </div>
+              ))}
               <div>
                 <label className="block text-gray-700 font-medium mb-2">Status</label>
                 <select
@@ -210,8 +174,8 @@ const Transactions = () => {
                 </select>
               </div>
             </div>
-            
-            <div className="flex gap-4 justify-end">
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-end">
               <button
                 type="button"
                 onClick={clearFilters}
@@ -229,98 +193,186 @@ const Transactions = () => {
           </form>
         )}
 
-        {/* Transactions Table */}
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-2xl">
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600">Loading transactions...</p>
+              <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading transactions...</p>
             </div>
           ) : deposits.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">📊</div>
-              <p className="text-xl text-gray-600">No transactions found</p>
-              <p className="text-gray-500">Try adjusting your filters or check back later</p>
+              <p className="text-lg sm:text-xl text-gray-600">No transactions found</p>
+              <p className="text-gray-500 text-sm">Try adjusting your filters or check back later</p>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-              <table className="min-w-full">
-                <thead className="bg-gradient-to-r from-purple-600 to-purple-700 text-white">
+            <table className="min-w-full">
+                              <thead className="bg-gradient-to-r from-purple-600 to-purple-700 text-white text-sm">
                   <tr>
-                    <th className="px-6 py-4 text-left font-semibold">User</th>
-                    <th className="px-6 py-4 text-left font-semibold">Game</th>
-                    <th className="px-6 py-4 text-left font-semibold">Amount</th>
-                    <th className="px-6 py-4 text-left font-semibold">PayPal Order ID</th>
-                    <th className="px-6 py-4 text-left font-semibold">Payer Info</th>
-                    <th className="px-6 py-4 text-left font-semibold">Status</th>
-                    <th className="px-6 py-4 text-left font-semibold">Date</th>
-                    <th className="px-6 py-4 text-left font-semibold">Actions</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">User</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">Game</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">Amount</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">Status</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">Date</th>
+                    <th className="px-3 py-3 sm:px-6 sm:py-4 text-left font-semibold">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {deposits.map((deposit, idx) => (
-                    <tr key={deposit._id} className={`hover:bg-gray-50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
-                      <td className="px-6 py-4">
-                        <div>
-                          <div className="font-semibold text-gray-900">
-                            {deposit.userId?.username || deposit.gameUsername || "N/A"}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {deposit.userId?.email || deposit.customerEmail}
-                          </div>
-                          <div className="text-xs text-gray-400">
-                            {deposit.userId?.firstName} {deposit.userId?.lastName}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
-                          {deposit.game}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className="font-bold text-green-600 text-lg">
-                          {formatAmount(deposit.amount)}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm">
-                          <div className="font-mono text-gray-700">{deposit.paypalOrderId}</div>
-                          <div className="text-gray-500">Phone: {deposit.customerPhone}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <div className="text-sm">
-                          <div className="font-semibold">
-                            {deposit.payer?.name?.given_name} {deposit.payer?.name?.surname}
-                          </div>
-                          <div className="text-gray-500">{deposit.payer?.email_address}</div>
-                          <div className="text-gray-400">{deposit.payer?.address?.country_code}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(deposit.status)}`}>
-                          {deposit.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
-                        {formatDate(deposit.createdAt)}
-                      </td>
-                      <td className="px-6 py-4">
-                        <button className="text-purple-600 hover:text-purple-800 transition-colors">
-                          <FaEye className="text-lg" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+              <tbody className="divide-y divide-gray-200 text-sm">
+                {deposits.map((deposit, idx) => (
+                  <tr key={deposit._id} className={`hover:bg-gray-50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 break-words">
+                      <div className="font-semibold text-gray-900">{deposit.userId?.username || deposit.gameUsername || "N/A"}</div>
+                      <div className="text-xs text-gray-500">{deposit.userId?.email || deposit.customerEmail}</div>
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                        {deposit.game}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 font-bold text-green-600 text-base">
+                      {formatAmount(deposit.amount)}
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(deposit.status)}`}>
+                        {deposit.status}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 text-gray-600 text-xs">
+                      {formatDate(deposit.createdAt)}
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <button 
+                        onClick={() => handleViewDetails(deposit)}
+                        className="text-purple-600 hover:text-purple-800 transition-colors p-2 rounded-lg hover:bg-purple-50"
+                        title="View Details"
+                      >
+                        <FaEye className="text-lg" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </div>
       </div>
+
+      {showModal && selectedDeposit && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-6 rounded-t-3xl flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-bold">Transaction Details</h2>
+                <p className="text-purple-100">ID: {selectedDeposit._id}</p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={closeModal}
+                  className="bg-white text-red-600 bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg transition-colors"
+                  title="Close"
+                >
+                  <FaTimes className="text-lg" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-600">
+                      {formatAmount(selectedDeposit.amount)}
+                    </div>
+                    <div className="text-sm text-gray-600">Amount</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-purple-600">
+                      {selectedDeposit.game}
+                    </div>
+                    <div className="text-sm text-gray-600">Game</div>
+                  </div>
+                  <div className="text-center">
+                    <span className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${getStatusBadge(selectedDeposit.status)}`}>
+                      {selectedDeposit.status}
+                    </span>
+                    <div className="text-sm text-gray-600 mt-1">Status</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-50 p-6 rounded-2xl">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">User Information</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-sm text-gray-600">Username:</span>
+                      <div className="font-semibold">{selectedDeposit.userId?.username || selectedDeposit.gameUsername || "N/A"}</div>
+                    </div>
+                    <div>
+                      <span className="text-sm text-gray-600">Email:</span>
+                      <div className="font-semibold">{selectedDeposit.userId?.email || selectedDeposit.customerEmail}</div>
+                    </div>
+                    <div>
+                      <span className="text-sm text-gray-600">Phone:</span>
+                      <div className="font-semibold">{selectedDeposit.customerPhone}</div>
+                    </div>
+                    {selectedDeposit.userId?.firstName && (
+                      <div>
+                        <span className="text-sm text-gray-600">Full Name:</span>
+                        <div className="font-semibold">{selectedDeposit.userId.firstName} {selectedDeposit.userId.lastName}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-6 rounded-2xl">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">PayPal Information</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-sm text-gray-600">Order ID:</span>
+                      <div className="font-mono text-sm">{selectedDeposit.paypalOrderId}</div>
+                    </div>
+                    {selectedDeposit.payer && (
+                      <>
+                        <div>
+                          <span className="text-sm text-gray-600">Payer Name:</span>
+                          <div className="font-semibold">
+                            {selectedDeposit.payer.name?.given_name} {selectedDeposit.payer.name?.surname}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="text-sm text-gray-600">Payer Email:</span>
+                          <div className="font-semibold">{selectedDeposit.payer.email_address}</div>
+                        </div>
+                        <div>
+                          <span className="text-sm text-gray-600">Country:</span>
+                          <div className="font-semibold">{selectedDeposit.payer.address?.country_code}</div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-2xl">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Transaction Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <span className="text-sm text-gray-600">Transaction ID:</span>
+                    <div className="font-mono text-sm">{selectedDeposit._id}</div>
+                  </div>
+                  <div>
+                    <span className="text-sm text-gray-600">Date & Time:</span>
+                    <div className="font-semibold">{formatDate(selectedDeposit.createdAt)}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminLayout>
   );
 };
 
-export default Transactions; 
+export default Transactions;
