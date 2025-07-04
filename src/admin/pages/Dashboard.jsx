@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import { FaUsers, FaDollarSign, FaLock, FaExchangeAlt, FaUserShield, FaCashRegister } from "react-icons/fa";
+import { FaUsers, FaLock, FaUserShield, FaCashRegister } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
     userCount: 0,
-    transactionCount: 0,
-    totalDeposits: 0,
     blockedCount: 0,
     cashierCount: 0,
     adminCount: 0,
@@ -27,18 +25,6 @@ const AdminDashboard = () => {
       value: stats.userCount,
       icon: <FaUsers className="text-3xl text-blue-500" />,
       bg: "from-blue-100 to-blue-200",
-    },
-    {
-      label: "Transactions",
-      value: stats.transactionCount,
-      icon: <FaExchangeAlt className="text-3xl text-green-500" />,
-      bg: "from-green-100 to-green-200",
-    },
-    {
-      label: "Total Deposits",
-      value: `$${stats.totalDeposits}`,
-      icon: <FaDollarSign className="text-3xl text-yellow-500" />,
-      bg: "from-yellow-100 to-yellow-200",
     },
     {
       label: "Blocked Users",

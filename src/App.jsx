@@ -86,7 +86,7 @@ function AppContent() {
       {showNavbar && <Navbar toggleChatSidebar={toggleChatSidebar} />}
 
       <Routes>
-        {/* User routes */}
+       
         <Route
           path="/"
           element={
@@ -120,12 +120,20 @@ function AppContent() {
           }
         />
 
-        {/* --- Admin Panel Routes --- */}
+       
         <Route
           path="/admin/dashboard"
           element={
             <ProtectedRoute>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/transactions"
+          element={
+            <ProtectedRoute>
+              <Transactions />
             </ProtectedRoute>
           }
         />
@@ -145,6 +153,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin/transactions"
           element={
@@ -153,6 +162,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin/cms"
           element={
@@ -170,7 +180,7 @@ function AppContent() {
           }
         />
 
-        {/* Public routes */}
+        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/terms" element={<TermsAndConditions />} />
@@ -179,7 +189,7 @@ function AppContent() {
 
       {showFooter && <Footer />}
 
-      {/* Only show chat sidebar if not in admin panel */}
+    
       {!isAdminPanel && isChatOpen && (
         <ChatSidebar onClose={() => setIsChatOpen(false)} />
       )}

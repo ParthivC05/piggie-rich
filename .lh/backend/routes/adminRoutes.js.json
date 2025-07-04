@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 5,
             "patches": [
                 {
                     "date": 1751515217782,
@@ -20,6 +20,14 @@
                 {
                     "date": 1751538413350,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,9 +3,9 @@\n const adminController = require('../controllers/adminController');\r\n const auth = require('../middleware/auth');\r\n const adminAuth = require('../middleware/adminAuth');\r\n \r\n-// Dashboard stats\r\n+// Dashboard\r\n router.get('/admin/stats', auth, adminAuth, adminController.getStats);\r\n \r\n // Users\r\n router.get('/admin/users', auth, adminAuth, adminController.getAllUsers);\r\n@@ -20,8 +20,8 @@\n // CMS\r\n router.get('/admin/cms', auth, adminAuth, adminController.getCMS);\r\n router.put('/admin/cms', auth, adminAuth, adminController.updateCMS);\r\n \r\n-// Access control\r\n+// Access Control\r\n router.post('/admin/add-user', auth, adminAuth, adminController.addUser);\r\n \r\n module.exports = router;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751598557787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,11 +13,10 @@\n router.put('/admin/users/:id', auth, adminAuth, adminController.editUser);\r\n router.patch('/admin/users/:id/block', auth, adminAuth, adminController.blockUser);\r\n router.delete('/admin/users/:id', auth, adminAuth, adminController.deleteUser);\r\n \r\n-// Transactions\r\n-router.get('/admin/transactions', auth, adminAuth, adminController.getTransactions);\r\n \r\n+\r\n // CMS\r\n router.get('/admin/cms', auth, adminAuth, adminController.getCMS);\r\n router.put('/admin/cms', auth, adminAuth, adminController.updateCMS);\r\n \r\n"
+                },
+                {
+                    "date": 1751599450547,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,13 @@\n router.put('/admin/users/:id', auth, adminAuth, adminController.editUser);\r\n router.patch('/admin/users/:id/block', auth, adminAuth, adminController.blockUser);\r\n router.delete('/admin/users/:id', auth, adminAuth, adminController.deleteUser);\r\n \r\n+// Deposits\r\n+router.get('/admin/deposits', auth, adminAuth, adminController.getDeposits);\r\n \r\n \r\n+\r\n // CMS\r\n router.get('/admin/cms', auth, adminAuth, adminController.getCMS);\r\n router.put('/admin/cms', auth, adminAuth, adminController.updateCMS);\r\n \r\n"
                 }
             ],
             "date": 1751515217782,

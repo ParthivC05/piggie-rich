@@ -1,20 +1,19 @@
 const User = require('../models/User');
-const Transaction = require('../models/Transaction');
 const CMS = require('../models/CMS');
+const Deposit = require('../models/Deposit');
 const bcrypt = require('bcryptjs');
 
 // 1. Dashboard stats
 exports.getStats = async (req, res) => {
   const userCount = await User.countDocuments();
-  const transactionCount = await Transaction.countDocuments();
-  const depositSum = await Transaction.aggregate([
-    { $match: { type: "deposit" } },
-    { $group: { _id: null, total: { $sum: "$amount" } } }
-  ]);
+  const blockedCount = await User.countDocuments({ blocked: true });
+  const cashierCount = await User.countDocuments({ role: "cashier" });
+  const adminCount = await User.countDocuments({ role: "admin" });
   res.json({
     userCount,
-    transactionCount,
-    totalDeposits: depositSum[0]?.total || 0
+    blockedCount,
+    cashierCount,
+    adminCount,
   });
 };
 
@@ -33,10 +32,10 @@ exports.getUserById = async (req, res) => {
 
 // 4. Edit user
 exports.editUser = async (req, res) => {
-  const { username, email, role, phone } = req.body;
+  const { username, email, role, phone, firstName, lastName, dob } = req.body;
   const user = await User.findByIdAndUpdate(
     req.params.id,
-    { username, email, role, phone },
+    { username, email, role, phone, firstName, lastName, dob },
     { new: true }
   );
   res.json({ success: true, user });
@@ -59,24 +58,29 @@ exports.deleteUser = async (req, res) => {
   res.json({ success: true });
 };
 
-// 7. Transactions with filtering
-exports.getTransactions = async (req, res) => {
-  const { userId, type, minAmount, maxAmount, startDate, endDate } = req.query;
+// 7. Get all deposits with filtering
+exports.getDeposits = async (req, res) => {
+  const { userId, game, minAmount, maxAmount, startDate, endDate, status } = req.query;
   const filter = {};
+  
   if (userId) filter.userId = userId;
-  if (type) filter.type = type;
+  if (game) filter.game = { $regex: game, $options: 'i' };
   if (minAmount) filter.amount = { ...filter.amount, $gte: Number(minAmount) };
   if (maxAmount) filter.amount = { ...filter.amount, $lte: Number(maxAmount) };
+  if (status) filter.status = status;
   if (startDate || endDate) {
     filter.createdAt = {};
     if (startDate) filter.createdAt.$gte = new Date(startDate);
     if (endDate) filter.createdAt.$lte = new Date(endDate);
   }
-  const transactions = await Transaction.find(filter)
-    .populate('userId', 'username email')
+  
+  const deposits = await Deposit.find(filter)
+    .populate('userId', 'username email firstName lastName')
     .sort({ createdAt: -1 });
-  res.json({ transactions });
+  res.json({ deposits });
 };
+
+
 
 // 8. CMS get/update
 exports.getCMS = async (req, res) => {
@@ -106,23 +110,3 @@ exports.addUser = async (req, res) => {
   res.json({ success: true, user });
 };
 
-// In adminController.js
-exports.getStats = async (req, res) => {
-  const userCount = await User.countDocuments();
-  const transactionCount = await Transaction.countDocuments();
-  const depositSum = await Transaction.aggregate([
-    { $match: { type: "deposit" } },
-    { $group: { _id: null, total: { $sum: "$amount" } } }
-  ]);
-  const blockedCount = await User.countDocuments({ blocked: true });
-  const cashierCount = await User.countDocuments({ role: "cashier" });
-  const adminCount = await User.countDocuments({ role: "admin" });
-  res.json({
-    userCount,
-    transactionCount,
-    totalDeposits: depositSum[0]?.total || 0,
-    blockedCount,
-    cashierCount,
-    adminCount,
-  });
-};

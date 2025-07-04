@@ -14,8 +14,10 @@ router.put('/admin/users/:id', auth, adminAuth, adminController.editUser);
 router.patch('/admin/users/:id/block', auth, adminAuth, adminController.blockUser);
 router.delete('/admin/users/:id', auth, adminAuth, adminController.deleteUser);
 
-// Transactions
-router.get('/admin/transactions', auth, adminAuth, adminController.getTransactions);
+// Deposits
+router.get('/admin/deposits', auth, adminAuth, adminController.getDeposits);
+
+
 
 // CMS
 router.get('/admin/cms', auth, adminAuth, adminController.getCMS);
