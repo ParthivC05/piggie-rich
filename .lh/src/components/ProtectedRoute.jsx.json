@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1751457225234,
@@ -16,6 +16,34 @@
                 {
                     "date": 1751534921844,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,23 @@\n-import { Navigate } from \"react-router-dom\";\r\n+import { Navigate, useLocation } from \"react-router-dom\";\r\n \r\n const ProtectedRoute = ({ children }) => {\r\n   const token = localStorage.getItem(\"token\");\r\n-  return token ? children : <Navigate to=\"/login\" />;\r\n+  const role = localStorage.getItem(\"role\");\r\n+  const location = useLocation();\r\n+\r\n+  if (!token) return <Navigate to=\"/login\" />;\r\n+\r\n+  // If user tries to access admin route but is not admin, redirect to home\r\n+  if (location.pathname.startsWith(\"/admin\") && role !== \"admin\") {\r\n+    return <Navigate to=\"/\" />;\r\n+  }\r\n+\r\n+  // If admin tries to access user route, redirect to admin dashboard\r\n+  if (!location.pathname.startsWith(\"/admin\") && role === \"admin\") {\r\n+    return <Navigate to=\"/admin/dashboard\" />;\r\n+  }\r\n+\r\n+  return children;\r\n };\r\n \r\n export default ProtectedRoute;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751628374452,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,18 +6,38 @@\n   const location = useLocation();\r\n \r\n   if (!token) return <Navigate to=\"/login\" />;\r\n \r\n-  // If user tries to access admin route but is not admin, redirect to home\r\n+  // Admin: only allow /admin routes\r\n+  if (role === \"admin\" && !location.pathname.startsWith(\"/admin\")) {\r\n+    return <Navigate to=\"/admin/dashboard\" />;\r\n+  }\r\n   if (location.pathname.startsWith(\"/admin\") && role !== \"admin\") {\r\n+    // Only admins can access /admin\r\n     return <Navigate to=\"/\" />;\r\n   }\r\n \r\n-  // If admin tries to access user route, redirect to admin dashboard\r\n-  if (!location.pathname.startsWith(\"/admin\") && role === \"admin\") {\r\n-    return <Navigate to=\"/admin/dashboard\" />;\r\n+  // Cashier: only allow /cashier routes\r\n+  if (role === \"cashier\" && !location.pathname.startsWith(\"/cashier\")) {\r\n+    return <Navigate to=\"/cashier/users\" />;\r\n   }\r\n+  if (location.pathname.startsWith(\"/cashier\") && role !== \"cashier\") {\r\n+    // Only cashiers can access /cashier\r\n+    return <Navigate to=\"/\" />;\r\n+  }\r\n \r\n+  // User: block access to /admin and /cashier\r\n+  if (role === \"user\" && (location.pathname.startsWith(\"/admin\") || location.pathname.startsWith(\"/cashier\"))) {\r\n+    return <Navigate to=\"/\" />;\r\n+  }\r\n+\r\n+  // Unknown role: force logout\r\n+  if (!role || ![\"admin\", \"cashier\", \"user\"].includes(role)) {\r\n+    localStorage.removeItem(\"token\");\r\n+    localStorage.removeItem(\"role\");\r\n+    return <Navigate to=\"/login\" />;\r\n+  }\r\n+\r\n   return children;\r\n };\r\n \r\n export default ProtectedRoute;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751628925099,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,25 @@\n import { Navigate, useLocation } from \"react-router-dom\";\r\n \r\n+const publicPaths = [\"/\", \"/game-room\", \"/terms\", \"/privacy\"];\r\n+\r\n const ProtectedRoute = ({ children }) => {\r\n   const token = localStorage.getItem(\"token\");\r\n   const role = localStorage.getItem(\"role\");\r\n   const location = useLocation();\r\n \r\n+  // If on a public page and NOT logged in, allow access\r\n+  if (publicPaths.includes(location.pathname) && !token) {\r\n+    return children;\r\n+  }\r\n+\r\n+  // If logged in as admin/cashier and on a public page, redirect to dashboard\r\n+  if (publicPaths.includes(location.pathname) && token) {\r\n+    if (role === \"admin\") return <Navigate to=\"/admin/dashboard\" />;\r\n+    if (role === \"cashier\") return <Navigate to=\"/cashier/users\" />;\r\n+  }\r\n+\r\n+  // If not logged in and not on a public page, redirect to login\r\n   if (!token) return <Navigate to=\"/login\" />;\r\n \r\n   // Admin: only allow /admin routes\r\n   if (role === \"admin\" && !location.pathname.startsWith(\"/admin\")) {\r\n"
+                },
+                {
+                    "date": 1751629534564,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,8 @@\n     // Only cashiers can access /cashier\r\n     return <Navigate to=\"/\" />;\r\n   }\r\n \r\n-  // User: block access to /admin and /cashier\r\n   if (role === \"user\" && (location.pathname.startsWith(\"/admin\") || location.pathname.startsWith(\"/cashier\"))) {\r\n     return <Navigate to=\"/\" />;\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1751629539900,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,17 +34,15 @@\n   if (role === \"cashier\" && !location.pathname.startsWith(\"/cashier\")) {\r\n     return <Navigate to=\"/cashier/users\" />;\r\n   }\r\n   if (location.pathname.startsWith(\"/cashier\") && role !== \"cashier\") {\r\n-    // Only cashiers can access /cashier\r\n     return <Navigate to=\"/\" />;\r\n   }\r\n \r\n   if (role === \"user\" && (location.pathname.startsWith(\"/admin\") || location.pathname.startsWith(\"/cashier\"))) {\r\n     return <Navigate to=\"/\" />;\r\n   }\r\n \r\n-  // Unknown role: force logout\r\n   if (!role || ![\"admin\", \"cashier\", \"user\"].includes(role)) {\r\n     localStorage.removeItem(\"token\");\r\n     localStorage.removeItem(\"role\");\r\n     return <Navigate to=\"/login\" />;\r\n"
+                },
+                {
+                    "date": 1751629546734,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -25,13 +25,11 @@\n   if (role === \"admin\" && !location.pathname.startsWith(\"/admin\")) {\r\n     return <Navigate to=\"/admin/dashboard\" />;\r\n   }\r\n   if (location.pathname.startsWith(\"/admin\") && role !== \"admin\") {\r\n-    // Only admins can access /admin\r\n-    return <Navigate to=\"/\" />;\r\n+      return <Navigate to=\"/\" />;\r\n   }\r\n \r\n-  // Cashier: only allow /cashier routes\r\n   if (role === \"cashier\" && !location.pathname.startsWith(\"/cashier\")) {\r\n     return <Navigate to=\"/cashier/users\" />;\r\n   }\r\n   if (location.pathname.startsWith(\"/cashier\") && role !== \"cashier\") {\r\n"
+                },
+                {
+                    "date": 1751629552093,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,12 +17,10 @@\n     if (role === \"admin\") return <Navigate to=\"/admin/dashboard\" />;\r\n     if (role === \"cashier\") return <Navigate to=\"/cashier/users\" />;\r\n   }\r\n \r\n-  // If not logged in and not on a public page, redirect to login\r\n   if (!token) return <Navigate to=\"/login\" />;\r\n \r\n-  // Admin: only allow /admin routes\r\n   if (role === \"admin\" && !location.pathname.startsWith(\"/admin\")) {\r\n     return <Navigate to=\"/admin/dashboard\" />;\r\n   }\r\n   if (location.pathname.startsWith(\"/admin\") && role !== \"admin\") {\r\n"
+                },
+                {
+                    "date": 1751629557552,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,14 +6,12 @@\n   const token = localStorage.getItem(\"token\");\r\n   const role = localStorage.getItem(\"role\");\r\n   const location = useLocation();\r\n \r\n-  // If on a public page and NOT logged in, allow access\r\n   if (publicPaths.includes(location.pathname) && !token) {\r\n     return children;\r\n   }\r\n \r\n-  // If logged in as admin/cashier and on a public page, redirect to dashboard\r\n   if (publicPaths.includes(location.pathname) && token) {\r\n     if (role === \"admin\") return <Navigate to=\"/admin/dashboard\" />;\r\n     if (role === \"cashier\") return <Navigate to=\"/cashier/users\" />;\r\n   }\r\n"
                 }
             ],
             "date": 1751457225234,

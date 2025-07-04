@@ -118,11 +118,39 @@ function AppContent() {
       {showNavbar && <Navbar toggleChatSidebar={shouldShowChat ? toggleChatSidebar : null} />}
 
       <Routes>
-        {/* Public Routes - No Login Required */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/game-room" element={<GameRoomPage />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
+        {/* Public Routes - Wrapped in ProtectedRoute */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/game-room"
+          element={
+            <ProtectedRoute>
+              <GameRoomPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/terms"
+          element={
+            <ProtectedRoute>
+              <TermsAndConditions />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/privacy"
+          element={
+            <ProtectedRoute>
+              <PrivacyPolicy />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         

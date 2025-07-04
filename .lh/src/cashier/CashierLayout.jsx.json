@@ -3,11 +3,27 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1751624788174,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751628084283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,19 +1,36 @@\n import React from \"react\";\r\n-import { Outlet, NavLink } from \"react-router-dom\";\r\n+import { Outlet, NavLink, useNavigate } from \"react-router-dom\";\r\n \r\n-const CashierLayout = () => (\r\n-  <div className=\"flex\">\r\n-    <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6\">\r\n-      <div className=\"mb-12 text-3xl font-extrabold text-center text-blue-400\">Cashier Panel</div>\r\n-      <nav className=\"flex flex-col gap-3\">\r\n-        <NavLink to=\"/cashier/users\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Users</NavLink>\r\n-        <NavLink to=\"/cashier/transactions\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Transactions</NavLink>\r\n-      </nav>\r\n-    </aside>\r\n-    <main className=\"flex-1 p-8\">\r\n-      <Outlet />\r\n-    </main>\r\n-  </div>\r\n-);\r\n+const CashierLayout = () => {\r\n+  const navigate = useNavigate();\r\n \r\n+  const handleLogout = () => {\r\n+    localStorage.removeItem(\"token\");\r\n+    navigate(\"/login\");\r\n+  };\r\n+\r\n+  return (\r\n+    <div className=\"flex\">\r\n+      <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6 flex flex-col justify-between\">\r\n+        <div>\r\n+          <div className=\"mb-12 text-3xl font-extrabold text-center text-blue-400\">Cashier Panel</div>\r\n+          <nav className=\"flex flex-col gap-3\">\r\n+            <NavLink to=\"/cashier/users\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Users</NavLink>\r\n+            <NavLink to=\"/cashier/transactions\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Transactions</NavLink>\r\n+          </nav>\r\n+        </div>\r\n+        <button\r\n+          onClick={handleLogout}\r\n+          className=\"mt-8 w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold transition-colors\"\r\n+        >\r\n+          Logout\r\n+        </button>\r\n+      </aside>\r\n+      <main className=\"flex-1 p-8\">\r\n+        <Outlet />\r\n+      </main>\r\n+    </div>\r\n+  );\r\n+};\r\n+\r\n export default CashierLayout;\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1751628139222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,14 @@\n import React from \"react\";\r\n import { Outlet, NavLink, useNavigate } from \"react-router-dom\";\r\n+import { toast } from \"react-toastify\";\r\n \r\n const CashierLayout = () => {\r\n   const navigate = useNavigate();\r\n \r\n   const handleLogout = () => {\r\n     localStorage.removeItem(\"token\");\r\n+    toast.success(\"Logged out successfully\");\r\n     navigate(\"/login\");\r\n   };\r\n \r\n   return (\r\n"
+                },
+                {
+                    "date": 1751628187531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n           </nav>\r\n         </div>\r\n         <button\r\n           onClick={handleLogout}\r\n-          className=\"mt-8 w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold transition-colors\"\r\n+          className=\" w-full px-4 py-2 bg-red-600 hover:bg-red-700 rounded text-white font-semibold transition-colors\"\r\n         >\r\n           Logout\r\n         </button>\r\n       </aside>\r\n"
+                },
+                {
+                    "date": 1751628252789,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n   };\r\n \r\n   return (\r\n     <div className=\"flex\">\r\n-      <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6 flex flex-col justify-between\">\r\n+      <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6 flex flex-col \">\r\n         <div>\r\n           <div className=\"mb-12 text-3xl font-extrabold text-center text-blue-400\">Cashier Panel</div>\r\n           <nav className=\"flex flex-col gap-3\">\r\n             <NavLink to=\"/cashier/users\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Users</NavLink>\r\n"
                 }
             ],
             "date": 1751624788174,
