@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/cashier/UserDetails.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751624958256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751624958256,
+            "name": "Commit-0",
+            "content": "import React, { useEffect, useState } from \"react\";\r\nimport { useParams } from \"react-router-dom\";\r\n\r\nconst API = import.meta.env.VITE_AUTH_API_URL;\r\n\r\nconst CashierUserDetails = () => {\r\n  const { id } = useParams();\r\n  const [user, setUser] = useState(null);\r\n  const token = localStorage.getItem(\"token\");\r\n\r\n  useEffect(() => {\r\n    fetch(`${API}/cashier/users/${id}`, {\r\n      headers: { Authorization: `Bearer ${token}` },\r\n    })\r\n      .then((res) => res.json())\r\n      .then((data) => setUser(data.user));\r\n  }, [id]);\r\n\r\n  if (!user) {\r\n    return <div className=\"text-center py-12 text-xl text-gray-600 animate-pulse\">Loading user details...</div>;\r\n  }\r\n\r\n  return (\r\n    <div className=\"max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-xl mt-8\">\r\n      <h1 className=\"text-3xl font-bold mb-6 text-blue-700 flex items-center gap-2\">\r\n        <span role=\"img\" aria-label=\"user\">👤</span> User Details\r\n      </h1>\r\n      <div className=\"grid grid-cols-1 md:grid-cols-2 gap-6 text-lg\">\r\n        <div className=\"space-y-3\">\r\n          <div><span className=\"font-semibold text-gray-600\">Username:</span> {user.username}</div>\r\n          <div><span className=\"font-semibold text-gray-600\">Email:</span> {user.email}</div>\r\n          <div><span className=\"font-semibold text-gray-600\">First Name:</span> {user.firstName || \"Not provided\"}</div>\r\n          <div><span className=\"font-semibold text-gray-600\">Last Name:</span> {user.lastName || \"Not provided\"}</div>\r\n        </div>\r\n        <div className=\"space-y-3\">\r\n          <div><span className=\"font-semibold text-gray-600\">Date of Birth:</span> {user.dob ? new Date(user.dob).toLocaleDateString() : \"Not provided\"}</div>\r\n          <div><span className=\"font-semibold text-gray-600\">Phone:</span> {user.phone || \"Not provided\"}</div>\r\n          <div><span className=\"font-semibold text-gray-600\">Role:</span> <span className=\"capitalize\">{user.role}</span></div>\r\n          <div>\r\n            <span className=\"font-semibold text-gray-600\">Status:</span>{\" \"}\r\n            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${user.blocked ? \"bg-red-100 text-red-600\" : \"bg-green-100 text-green-600\"}`}>\r\n              {user.blocked ? \"Blocked\" : \"Active\"}\r\n            </span>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  );\r\n};\r\n\r\nexport default CashierUserDetails; "
+        }
+    ]
+}

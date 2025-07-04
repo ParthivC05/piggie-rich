@@ -28,7 +28,7 @@ const LoginPage = () => {
         if (data.user.role === "admin") {
           setTimeout(() => navigate("/admin/dashboard"), 1500);
         } else if (data.user.role === "cashier") {
-          setTimeout(() => navigate("/cashier/dashboard"), 1500);
+          setTimeout(() => navigate("/cashier/users"), 1500);
         } else {
           setTimeout(() => navigate("/"), 1500);
         }

@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/cashier/CashierLayout.jsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1751624788174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1751624788174,
+            "name": "Commit-0",
+            "content": "import React from \"react\";\r\nimport { Outlet, NavLink } from \"react-router-dom\";\r\n\r\nconst CashierLayout = () => (\r\n  <div className=\"flex\">\r\n    <aside className=\"w-64 bg-gray-900 text-white min-h-screen p-6\">\r\n      <div className=\"mb-12 text-3xl font-extrabold text-center text-blue-400\">Cashier Panel</div>\r\n      <nav className=\"flex flex-col gap-3\">\r\n        <NavLink to=\"/cashier/users\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Users</NavLink>\r\n        <NavLink to=\"/cashier/transactions\" className=\"px-4 py-2 rounded hover:bg-gray-700\">Transactions</NavLink>\r\n      </nav>\r\n    </aside>\r\n    <main className=\"flex-1 p-8\">\r\n      <Outlet />\r\n    </main>\r\n  </div>\r\n);\r\n\r\nexport default CashierLayout;"
+        }
+    ]
+}

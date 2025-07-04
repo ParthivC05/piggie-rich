@@ -1,0 +1,22 @@
+{
+    "sourceFile": "backend/routes/CashierRoutes.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1751624599605,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1751624606961,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,1 +1,18 @@\n-req.role !== \"cashier\"\n\\ No newline at end of file\n+// backend/routes/cashierRoutes.js\r\n+const express = require('express');\r\n+const router = express.Router();\r\n+const adminController = require('../controllers/adminController');\r\n+const auth = require('../middleware/auth');\r\n+\r\n+const cashierAuth = (req, res, next) => {\r\n+  if (req.role !== \"cashier\") {\r\n+    return res.status(403).json({ error: \"Access denied. Cashiers only.\" });\r\n+  }\r\n+  next();\r\n+};\r\n+\r\n+router.get('/cashier/users', auth, cashierAuth, adminController.getAllUsers);\r\n+router.get('/cashier/users/:id', auth, cashierAuth, adminController.getUserById);\r\n+router.get('/cashier/deposits', auth, cashierAuth, adminController.getDeposits);\r\n+\r\n+module.exports = router;\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1751624599605,
+            "name": "Commit-0",
+            "content": "req.role !== \"cashier\""
+        }
+    ]
+}

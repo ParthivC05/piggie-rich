@@ -29,6 +29,11 @@ import Transactions from "./admin/pages/Transaction";
 import CMS from "./admin/pages/CMS";
 import AccessControl from "./admin/pages/AccessControl";
 
+import CashierLayout from "./cashier/CashierLayout";
+import CashierUserList from "./cashier/UserList";
+import CashierUserDetails from "./cashier/UserDetails";
+import CashierTransactions from "./cashier/Transactions";
+
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const location = useLocation();
@@ -199,7 +204,11 @@ function AppContent() {
           }
         />
 
-        
+        <Route path="/cashier" element={<CashierLayout />}>
+          <Route path="users" element={<CashierUserList />} />
+          <Route path="users/:id" element={<CashierUserDetails />} />
+          <Route path="transactions" element={<CashierTransactions />} />
+        </Route>
 
       </Routes>
 

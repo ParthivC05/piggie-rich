@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 13,
             "patches": [
                 {
                     "date": 1751355699691,
@@ -56,6 +56,10 @@
                 {
                     "date": 1751455601451,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n       });\r\n       const data = await res.json();\r\n       if (res.ok) {\r\n         localStorage.setItem(\"token\", data.token);\r\n-        localStorage.setItem(\"role\", data.user.role); // Save role for later use\r\n+        localStorage.setItem(\"role\", data.user.role); \r\n         toast.success(\"Login successful!\");\r\n         // Redirect based on role\r\n         if (data.user.role === \"admin\") {\r\n           setTimeout(() => navigate(\"/admin/dashboard\"), 1500);\r\n"
+                },
+                {
+                    "date": 1751625245932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,13 +24,12 @@\n       if (res.ok) {\r\n         localStorage.setItem(\"token\", data.token);\r\n         localStorage.setItem(\"role\", data.user.role); \r\n         toast.success(\"Login successful!\");\r\n-        // Redirect based on role\r\n         if (data.user.role === \"admin\") {\r\n           setTimeout(() => navigate(\"/admin/dashboard\"), 1500);\r\n         } else if (data.user.role === \"cashier\") {\r\n-          setTimeout(() => navigate(\"/cashier/dashboard\"), 1500);\r\n+          setTimeout(() => navigate(\"/cashier/users\"), 1500);\r\n         } else {\r\n           setTimeout(() => navigate(\"/\"), 1500);\r\n         }\r\n       } else {\r\n"
                 }
             ],
             "date": 1751355699691,
