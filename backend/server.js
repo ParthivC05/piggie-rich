@@ -15,6 +15,7 @@ app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/depositRoutes'));
 app.use('/api', require('./routes/adminRoutes'));
 app.use('/api', require('./routes/CashierRoutes'));
+app.use('/api', require('./routes/PublicRoutes'));
 require('./models/Transaction'); 
 require('./models/CMS'); 
 
