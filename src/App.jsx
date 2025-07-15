@@ -12,6 +12,8 @@ import HomePage from "./pages/HomePage";
 import GameRoomPage from "./pages/GameRoomPage";
 import DepositPage from "./pages/DepositPage";
 import LoginPage from "./pages/LoginPage";
+import ForgotPage from "./pages/ForgotPass";
+import ResetPassPage from "./pages/ResetPass"
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect, useState } from "react";
 import ChatSidebar from "./pages/ChatSidebar";
@@ -20,6 +22,7 @@ import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+
 
 // --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
@@ -152,6 +155,8 @@ function AppContent() {
           }
         />
         <Route path="/login" element={<LoginPage />} />
+         <Route path="/forgotPass" element={<ForgotPage />} />
+          <Route path="/resetPassword" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
         {/* Protected Routes - Login Required */}
