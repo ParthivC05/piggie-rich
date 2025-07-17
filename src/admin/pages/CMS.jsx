@@ -31,15 +31,13 @@ const CMS = () => {
 
   return (
     <AdminLayout>
-      <div className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl p-6 mb-8 shadow-inner">
-        <h1 className="text-3xl font-extrabold text-purple-800">CMS Management</h1>
-      </div>
-
-      <div className="space-y-8">
-        <div>
-          <h2 className="font-bold mb-2 text-lg text-gray-700">Privacy Policy</h2>
+      <div className="sm:p-6 bg-white rounded-xl shadow-md">
+        <div className="">
+          <label className="block font-semibold text-gray-800 mb-2">
+            Privacy Policy
+          </label>
           <textarea
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-yellow-400 resize-none"
             rows={8}
             value={privacy}
             onChange={(e) => setPrivacy(e.target.value)}
@@ -47,10 +45,12 @@ const CMS = () => {
           />
         </div>
 
-        <div>
-          <h2 className="font-bold mb-2 text-lg text-gray-700">Terms & Conditions</h2>
+        <div className="mb-6">
+          <label className="block font-semibold text-gray-800 mb-2">
+            Terms & Conditions
+          </label>
           <textarea
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-yellow-400 resize-none"
             rows={8}
             value={terms}
             onChange={(e) => setTerms(e.target.value)}
@@ -60,7 +60,7 @@ const CMS = () => {
 
         <div className="flex justify-end">
           <button
-            className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-2 rounded-lg transition shadow-md"
+            className="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2 rounded-md"
             onClick={handleSave}
           >
             Save Changes

@@ -1,67 +1,249 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  FaEye,
+  FaEdit,
+  FaTrash,
+  FaSearch,
+  FaChevronRight,
+  FaChevronLeft,
+} from "react-icons/fa";
+import { Link } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
+import ConfirmModal from "../components/ConfirmModal";
 
-const UserList = () => {
-  const [users, setUsers] = useState([]);
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
+const UserTable = () => {
+  const [users, setUsers] = useState([
+    {
+      username: "john_doe",
+      email: "john@example.com",
+      role: "Admin",
+      status: "Active",
+    },
+    {
+      username: "jane_smith",
+      email: "jane@example.com",
+      role: "User",
+      status: "Inactive",
+    },
+    {
+      username: "alex_wong",
+      email: "alex@example.com",
+      role: "Moderator",
+      status: "Active",
+    },
+  ]);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((res) => res.json())
-      .then((data) => setUsers(data.users || []));
-  }, []);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [showModal, setShowModal] = useState(false);
+
+  const filteredUsers = users.filter((user) =>
+    `${user.username} ${user.email} ${user.role} ${user.status}`
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = Math.min(startIndex + rowsPerPage, filteredUsers.length);
+  const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const handleRowsChange = (e) => {
+    setRowsPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
+  const handleToggle = (index) => {
+    const updatedUsers = [...users];
+    updatedUsers[index].status =
+      updatedUsers[index].status === "Active" ? "Inactive" : "Active";
+    setUsers(updatedUsers);
+  };
+
+  const handleDelete = () => {
+    console.log("Item deleted");
+    setShowModal(false);
+  };
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Users</h1>
+      <div className="p-4 sm:p-6 bg-white rounded-xl shadow-md overflow-x-auto">
+        {/* Top Controls */}
+        <div className="flex flex-col md:flex-row justify-between gap-4 mb-4">
+          <p className="text-sm md:text-base">
+            {filteredUsers.length} Records Found
+          </p>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-          <thead>
-            <tr className="bg-gray-100 text-gray-700 text-left">
-              <th className="px-4 py-3">Username</th>
-              <th className="px-4 py-3">Email</th>
-              <th className="px-4 py-3">Role</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((u, idx) => (
-              <tr key={u._id} className={idx % 2 === 0 ? "bg-gray-50" : ""}>
-                <td className="px-4 py-2">{u.username}</td>
-                <td className="px-4 py-2">{u.email}</td>
-                <td className="px-4 py-2 capitalize">{u.role}</td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                      u.blocked
-                        ? "bg-red-100 text-red-600"
-                        : "bg-green-100 text-green-600"
-                    }`}
-                  >
-                    {u.blocked ? "Blocked" : "Active"}
-                  </span>
-                </td>
-                <td className="px-4 py-2">
-                  <button
-                    onClick={() => navigate(`/admin/users/${u._id}`)}
-                    className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-                  >
-                    View
-                  </button>
-                </td>
+          <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center justify-end">
+            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden w-full sm:w-auto">
+              <input
+                type="text"
+                placeholder="Search by username, email, role or status"
+                className="px-4 py-2 outline-none w-full sm:w-64"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  setCurrentPage(1);
+                }}
+              />
+              <FaSearch className="text-gray-500 mx-2" />
+            </div>
+            <img
+              src="/filter.png"
+              alt="Filter"
+              className="w-10 h-10 cursor-pointer"
+            />
+          </div>
+        </div>
+
+        {/* Table */}
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-sm border-separate border-spacing-y-2">
+            <thead className="bg-gray-100 text-gray-700 text-left">
+              <tr>
+                <th className="px-4 py-2">USERNAME ↓</th>
+                <th className="px-4 py-2">EMAIL ↓</th>
+                <th className="px-4 py-2">ROLE ↓</th>
+                <th className="px-4 py-2">STATUS ↓</th>
+                <th className="px-4 py-2">TOGGLE</th>
+                <th className="px-4 py-2">ACTIONS ↓</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedUsers.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center py-4 text-red-500">
+                    No users match your search.
+                  </td>
+                </tr>
+              ) : (
+                paginatedUsers.map((user, index) => (
+                  <tr key={index} className="bg-white shadow rounded-lg">
+                    <td className="px-4 py-2 font-medium">{user.username}</td>
+                    <td className="px-4 py-2">{user.email}</td>
+                    <td className="px-4 py-2">{user.role}</td>
+                    <td className="px-4 py-2">
+                      <span
+                        className={`font-semibold ${
+                          user.status === "Active"
+                            ? "text-green-600"
+                            : "text-red-600"
+                        }`}
+                      >
+                        {user.status}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2">
+                      <button
+                        onClick={() => handleToggle(index)}
+                        className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${
+                          user.status === "Active"
+                            ? "bg-green-500"
+                            : "bg-gray-300"
+                        }`}
+                      >
+                        <div
+                          className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform duration-300 ${
+                            user.status === "Active"
+                              ? "translate-x-6"
+                              : "translate-x-0"
+                          }`}
+                        ></div>
+                      </button>
+                    </td>
+                    <td className="px-4 py-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
+                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded">
+                          <FaEye />
+                        </button>
+                        <Link to="edituser">
+                          <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">
+                            <FaEdit />
+                          </button>
+                        </Link>
+                        <button
+                          onClick={() => setShowModal(true)}
+                          className="bg-red-500 hover:bg-red-600 text-white p-2 rounded"
+                        >
+                          <FaTrash />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Pagination */}
+        <div className="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
+          <div className="flex gap-2 items-center">
+            <label htmlFor="rows">Show rows:</label>
+            <select
+              id="rows"
+              value={rowsPerPage}
+              onChange={handleRowsChange}
+              className="border border-gray-300 rounded px-2 py-1"
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <label htmlFor="page">Go to:</label>
+            <input
+              type="number"
+              id="page"
+              min="1"
+              max={totalPages}
+              value={currentPage}
+              onChange={(e) => goToPage(Number(e.target.value))}
+              className="w-14 h-10 text-center font-semibold text-yellow-600 rounded-lg bg-yellow-50 focus:outline-none border"
+            />
+            <span className="text-sm">
+              {startIndex + 1} - {endIndex} of {filteredUsers.length}
+            </span>
+
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="w-10 h-10 border rounded-lg flex items-center justify-center disabled:opacity-50"
+            >
+              <FaChevronLeft className="text-gray-700" />
+            </button>
+
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="w-10 h-10 border rounded-lg flex items-center justify-center disabled:opacity-50"
+            >
+              <FaChevronRight className="text-gray-700" />
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Modal */}
+      <ConfirmModal
+        isOpen={showModal}
+        onCancel={() => setShowModal(false)}
+        onConfirm={handleDelete}
+        message="You want to delete this user?"
+        confirmLabel="Delete"
+        type="delete"
+      />
     </AdminLayout>
   );
 };
 
-export default UserList;
+export default UserTable;

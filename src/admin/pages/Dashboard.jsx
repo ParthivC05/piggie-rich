@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import { FaUsers, FaLock, FaUserShield, FaCashRegister, FaMoneyBillWave, FaChartLine } from "react-icons/fa";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -19,75 +18,100 @@ const AdminDashboard = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('Dashboard stats received:', data);
+        console.log("Dashboard stats received:", data);
         setStats(data);
       })
       .catch((error) => {
-        console.error('Error fetching dashboard stats:', error);
+        console.error("Error fetching dashboard stats:", error);
       });
   }, []);
 
-  const formatCurrency = (amount) => {
-    return new Intl.NumberFormat("en-US", {
+  const formatCurrency = (amount) =>
+    new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
     }).format(amount);
-  };
 
   const statCards = [
     {
-      label: "Total Users",
+      label: "Total User",
       value: stats.userCount,
-      icon: <FaUsers className="text-3xl text-blue-500" />,
-      bg: "from-blue-100 to-blue-200",
+      icon: <img src="/users.png" className="w-10 h-10" alt="Users" />,
+      bg: "bg-white border-l-2 border-[#4a55a2]",
     },
     {
-      label: "Blocked Users",
+      label: "Blocked User",
       value: stats.blockedCount,
-      icon: <FaLock className="text-3xl text-red-500" />,
-      bg: "from-red-100 to-red-200",
+      icon: <img src="/blocked.png" className="w-10 h-10" alt="Blocked" />,
+      bg: "bg-white border-l-2 border-[#f87171]",
     },
     {
       label: "Cashiers",
       value: stats.cashierCount,
-      icon: <FaCashRegister className="text-3xl text-purple-500" />,
-      bg: "from-purple-100 to-purple-200",
+      icon: <img src="/cashier.png" className="w-10 h-10" alt="Cashier" />,
+      bg: "bg-white border-l-2 border-[#39A1EA]",
     },
     {
       label: "Admins",
       value: stats.adminCount,
-      icon: <FaUserShield className="text-3xl text-indigo-500" />,
-      bg: "from-indigo-100 to-indigo-200",
+      icon: (
+        <div
+          className="w-[35px] h-[35px] p-2 rounded-[8px] border-2 flex items-center justify-center"
+          style={{ borderColor: "#FFFFFF", backgroundColor: "#fbbf24" }}
+        >
+          <img
+            src="/admin.png"
+            alt="Admin"
+            className="w-full h-full object-contain"
+          />
+        </div>
+      ),
+      bg: "bg-white border-l-2 border-[#fbbf24]",
+      borderColor: "#fbbf24",
     },
     {
       label: "Total Deposits",
-      value: formatCurrency(stats.totalDeposits),
-      icon: <FaMoneyBillWave className="text-3xl text-green-500" />,
-      bg: "from-green-100 to-green-200",
+      value: stats.totalDeposits,
+      icon: <img src="/deposits.png" className="w-10 h-10" alt="Deposits" />,
+      bg: "bg-white border-l-2 border-[#CD2790]",
     },
     {
       label: "Total Transactions",
       value: stats.depositCount,
-      icon: <FaChartLine className="text-3xl text-teal-500" />,
-      bg: "from-teal-100 to-teal-200",
+      icon: (
+        <div
+          className="w-[40px] h-[40px] p-2 rounded-[8px] border-2 flex items-center justify-center"
+          style={{ borderColor: "#FFFFFF", backgroundColor: "#058003" }}
+        >
+          <img
+            src="/transactions.png"
+            className="w-10 h-10"
+            alt="Transactions"
+          />
+        </div>
+      ),
+      bg: "bg-white border-l-2 border-[#058003]",
     },
   ];
 
   return (
     <AdminLayout>
-      <h1 className="text-3xl font-bold mb-8 text-gray-800">Admin Dashboard</h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {statCards.map((stat) => (
+      <div className="flex flex-wrap gap-4 px-4">
+        {statCards.map((stat, idx) => (
           <div
-            key={stat.label}
-            className={`p-6 rounded-xl shadow-md bg-gradient-to-br ${stat.bg} hover:scale-[1.02] transition-transform duration-200`}
+            key={idx}
+            className={`flex items-center ${stat.bg} rounded-[12px] shadow-sm px-4 py-4 w-[260.5px] h-[88px] gap-4`}
           >
-            <div className="flex items-center justify-between mb-4">
-              <div className="text-lg font-semibold text-gray-700">{stat.label}</div>
-              {stat.icon}
+            <div className="shrink-0">{stat.icon}</div>
+            <div>
+              <div className="text-sm font-medium text-gray-500">
+                {stat.label}
+              </div>
+              <div className="text-xl font-bold text-gray-900">
+                {stat.value}
+              </div>
             </div>
-            <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
           </div>
         ))}
       </div>

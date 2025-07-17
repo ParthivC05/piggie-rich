@@ -5,15 +5,15 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import GameRoomPage from "./pages/GameRoomPage";
 import DepositPage from "./pages/DepositPage";
 import LoginPage from "./pages/LoginPage";
 import ForgotPage from "./pages/ForgotPass";
-import ResetPassPage from "./pages/ResetPass"
+import ResetPassPage from "./pages/ResetPass";
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect, useState } from "react";
 import ChatSidebar from "./pages/ChatSidebar";
@@ -22,7 +22,6 @@ import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-
 
 // --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
@@ -36,6 +35,7 @@ import CashierLayout from "./cashier/CashierLayout";
 import CashierUserList from "./cashier/UserList";
 import CashierUserDetails from "./cashier/CashierUserDetails";
 import CashierTransactions from "./cashier/Transactions";
+import EditUser from "./admin/pages/editUser";
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -47,9 +47,11 @@ function AppContent() {
 
   useEffect(() => {
     // Don't load chat in admin panel, login, or register pages
-    const noChatPages = ['/admin', '/login', '/register'];
-    const shouldLoadChat = !noChatPages.some(page => location.pathname.startsWith(page));
-    
+    const noChatPages = ["/admin", "/login", "/register"];
+    const shouldLoadChat = !noChatPages.some((page) =>
+      location.pathname.startsWith(page)
+    );
+
     let script = null;
 
     if (shouldLoadChat) {
@@ -89,7 +91,9 @@ function AppContent() {
           script.parentNode.removeChild(script);
         } catch (error) {
           // Script might have been removed by another effect or doesn't exist
-          console.log("Script cleanup: Script already removed or doesn't exist");
+          console.log(
+            "Script cleanup: Script already removed or doesn't exist"
+          );
         }
       }
     };
@@ -113,12 +117,16 @@ function AppContent() {
     location.pathname === "/privacy";
 
   // Don't show chat on admin, login, or register pages
-  const noChatPages = ['/admin', '/login', '/register'];
-  const shouldShowChat = !noChatPages.some(page => location.pathname.startsWith(page));
+  const noChatPages = ["/admin", "/login", "/register"];
+  const shouldShowChat = !noChatPages.some((page) =>
+    location.pathname.startsWith(page)
+  );
 
   return (
     <div className="relative">
-      {showNavbar && <Navbar toggleChatSidebar={shouldShowChat ? toggleChatSidebar : null} />}
+      {showNavbar && (
+        <Navbar toggleChatSidebar={shouldShowChat ? toggleChatSidebar : null} />
+      )}
 
       <Routes>
         {/* Public Routes - Wrapped in ProtectedRoute */}
@@ -155,10 +163,10 @@ function AppContent() {
           }
         />
         <Route path="/login" element={<LoginPage />} />
-         <Route path="/forgotPass" element={<ForgotPage />} />
-          <Route path="/resetPassword" element={<ResetPassPage />} />
+        <Route path="/forgotPass" element={<ForgotPage />} />
+        <Route path="/resetPassword" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        
+
         {/* Protected Routes - Login Required */}
         <Route
           path="/deposit"
@@ -177,7 +185,6 @@ function AppContent() {
           }
         />
 
-       
         <Route
           path="/admin/dashboard"
           element={
@@ -199,6 +206,22 @@ function AppContent() {
           element={
             <ProtectedRoute>
               <UserList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/details"
+          element={
+            <ProtectedRoute>
+              <UserList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/users/edituser"
+          element={
+            <ProtectedRoute>
+              <EditUser />
             </ProtectedRoute>
           }
         />
@@ -242,12 +265,10 @@ function AppContent() {
           <Route path="users/:id" element={<CashierUserDetails />} />
           <Route path="transactions" element={<CashierTransactions />} />
         </Route>
-
       </Routes>
 
       {showFooter && <Footer />}
 
-    
       {shouldShowChat && isChatOpen && (
         <ChatSidebar onClose={() => setIsChatOpen(false)} />
       )}
