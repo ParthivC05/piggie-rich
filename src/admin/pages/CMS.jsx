@@ -4,6 +4,9 @@ import AdminLayout from "../components/AdminLayout";
 const CMS = () => {
   const [privacy, setPrivacy] = useState("");
   const [terms, setTerms] = useState("");
+  const [initialPrivacy, setInitialPrivacy] = useState("");
+  const [initialTerms, setInitialTerms] = useState("");
+
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -14,6 +17,8 @@ const CMS = () => {
       .then((data) => {
         setPrivacy(data.privacy || "");
         setTerms(data.terms || "");
+        setInitialPrivacy(data.privacy || "");
+        setInitialTerms(data.terms || "");
       });
   }, []);
 
@@ -27,12 +32,20 @@ const CMS = () => {
       body: JSON.stringify({ privacy, terms }),
     });
     alert("Content updated!");
+    // update initial values after save
+    setInitialPrivacy(privacy);
+    setInitialTerms(terms);
+  };
+
+  const handleCancel = () => {
+    setPrivacy(initialPrivacy);
+    setTerms(initialTerms);
   };
 
   return (
     <AdminLayout>
       <div className="sm:p-6 bg-white rounded-xl shadow-md">
-        <div className="">
+        <div className="mb-6">
           <label className="block font-semibold text-gray-800 mb-2">
             Privacy Policy
           </label>
@@ -58,7 +71,13 @@ const CMS = () => {
           />
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-4">
+          <button
+            className="bg-gray-200 hover:bg-gray-300 text-black px-6 py-2 rounded-md"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
           <button
             className="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-2 rounded-md"
             onClick={handleSave}

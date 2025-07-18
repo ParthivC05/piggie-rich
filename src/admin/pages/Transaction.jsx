@@ -313,11 +313,9 @@ const Transactions = () => {
         </div>
       </div>
 
-      {/* Modal remains unchanged from your original code. You can reuse it here */}
       {showModal && selectedDeposit && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          {/* Modal Content */}
-          {/* Reuse your modal JSX block here as is */}
+     
         </div>
       )}
     </AdminLayout>
