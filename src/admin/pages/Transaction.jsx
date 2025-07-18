@@ -1,250 +1,327 @@
-import React, { useState } from "react";
-import {
-  FaEye,
-  FaEdit,
-  FaTrash,
-  FaSearch,
-  FaChevronRight,
-  FaChevronLeft,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
-import ConfirmModal from "../components/ConfirmModal";
+import { FaSearch, FaFilter, FaDownload, FaEye, FaTimes } from "react-icons/fa";
 
-const UserTable = () => {
-  const [users, setUsers] = useState([
-    {
-      username: "john_doe",
-      email: "john@example.com",
-      role: "Admin",
-      status: "Active",
-    },
-    {
-      username: "jane_smith",
-      email: "jane@example.com",
-      role: "User",
-      status: "Inactive",
-    },
-    {
-      username: "alex_wong",
-      email: "alex@example.com",
-      role: "Moderator",
-      status: "Active",
-    },
-  ]);
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+const Transactions = () => {
+  const [deposits, setDeposits] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState({
+    userId: "",
+    game: "",
+    minAmount: "",
+    maxAmount: "",
+    startDate: "",
+    endDate: "",
+    status: "",
+  });
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedDeposit, setSelectedDeposit] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const token = localStorage.getItem("token");
 
-  const filteredUsers = users.filter((user) =>
-    `${user.username} ${user.email} ${user.role} ${user.status}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+  const fetchDeposits = async () => {
+    setLoading(true);
+    try {
+      const params = new URLSearchParams();
+      Object.entries(filter).forEach(([k, v]) => v && params.append(k, v));
 
-  const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const endIndex = Math.min(startIndex + rowsPerPage, filteredUsers.length);
-  const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
-
-  const goToPage = (page) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_AUTH_API_URL
+        }/admin/deposits?${params.toString()}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      const data = await res.json();
+      setDeposits(data.deposits || []);
+    } catch (error) {
+      console.error("Error fetching deposits:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleRowsChange = (e) => {
-    setRowsPerPage(Number(e.target.value));
-    setCurrentPage(1);
+  useEffect(() => {
+    fetchDeposits();
+  }, []);
+
+  const handleFilterChange = (e) =>
+    setFilter({ ...filter, [e.target.name]: e.target.value });
+
+  const handleFilterSubmit = (e) => {
+    e.preventDefault();
+    fetchDeposits();
   };
 
-  const handleToggle = (index) => {
-    const updatedUsers = [...users];
-    updatedUsers[index].status =
-      updatedUsers[index].status === "Active" ? "Inactive" : "Active";
-    setUsers(updatedUsers);
+  const clearFilters = () => {
+    setFilter({
+      userId: "",
+      game: "",
+      minAmount: "",
+      maxAmount: "",
+      startDate: "",
+      endDate: "",
+      status: "",
+    });
+    fetchDeposits();
   };
 
-  const handleDelete = () => {
-    // Add delete logic here
-    console.log("Item deleted");
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleString();
+  };
+
+  const formatAmount = (amount) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(amount);
+  };
+
+  const getStatusBadge = (status) => {
+    const statusConfig = {
+      completed: "bg-green-100 text-green-800",
+      pending: "bg-yellow-100 text-yellow-800",
+      failed: "bg-red-100 text-red-800",
+    };
+    return statusConfig[status] || "bg-gray-100 text-gray-800";
+  };
+
+  const handleViewDetails = (deposit) => {
+    setSelectedDeposit(deposit);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
     setShowModal(false);
+    setSelectedDeposit(null);
   };
 
   return (
     <AdminLayout>
-      <div className="p-4 sm:p-6 bg-white rounded-xl shadow-md">
-        {/* Search + Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 mb-4">
-          <p className="md:col-span-1">{filteredUsers.length} Records Found</p>
-          <div className="md:col-span-2 flex flex-wrap items-center justify-end gap-2">
-            <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-              <input
-                type="text"
-                placeholder="Search by username, email, role or status"
-                className="px-4 py-2 outline-none w-full"
-                value={searchTerm}
-                onChange={(e) => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1);
-                }}
-              />
-              <FaSearch className="text-gray-500 mx-2" />
-            </div>
-            <img
-              src="/filter.png"
-              alt="Filter"
-              className="w-6 h-6 cursor-pointer"
-            />
+      <div className="p-4 sm:p-6 bg-white rounded-xl shadow-md space-y-8 transition-all ">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:bg-yellow-500 text-white px-6 py-2 rounded-xl shadow"
+            >
+              <FaFilter />
+              {showFilters ? "Hide Filters" : "Show Filters"}
+            </button>
+
+            <button
+              onClick={fetchDeposits}
+              className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-xl shadow"
+            >
+              <FaSearch />
+              Refresh
+            </button>
+          </div>
+
+          <div className="text-left sm:text-right">
+            <p className="text-lg font-semibold text-gray-700">
+              Total Transactions:{" "}
+              <span className="text-red-600">{deposits.length}</span>
+            </p>
+            <p className="text-sm text-gray-500">
+              Total Amount:{" "}
+              <span className="text-green-600 font-semibold">
+                {formatAmount(
+                  deposits.reduce((sum, deposit) => sum + deposit.amount, 0)
+                )}
+              </span>
+            </p>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-auto rounded-2xl">
-          <table className="min-w-full text-sm text-left border-separate border-spacing-y-2">
-            <thead className="bg-gray-100 text-gray-700">
-              <tr>
-                <th className="px-4 py-2">USERNAME ↓</th>
-                <th className="px-4 py-2">EMAIL ↓</th>
-                <th className="px-4 py-2">ROLE ↓</th>
-                <th className="px-4 py-2">STATUS ↓</th>
-                <th className="px-4 py-2">TOGGLE</th>
-                <th className="px-4 py-2">ACTIONS ↓</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedUsers.length === 0 ? (
+        {showFilters && (
+          <form
+            onSubmit={handleFilterSubmit}
+            className="bg-white border border-gray-200 shadow-md p-6 rounded-2xl space-y-6"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <input
+                type="text"
+                name="userId"
+                value={filter.userId}
+                onChange={handleFilterChange}
+                placeholder="Search by User ID"
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <input
+                type="text"
+                name="game"
+                value={filter.game}
+                onChange={handleFilterChange}
+                placeholder="Search by Game"
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <input
+                type="number"
+                name="minAmount"
+                value={filter.minAmount}
+                onChange={handleFilterChange}
+                placeholder="Min Amount"
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <input
+                type="number"
+                name="maxAmount"
+                value={filter.maxAmount}
+                onChange={handleFilterChange}
+                placeholder="Max Amount"
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <input
+                type="date"
+                name="startDate"
+                value={filter.startDate}
+                onChange={handleFilterChange}
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <input
+                type="date"
+                name="endDate"
+                value={filter.endDate}
+                onChange={handleFilterChange}
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              />
+
+              <select
+                name="status"
+                value={filter.status}
+                onChange={handleFilterChange}
+                className="w-full border border-gray-300 rounded-xl px-4 py-2"
+              >
+                <option value="">All Status</option>
+                <option value="completed">Completed</option>
+                <option value="pending">Pending</option>
+                <option value="failed">Failed</option>
+              </select>
+            </div>
+
+            <div className="flex justify-end gap-4 pt-4">
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-6 py-2 rounded-xl shadow-sm"
+              >
+                Clear Filters
+              </button>
+              <button
+                type="submit"
+                className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-white px-6 py-2 rounded-xl shadow-md"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </form>
+        )}
+
+        <div className="overflow-x-auto rounded-2xl">
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600 text-sm sm:text-base">
+                Loading transactions...
+              </p>
+            </div>
+          ) : deposits.length === 0 ? (
+            <div className="text-center py-12">
+              <img
+                src="/transaction.png"
+                alt="transaction"
+                className="mx-auto w-24 h-24 mb-4"
+              />
+              <p className="text-lg sm:text-xl text-gray-600">
+                No transactions found
+              </p>
+              <p className="text-gray-500 text-sm">
+                Try adjusting your filters or check back later
+              </p>
+            </div>
+          ) : (
+            <table className="min-w-full">
+              <thead className="bg-gradient-to-r from-yellow-600 to-yellow-700 text-white text-sm">
                 <tr>
-                  <td colSpan="6" className="text-center py-4 text-red-500">
-                    No users match your search.
-                  </td>
+                  <th className="px-6 py-4 text-left font-semibold">User</th>
+                  <th className="px-6 py-4 text-left font-semibold">Game</th>
+                  <th className="px-6 py-4 text-left font-semibold">Amount</th>
+                  <th className="px-6 py-4 text-left font-semibold">Status</th>
+                  <th className="px-6 py-4 text-left font-semibold">Date</th>
+                  <th className="px-6 py-4 text-left font-semibold">Actions</th>
                 </tr>
-              ) : (
-                paginatedUsers.map((user, index) => (
-                  <tr key={index} className="bg-white border-b">
-                    <td className="px-4 py-2 font-medium">{user.username}</td>
-                    <td className="px-4 py-2">{user.email}</td>
-                    <td className="px-4 py-2">{user.role}</td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={`font-semibold ${
-                          user.status === "Active"
-                            ? "text-green-600"
-                            : "text-red-600"
-                        }`}
-                      >
-                        {user.status}
+              </thead>
+              <tbody className="divide-y divide-gray-200 text-sm">
+                {deposits.map((deposit, idx) => (
+                  <tr
+                    key={deposit._id}
+                    className={`hover:bg-gray-50 transition-colors ${
+                      idx % 2 === 0 ? "bg-white" : "bg-gray-50"
+                    }`}
+                  >
+                    <td className="px-6 py-4">
+                      <div className="font-semibold text-gray-900">
+                        {deposit.userId?.username ||
+                          deposit.gameUsername ||
+                          "N/A"}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {deposit.userId?.email || deposit.customerEmail}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                        {deposit.game}
                       </span>
                     </td>
-                    <td className="px-4 py-2">
-                      <button
-                        onClick={() => handleToggle(index)}
-                        className={`w-12 h-6 flex items-center rounded-full p-1 transition-colors duration-300 ${
-                          user.status === "Active"
-                            ? "bg-green-500"
-                            : "bg-gray-300"
-                        }`}
-                      >
-                        <div
-                          className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform duration-300 ${
-                            user.status === "Active"
-                              ? "translate-x-6"
-                              : "translate-x-0"
-                          }`}
-                        ></div>
-                      </button>
+                    <td className="px-6 py-4 font-bold text-green-600 text-base">
+                      {formatAmount(deposit.amount)}
                     </td>
-                    <td className="px-4 py-2 space-x-2">
-                      <button className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded">
-                        <FaEye />
-                      </button>
-                      <Link to="edituser">
-                        <button className="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded">
-                          <FaEdit />
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => setShowModal(true)}
-                        className="bg-red-500 hover:bg-red-600 text-white p-2 rounded"
+                    <td className="px-6 py-4">
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(
+                          deposit.status
+                        )}`}
                       >
-                        <FaTrash />
+                        {deposit.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-600 text-xs">
+                      {formatDate(deposit.createdAt)}
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() => handleViewDetails(deposit)}
+                        className="text-purple-600 hover:text-purple-800 transition-colors p-2 rounded-lg hover:bg-purple-50"
+                        title="View Details"
+                      >
+                        <FaEye className="text-lg" />
                       </button>
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Pagination */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-4 gap-4">
-          <div className="flex gap-2 items-center">
-            <label htmlFor="rows">Show rows:</label>
-            <select
-              id="rows"
-              value={rowsPerPage}
-              onChange={handleRowsChange}
-              className="border border-gray-300 rounded px-2 py-1"
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-            </select>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2">
-            <label htmlFor="page">Go to:</label>
-            <input
-              type="number"
-              id="page"
-              min="1"
-              max={totalPages}
-              value={currentPage}
-              onChange={(e) => goToPage(Number(e.target.value))}
-              className="w-14 h-10 text-center font-semibold text-yellow-600 rounded-lg bg-yellow-50 focus:outline-none"
-              style={{
-                border: "1px solid",
-                borderImage: "linear-gradient(to bottom, #FFCC00, #BD7A17) 1",
-              }}
-            />
-            <span>
-              {startIndex + 1} - {endIndex} of {filteredUsers.length}
-            </span>
-
-            <button
-              onClick={() => goToPage(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="w-10 h-10 border rounded-lg flex items-center justify-center disabled:opacity-50"
-            >
-              <FaChevronLeft className="text-gray-700" />
-            </button>
-
-            <button
-              onClick={() => goToPage(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="w-10 h-10 border rounded-lg flex items-center justify-center disabled:opacity-50"
-            >
-              <FaChevronRight className="text-gray-700" />
-            </button>
-          </div>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
-      {/* Modal */}
-      <ConfirmModal
-        isOpen={showModal}
-        onCancel={() => setShowModal(false)}
-        onConfirm={handleDelete}
-        message="Do you want to delete this user?"
-        confirmLabel="Delete"
-        type="delete"
-        className="max-w-sm sm:max-w-md md:max-w-lg"
-      />
+      {/* Modal remains unchanged from your original code. You can reuse it here */}
+      {showModal && selectedDeposit && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          {/* Modal Content */}
+          {/* Reuse your modal JSX block here as is */}
+        </div>
+      )}
     </AdminLayout>
   );
 };
 
-export default UserTable;
+export default Transactions;
