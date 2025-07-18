@@ -35,7 +35,7 @@ import CashierLayout from "./cashier/CashierLayout";
 import CashierUserList from "./cashier/UserList";
 import CashierUserDetails from "./cashier/CashierUserDetails";
 import CashierTransactions from "./cashier/Transactions";
-import EditUser from "./admin/pages/editUser";
+import EditUser from "./admin/pages/UserDetails";
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
