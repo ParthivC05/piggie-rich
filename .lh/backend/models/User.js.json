@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1751452022120,
@@ -20,6 +20,10 @@
                 {
                     "date": 1751627594406,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,8 @@\n   lastName: String,\r\n   email: { type: String, unique: true },\r\n   phone: String,\r\n   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n-  blocked: { type: Boolean, default: false }\r\n-}, { timestamps: true });\r\n+  blocked: { type: Boolean, default: false } // <-- add this line\r\n+});\r\n \r\n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1753334129424,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,8 @@\n   lastName: String,\r\n   email: { type: String, unique: true },\r\n   phone: String,\r\n   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n-  blocked: { type: Boolean, default: false } // <-- add this line\r\n+  blocked: { type: Boolean, default: false } \r\n });\r\n \r\n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751452022120,

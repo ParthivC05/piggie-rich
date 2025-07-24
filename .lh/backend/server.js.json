@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 28,
+            "activePatchIndex": 29,
             "patches": [
                 {
                     "date": 1751362656160,
@@ -120,6 +120,10 @@
                 {
                     "date": 1751631279675,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n app.use('/api', require('./routes/userRoutes'));\r\n app.use('/api', require('./routes/depositRoutes'));\r\n app.use('/api', require('./routes/adminRoutes'));\r\n app.use('/api', require('./routes/CashierRoutes'));\r\n-app.use('/api', require('./routes/publicRoutes'));\r\n+app.use('/api', require('./routes'));\r\n require('./models/Transaction'); \r\n require('./models/CMS'); \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1753335103976,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,18 +6,31 @@\n const app = express();\r\n app.use(cors());\r\n app.use(express.json());\r\n \r\n-mongoose.connect(process.env.MONGO_URI);\r\n+// MongoDB connection with logging\r\n+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });\r\n \r\n+mongoose.connection.on('connected', () => {\r\n+  console.log('MongoDB connected successfully');\r\n+});\r\n+mongoose.connection.on('error', (err) => {\r\n+  console.error('MongoDB connection error:', err);\r\n+});\r\n+\r\n // Routes\r\n app.use('/api', require('./routes/authRoutes'));\r\n app.use('/api', require('./routes/userRoutes'));\r\n app.use('/api', require('./routes/depositRoutes'));\r\n app.use('/api', require('./routes/adminRoutes'));\r\n app.use('/api', require('./routes/CashierRoutes'));\r\n-app.use('/api', require('./routes'));\r\n+app.use('/api', require('./routes/PublicRoutes'));\r\n require('./models/Transaction'); \r\n require('./models/CMS'); \r\n \r\n+// Start server and log\r\n+const PORT = process.env.PORT || 5000;\r\n+app.listen(PORT, () => {\r\n+  console.log(`Server is running on port ${PORT}`);\r\n+});\r\n \r\n module.exports = app;\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751362656160,
