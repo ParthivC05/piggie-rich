@@ -315,7 +315,116 @@ const Transactions = () => {
 
       {showModal && selectedDeposit && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-     
+          <div className="bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-gradient-to-r from-yellow-600 to-yellow-700 text-white p-6 rounded-t-3xl flex justify-between items-center">
+              <div>
+                <h2 className="text-2xl font-bold">Transaction Details</h2>
+                <p className="text-yellow-100">ID: {selectedDeposit._id}</p>
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={closeModal}
+                  className="bg-white text-red-600 bg-opacity-20 hover:bg-opacity-30 p-2 rounded-lg transition-colors"
+                  title="Close"
+                >
+                  <FaTimes className="text-lg" />
+                </button>
+              </div>
+            </div>
+
+            <div className="p-6 space-y-6">
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-600">
+                      {formatAmount(selectedDeposit.amount)}
+                    </div>
+                    <div className="text-sm text-gray-600">Amount</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-yellow-600">
+                      {selectedDeposit.game}
+                    </div>
+                    <div className="text-sm text-gray-600">Game</div>
+                  </div>
+                  <div className="text-center">
+                    <span className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${getStatusBadge(selectedDeposit.status)}`}>
+                      {selectedDeposit.status}
+                    </span>
+                    <div className="text-sm text-gray-600 mt-1">Status</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-gray-50 p-6 rounded-2xl">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">User Information</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-sm text-gray-600">Username:</span>
+                      <div className="font-semibold">{selectedDeposit.userId?.username || selectedDeposit.gameUsername || "N/A"}</div>
+                    </div>
+                    <div>
+                      <span className="text-sm text-gray-600">Email:</span>
+                      <div className="font-semibold">{selectedDeposit.userId?.email || selectedDeposit.customerEmail}</div>
+                    </div>
+                    <div>
+                      <span className="text-sm text-gray-600">Phone:</span>
+                      <div className="font-semibold">{selectedDeposit.customerPhone}</div>
+                    </div>
+                    {selectedDeposit.userId?.firstName && (
+                      <div>
+                        <span className="text-sm text-gray-600">Full Name:</span>
+                        <div className="font-semibold">{selectedDeposit.userId.firstName} {selectedDeposit.userId.lastName}</div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 p-6 rounded-2xl">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">PayPal Information</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-sm text-gray-600">Order ID:</span>
+                      <div className="font-mono text-sm">{selectedDeposit.paypalOrderId}</div>
+                    </div>
+                    {selectedDeposit.payer && (
+                      <>
+                        <div>
+                          <span className="text-sm text-gray-600">Payer Name:</span>
+                          <div className="font-semibold">
+                            {selectedDeposit.payer.name?.given_name} {selectedDeposit.payer.name?.surname}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="text-sm text-gray-600">Payer Email:</span>
+                          <div className="font-semibold">{selectedDeposit.payer.email_address}</div>
+                        </div>
+                        <div>
+                          <span className="text-sm text-gray-600">Country:</span>
+                          <div className="font-semibold">{selectedDeposit.payer.address?.country_code}</div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 p-6 rounded-2xl">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Transaction Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <span className="text-sm text-gray-600">Transaction ID:</span>
+                    <div className="font-mono text-sm">{selectedDeposit._id}</div>
+                  </div>
+                  <div>
+                    <span className="text-sm text-gray-600">Date & Time:</span>
+                    <div className="font-semibold">{formatDate(selectedDeposit.createdAt)}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </AdminLayout>
