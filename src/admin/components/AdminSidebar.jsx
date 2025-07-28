@@ -16,7 +16,7 @@ import ConfirmModal from "./ConfirmModal";
 const links = [
   { to: "/admin/dashboard", label: "Dashboard", icon: <FaHome /> },
   { to: "/admin/users", label: "User Management", icon: <FaUsers /> },
-  { to: "/admin/details", label: "User Details", icon: <FaUser /> },
+  // { to: "/admin/details", label: "User Details", icon: <FaUser /> },
   {
     to: "/admin/transactions",
     label: "Transaction Logs",
