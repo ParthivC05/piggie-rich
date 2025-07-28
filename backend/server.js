@@ -4,11 +4,16 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
 app.use(express.json());
 
-// MongoDB connection with logging
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_URI);
 
 mongoose.connection.on('connected', () => {
   console.log('MongoDB connected successfully');
@@ -17,7 +22,6 @@ mongoose.connection.on('error', (err) => {
   console.error('MongoDB connection error:', err);
 });
 
-// Routes
 app.use('/api', require('./routes/authRoutes'));
 app.use('/api', require('./routes/userRoutes'));
 app.use('/api', require('./routes/depositRoutes'));
@@ -27,7 +31,6 @@ app.use('/api', require('./routes/PublicRoutes'));
 require('./models/Transaction'); 
 require('./models/CMS'); 
 
-// Start server and log
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

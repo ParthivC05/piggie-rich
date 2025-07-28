@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 12,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1751355684764,
@@ -56,6 +56,14 @@
                 {
                     "date": 1751373716223,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,9 +27,8 @@\n     if (!form.dob) return \"Date of Birth is required.\";\r\n     if (!form.firstName.trim()) return \"First Name is required.\";\r\n     if (!form.lastName.trim()) return \"Last Name is required.\";\r\n     if (!form.email.trim()) return \"Email is required.\";\r\n-    // Simple email regex\r\n     if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(form.email))\r\n       return \"Invalid email address.\";\r\n     if (!form.phone.trim()) return \"Phone is required.\";\r\n     if (!/^\\d{10,}$/.test(form.phone))\r\n"
+                },
+                {
+                    "date": 1753698412419,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n import React, { useState } from \"react\";\r\n import { Link, useNavigate } from \"react-router-dom\";\r\n import { toast, ToastContainer } from \"react-toastify\";\r\n import \"react-toastify/dist/ReactToastify.css\";\r\n+import apiService from \"../services/api\";\r\n \r\n const RegisterPage = () => {\r\n   const [form, setForm] = useState({\r\n     username: \"\",\r\n"
+                },
+                {
+                    "date": 1753698421042,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n import React, { useState } from \"react\";\r\n import { Link, useNavigate } from \"react-router-dom\";\r\n import { toast, ToastContainer } from \"react-toastify\";\r\n import \"react-toastify/dist/ReactToastify.css\";\r\n-import apiService from \"../services/api\";\r\n \r\n const RegisterPage = () => {\r\n   const [form, setForm] = useState({\r\n     username: \"\",\r\n"
                 }
             ],
             "date": 1751355684764,

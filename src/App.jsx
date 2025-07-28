@@ -35,7 +35,7 @@ import CashierLayout from "./cashier/CashierLayout";
 import CashierUserList from "./cashier/UserList";
 import CashierUserDetails from "./cashier/CashierUserDetails";
 import CashierTransactions from "./cashier/Transactions";
-import EditUser from "./admin/pages/UserDetails";
+import EditUser from "./admin/pages/EditUser";
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -218,7 +218,7 @@ function AppContent() {
           }
         />
         <Route
-          path="/admin/users/edituser"
+          path="/admin/users/:id/edit"
           element={
             <ProtectedRoute>
               <EditUser />

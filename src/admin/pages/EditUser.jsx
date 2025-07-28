@@ -1,42 +1,106 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditUser = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     username: "",
     email: "",
     role: "",
-    status: "",
+    phone: "",
+    dob: "",
   });
+
+  // Fetch user data on component mount
+  useEffect(() => {
+    fetchUser();
+  }, [id]);
+
+  const fetchUser = async () => {
+    try {
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setForm({
+          firstName: data.user.firstName || "",
+          lastName: data.user.lastName || "",
+          username: data.user.username || "",
+          email: data.user.email || "",
+          role: data.user.role || "",
+          phone: data.user.phone || "",
+          dob: data.user.dob ? data.user.dob.split('T')[0] : "",
+        });
+      } else {
+        toast.error(data.error || "Failed to fetch user");
+        navigate("/admin/users");
+      }
+    } catch (err) {
+      toast.error("Server error");
+      navigate("/admin/users");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleStatusChange = (status) => {
-    setForm({ ...form, status });
-  };
-
   const handleCancel = () => {
-    setForm({
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      role: "",
-      status: "",
-    });
+    navigate("/admin/users");
   };
 
-  const handleUpdate = () => {
-    console.log("Form submitted:", form);
+  const handleUpdate = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/admin/users/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        toast.success("User updated successfully");
+        setTimeout(() => navigate("/admin/users"), 1500);
+      } else {
+        toast.error(data.error || "Failed to update user");
+      }
+    } catch (err) {
+      toast.error("Server error");
+    }
   };
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-400"></div>
+          <span className="ml-4 text-lg">Loading user data...</span>
+        </div>
+      </AdminLayout>
+    );
+  }
 
   return (
     <AdminLayout>
+      <ToastContainer />
       <div className="bg-white rounded-xl p-6 shadow-md w-full max-w-4xl mx-auto mt-4">
         <h2 className="text-xl font-semibold mb-6 text-center md:text-left">
           Edit User
@@ -105,33 +169,35 @@ const EditUser = () => {
               className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400"
             >
               <option value="">Select the Role</option>
-              <option value="Admin">Admin</option>
-              <option value="Moderator">Moderator</option>
-              <option value="User">User</option>
+              <option value="admin">Admin</option>
+              <option value="cashier">Cashier</option>
+              <option value="user">User</option>
             </select>
           </div>
 
-          {/* Status */}
+          {/* Phone */}
           <div className="flex flex-col">
-            <label className="text-sm font-medium mb-1">Status</label>
-            <div className="flex gap-4 mt-2">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={form.status === "Active"}
-                  onChange={() => handleStatusChange("Active")}
-                />
-                <span>Active</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={form.status === "Inactive"}
-                  onChange={() => handleStatusChange("Inactive")}
-                />
-                <span>Inactive</span>
-              </label>
-            </div>
+            <label className="text-sm font-medium mb-1">Phone</label>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Enter Phone Number"
+              value={form.phone}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400"
+            />
+          </div>
+
+          {/* Date of Birth */}
+          <div className="flex flex-col">
+            <label className="text-sm font-medium mb-1">Date of Birth</label>
+            <input
+              type="date"
+              name="dob"
+              value={form.dob}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-yellow-400"
+            />
           </div>
         </div>
 
