@@ -16,7 +16,7 @@ import ForgotPage from "./pages/ForgotPass";
 import ResetPassPage from "./pages/ResetPass";
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect, useState } from "react";
-import ChatSidebar from "./pages/ChatSidebar";
+// import ChatSidebar from "./pages/ChatSidebar";
 import ProfilePage from "./pages/ProfilePage";
 import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
@@ -54,35 +54,35 @@ function AppContent() {
 
     let script = null;
 
-    if (shouldLoadChat) {
-      // Check if script already exists to avoid duplicates
-      const existingScript = document.querySelector('script[src*="tawk.to"]');
-      if (!existingScript) {
-        script = document.createElement("script");
-        script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
-        script.async = true;
-        script.charset = "UTF-8";
-        script.setAttribute("crossorigin", "*");
-        document.body.appendChild(script);
-      }
+    // if (shouldLoadChat) {
+    //   // Check if script already exists to avoid duplicates
+    //   const existingScript = document.querySelector('script[src*="tawk.to"]');
+    //   if (!existingScript) {
+    //     script = document.createElement("script");
+    //     script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
+    //     script.async = true;
+    //     script.charset = "UTF-8";
+    //     script.setAttribute("crossorigin", "*");
+    //     document.body.appendChild(script);
+    //   }
 
-      const setupTawkListeners = () => {
-        if (window.Tawk_API) {
-          window.Tawk_API.onChatStarted = function () {
-            console.log("Chat started!");
-          };
-          window.Tawk_API.onChatEnded = function () {
-            console.log("Chat ended!");
-          };
-          window.Tawk_API.onMessageReceived = function (message) {
-            console.log("Message received from agent:", message);
-          };
-        } else {
-          setTimeout(setupTawkListeners, 500);
-        }
-      };
-      setupTawkListeners();
-    }
+    //   // const setupTawkListeners = () => {
+    //   //   if (window.Tawk_API) {
+    //   //     window.Tawk_API.onChatStarted = function () {
+    //   //       console.log("Chat started!");
+    //   //     };
+    //   //     window.Tawk_API.onChatEnded = function () {
+    //   //       console.log("Chat ended!");
+    //   //     };
+    //   //     window.Tawk_API.onMessageReceived = function (message) {
+    //   //       console.log("Message received from agent:", message);
+    //   //     };
+    //   //   } else {
+    //   //     setTimeout(setupTawkListeners, 500);
+    //   //   }
+    //   // };
+    //   setupTawkListeners();
+    // }
 
     return () => {
       // Only remove the script we created in this effect
