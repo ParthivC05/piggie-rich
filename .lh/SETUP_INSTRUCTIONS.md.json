@@ -1,0 +1,22 @@
+{
+    "sourceFile": "SETUP_INSTRUCTIONS.md",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1753783291879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1753783324580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,64 +1,1 @@\n-# Password Reset Integration Setup\r\n-\r\n-## Backend Setup\r\n-\r\n-1. Create a `.env` file in the `backend` directory with the following variables:\r\n-\r\n-```env\r\n-MONGO_URI=mongodb://localhost:27017/piggie-rich\r\n-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production\r\n-FRONTEND_URL=http://localhost:5173\r\n-PORT=5000\r\n-```\r\n-\r\n-2. Install dependencies (if not already installed):\r\n-```bash\r\n-cd backend\r\n-npm install\r\n-```\r\n-\r\n-3. Start the backend server:\r\n-```bash\r\n-npm start\r\n-```\r\n-\r\n-## Frontend Setup\r\n-\r\n-1. Create a `.env` file in the root directory with:\r\n-```env\r\n-VITE_API_URL=http://localhost:5000/api\r\n-```\r\n-\r\n-2. Start the frontend:\r\n-```bash\r\n-npm run dev\r\n-```\r\n-\r\n-## How the Password Reset Flow Works\r\n-\r\n-1. **Forgot Password Page** (`/forgotPass`):\r\n-   - User enters their email\r\n-   - Backend generates a reset token and saves it to the user record\r\n-   - Frontend receives the token and automatically navigates to the reset password page\r\n-\r\n-2. **Reset Password Page** (`/reset-password/:token`):\r\n-   - User enters new password and confirms it\r\n-   - Backend validates the token and updates the password\r\n-   - User is redirected to login page after successful reset\r\n-\r\n-## Features Implemented\r\n-\r\n-- ✅ Token-based password reset\r\n-- ✅ Automatic navigation from forgot password to reset page\r\n-- ✅ Token expiration (1 hour)\r\n-- ✅ Password validation (minimum 6 characters)\r\n-- ✅ Loading states and error handling\r\n-- ✅ Secure password hashing\r\n-- ✅ User-friendly messages\r\n-\r\n-## Security Notes\r\n-\r\n-- In production, remove the token from the API response\r\n-- Implement email sending for the reset link\r\n-- Use HTTPS in production\r\n-- Consider rate limiting for password reset requests \n\\ No newline at end of file\n+ \n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1753783291879,
+            "name": "Commit-0",
+            "content": "# Password Reset Integration Setup\r\n\r\n## Backend Setup\r\n\r\n1. Create a `.env` file in the `backend` directory with the following variables:\r\n\r\n```env\r\nMONGO_URI=mongodb://localhost:27017/piggie-rich\r\nJWT_SECRET=your-super-secret-jwt-key-change-this-in-production\r\nFRONTEND_URL=http://localhost:5173\r\nPORT=5000\r\n```\r\n\r\n2. Install dependencies (if not already installed):\r\n```bash\r\ncd backend\r\nnpm install\r\n```\r\n\r\n3. Start the backend server:\r\n```bash\r\nnpm start\r\n```\r\n\r\n## Frontend Setup\r\n\r\n1. Create a `.env` file in the root directory with:\r\n```env\r\nVITE_API_URL=http://localhost:5000/api\r\n```\r\n\r\n2. Start the frontend:\r\n```bash\r\nnpm run dev\r\n```\r\n\r\n## How the Password Reset Flow Works\r\n\r\n1. **Forgot Password Page** (`/forgotPass`):\r\n   - User enters their email\r\n   - Backend generates a reset token and saves it to the user record\r\n   - Frontend receives the token and automatically navigates to the reset password page\r\n\r\n2. **Reset Password Page** (`/reset-password/:token`):\r\n   - User enters new password and confirms it\r\n   - Backend validates the token and updates the password\r\n   - User is redirected to login page after successful reset\r\n\r\n## Features Implemented\r\n\r\n- ✅ Token-based password reset\r\n- ✅ Automatic navigation from forgot password to reset page\r\n- ✅ Token expiration (1 hour)\r\n- ✅ Password validation (minimum 6 characters)\r\n- ✅ Loading states and error handling\r\n- ✅ Secure password hashing\r\n- ✅ User-friendly messages\r\n\r\n## Security Notes\r\n\r\n- In production, remove the token from the API response\r\n- Implement email sending for the reset link\r\n- Use HTTPS in production\r\n- Consider rate limiting for password reset requests "
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1751452022120,
@@ -24,6 +24,18 @@
                 {
                     "date": 1753334129424,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,8 @@\n   lastName: String,\r\n   email: { type: String, unique: true },\r\n   phone: String,\r\n   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n-  blocked: { type: Boolean, default: false } // <-- add this line\r\n+  blocked: { type: Boolean, default: false } \r\n });\r\n \r\n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1753783147447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,10 @@\n   lastName: String,\r\n   email: { type: String, unique: true },\r\n   phone: String,\r\n   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n-  blocked: { type: Boolean, default: false } \r\n+  blocked: { type: Boolean, default: false },\r\n+  resetToken: String,\r\n+  resetTokenExpire: Date\r\n });\r\n \r\n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1753783183237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,15 @@\n-const mongoose = require('mongoose');\r\n-\r\n-const userSchema = new mongoose.Schema({\r\n-  username: { type: String, unique: true },\r\n-  password: String,\r\n-  dob: String,\r\n-  firstName: String,\r\n-  lastName: String,\r\n-  email: { type: String, unique: true },\r\n-  phone: String,\r\n-  role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\r\n-  blocked: { type: Boolean, default: false },\r\n-  resetToken: String,\r\n-  resetTokenExpire: Date\r\n-});\r\n-\r\n+const mongoose = require('mongoose');\n+\n+const userSchema = new mongoose.Schema({\n+  username: { type: String, unique: true },\n+  password: String,\n+  dob: String,\n+  firstName: String,\n+  lastName: String,\n+  email: { type: String, unique: true },\n+  phone: String,\n+  role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\n+  blocked: { type: Boolean, default: false } \n+});\n+\n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1753783207501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,10 @@\n   lastName: String,\n   email: { type: String, unique: true },\n   phone: String,\n   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },\n-  blocked: { type: Boolean, default: false } \n+  blocked: { type: Boolean, default: false },\n+  resetToken: String,\n+  resetTokenExpire: Date\n });\n \n module.exports = mongoose.model('User', userSchema);\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1751452022120,
