@@ -1,25 +1,48 @@
 import React, { useState } from "react";
 import { CiAt } from "react-icons/ci";
+import { useNavigate } from "react-router-dom";
 
 function ForgotPass() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/forgot-password`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: username }),
-    });
-    const data = await res.json();
-    setMessage(data.message || "Check your email for reset link.");
+    setIsLoading(true);
+    setMessage("");
+
+    try {
+      const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/forgot-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: username }),
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setMessage(data.message);
+        
+        if (data.token) {
+          setTimeout(() => {
+            navigate(`/reset-password/${data.token}`);
+          }, 2000);
+        }
+      } else {
+        setMessage(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setMessage("Network error. Please check your connection and try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="mt-3 relative min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f6f7fb] overflow-hidden px-4">
  
-
       <form
         onSubmit={handleSubmit}
         className="mt-3 relative z-10 bg-white  sm:max-w-sm md:max-w-md p-6 sm:p-8 rounded-xl shadow-lg"
@@ -28,7 +51,7 @@ function ForgotPass() {
           Forgot Your Password
         </h2>
         <p className="text-center text-gray-500 mb-6">
-          No worries, we’ll send you reset instructions
+          No worries, we'll send you reset instructions
         </p>
 
         <div className="relative mb-4">
@@ -46,6 +69,7 @@ function ForgotPass() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="w-full border rounded px-3 py-2 pr-10"
+            disabled={isLoading}
           />
           <span className="absolute right-3 top-9 text-gray-400">
             <CiAt />
@@ -54,13 +78,16 @@ function ForgotPass() {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold py-2 rounded hover:opacity-90 transition"
+          disabled={isLoading}
+          className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold py-2 rounded hover:opacity-90 transition disabled:opacity-50"
         >
-          Continue
+          {isLoading ? "Processing..." : "Continue"}
         </button>
 
         {message && (
-          <p className="text-center text-green-600 mt-4">{message}</p>
+          <p className={`text-center mt-4 ${message.includes('successfully') ? 'text-green-600' : 'text-red-600'}`}>
+            {message}
+          </p>
         )}
       </form>
     </div>

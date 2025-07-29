@@ -41,7 +41,6 @@ exports.login = async (req, res) => {
     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ error: 'Invalid credentials' });
 
-    // Blocked user check
     if (user.blocked) {
       return res.status(403).json({ error: 'Your account is blocked. Please contact support.' });
     }
@@ -69,68 +68,56 @@ exports.login = async (req, res) => {
 
 exports.forgotPassword = async (req, res) => {
   try {
-    const { email, mailUser, mailPass } = req.body;
+    const { email } = req.body;
 
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     const token = crypto.randomBytes(32).toString("hex");
     user.resetToken = token;
     user.resetTokenExpire = Date.now() + 3600000;
     await user.save();
 
-    // Create transporter using login user's email and password
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: mailUser, // email of logged-in user (from frontend)
-        pass: mailPass, // password or app password of that email
-      },
+    const resetUrl = `${'https://www.waiwaisweeps.com/' || 'http://localhost:5173'}/reset-password/${token}`;
+    
+    res.status(200).json({ 
+      message: "Reset link generated successfully",
+      resetUrl: resetUrl,
+      token: token
     });
 
-    const mailOptions = {
-      from: mailUser,
-      to: user.email,
-      subject: "Reset Password",
-      html: `
-        <p>Hello ${user.name || "User"},</p>
-        <p>Click the link below to reset your password:</p>
-        <a href="http://localhost:3000/reset-password/${token}">
-          Reset Password
-        </a>
-      `,
-    };
-
-    await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: "Reset email sent" });
-
   } catch (error) {
-    console.error("Email sending failed:", error);
-    res.status(500).json({ message: "Failed to send email" });
+    console.error("Password reset failed:", error);
+    res.status(500).json({ message: "Failed to process password reset" });
   }
-
-  const resetUrl = `http://localhost:5173/reset-password/${token}`; // your React app URL
-
-  await transporter.sendMail({
-    to: email,
-    subject: "Password Reset",
-    html: `<p>Click <a href="${resetUrl}">here</a> to reset your password</p>`,
-  });
-
-  res.status(200).json({ message: "Reset link sent to email" });
 };
 
 exports.resetPassword = async (req, res) => {
-  const { token } = req.params;
-  const { password } = req.body;
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
 
-  const user = await User.findOne({ resetToken: token, resetTokenExpire: { $gt: Date.now() } });
-  if (!user) return res.status(400).json({ message: "Token invalid or expired" });
+    const user = await User.findOne({ 
+      resetToken: token, 
+      resetTokenExpire: { $gt: Date.now() } 
+    });
+    
+    if (!user) {
+      return res.status(400).json({ message: "Token invalid or expired" });
+    }
 
-  user.password = password; // hash this in real scenario
-  user.resetToken = undefined;
-  user.resetTokenExpire = undefined;
-  await user.save();
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpire = undefined;
+    await user.save();
 
-  res.status(200).json({ message: "Password updated" });
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Password reset failed:", error);
+    res.status(500).json({ message: "Failed to reset password" });
+  }
 };

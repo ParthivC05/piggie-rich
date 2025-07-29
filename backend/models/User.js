@@ -9,7 +9,9 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   phone: String,
   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },
-  blocked: { type: Boolean, default: false } 
+  blocked: { type: Boolean, default: false },
+  resetToken: String,
+  resetTokenExpire: Date
 });
 
 module.exports = mongoose.model('User', userSchema);

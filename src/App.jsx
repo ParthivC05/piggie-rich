@@ -164,7 +164,7 @@ function AppContent() {
         />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotPass" element={<ForgotPage />} />
-        <Route path="/resetPassword" element={<ResetPassPage />} />
+        <Route path="/reset-password/:token" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
         {/* Protected Routes - Login Required */}
