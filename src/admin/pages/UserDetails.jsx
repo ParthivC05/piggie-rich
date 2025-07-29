@@ -164,59 +164,62 @@ const UserDetail = () => {
       <div className="bg-white p-10 rounded-3xl shadow-2xl space-y-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
 
         {editMode ? (
-          <form onSubmit={handleEdit} className="space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { label: "Username", value: editForm.username, key: "username" },
-                { label: "Email", value: editForm.email, key: "email" },
-                { label: "First Name", value: editForm.firstName, key: "firstName" },
-                { label: "Last Name", value: editForm.lastName, key: "lastName" },
-                { label: "Date of Birth", value: editForm.dob, key: "dob", type: "date" },
-                { label: "Phone", value: editForm.phone, key: "phone" },
-              ].map(({ label, value, key, type }) => (
-                <div key={key}>
-                  <label className="block text-gray-700 font-medium mb-2">{label}</label>
-                  <input
-                    type={type || "text"}
-                    className="border border-gray-300 bg-gray-50 p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                    value={value}
-                    onChange={(e) => setEditForm((f) => ({ ...f, [key]: e.target.value }))}
-                    required={["username", "email"].includes(key)}
-                  />
-                </div>
-              ))}
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Role</label>
-                <select
-                  className="border border-gray-300 bg-gray-50 p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
-                  value={editForm.role}
-                  onChange={(e) => setEditForm((f) => ({ ...f, role: e.target.value }))}
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                  <option value="cashier">Cashier</option>
-                </select>
-              </div>
-            </div>
+          <form onSubmit={handleEdit} className="bg-white p-10 rounded-3xl shadow-2xl space-y-8 max-w-4xl mx-auto">
+  <div className="text-3xl font-bold text-gray-800">Edit User</div>
 
-            <div className="flex gap-4 justify-end">
-              <button
-                type="submit"
-                className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg"
-                disabled={loading}
-              >
-                {loading ? "Saving..." : "Save Changes"}
-              </button>
-              <button
-                type="button"
-                className="bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-xl transition-all duration-300"
-                onClick={() => setEditMode(false)}
-                disabled={loading}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {[
+      { label: "First Name", key: "firstName", type: "text" },
+      { label: "Last Name", key: "lastName", type: "text" },
+      { label: "Username", key: "username", type: "text", required: true },
+      { label: "Email", key: "email", type: "email", required: true },
+      { label: "Phone", key: "phone", type: "text" },
+      { label: "Date of Birth", key: "dob", type: "date" },
+    ].map(({ label, key, type, required }) => (
+      <div key={key}>
+        <label className="block text-gray-700 font-medium mb-2">{label}</label>
+        <input
+          type={type}
+          className="border border-gray-300 bg-gray-50 p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
+          value={editForm[key]}
+          onChange={(e) => setEditForm((f) => ({ ...f, [key]: e.target.value }))}
+          required={required}
+        />
+      </div>
+    ))}
+
+    <div>
+      <label className="block text-gray-700 font-medium mb-2">Role</label>
+      <select
+        className="border border-gray-300 bg-gray-50 p-3 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-purple-400"
+        value={editForm.role}
+        onChange={(e) => setEditForm((f) => ({ ...f, role: e.target.value }))}
+      >
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+        <option value="cashier">Cashier</option>
+      </select>
+    </div>
+  </div>
+
+  <div className="flex justify-end gap-4">
+    <button
+      type="button"
+      onClick={() => navigate("/admin/users")}
+      className="bg-gray-200 hover:bg-gray-300 px-6 py-3 rounded-xl transition-all duration-300"
+    >
+      Cancel
+    </button>
+    <button
+      type="submit"
+      className="bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-xl transition-all duration-300"
+      disabled={loading}
+    >
+      {loading ? "Updating..." : "Update"}
+    </button>
+  </div>
+</form>
+
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-lg">
@@ -244,11 +247,11 @@ const UserDetail = () => {
             <div className="flex flex-wrap gap-4 mt-10">
               <button
                 className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300"
-                onClick={() => setEditMode(false)}
+                onClick={() => setEditMode(true)}
               >
                 Edit
               </button>
-              <button
+              {/* <button
                 className={`px-6 py-3 rounded-xl text-white shadow-lg transition-all duration-300 ${
                   user.blocked ? "bg-green-500 hover:bg-green-600" : "bg-yellow-500 hover:bg-yellow-600"
                 }`}
@@ -256,14 +259,14 @@ const UserDetail = () => {
                 disabled={false}
               >
                 {user.blocked ? "Unblock" : "Block"}
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300"
                 onClick={handleDelete}
                 disabled={false}
               >
                 Delete
-              </button>
+              </button> */}
             </div>
           </>
         )}
