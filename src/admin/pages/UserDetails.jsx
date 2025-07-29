@@ -244,7 +244,7 @@ const UserDetail = () => {
             <div className="flex flex-wrap gap-4 mt-10">
               <button
                 className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300"
-                onClick={() => setEditMode(true)}
+                onClick={() => setEditMode(false)}
               >
                 Edit
               </button>
@@ -253,14 +253,14 @@ const UserDetail = () => {
                   user.blocked ? "bg-green-500 hover:bg-green-600" : "bg-yellow-500 hover:bg-yellow-600"
                 }`}
                 onClick={handleBlockToggle}
-                disabled={loading}
+                disabled={false}
               >
                 {user.blocked ? "Unblock" : "Block"}
               </button>
               <button
                 className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl shadow-lg transition-all duration-300"
                 onClick={handleDelete}
-                disabled={loading}
+                disabled={false}
               >
                 Delete
               </button>
