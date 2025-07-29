@@ -22,6 +22,11 @@ const UserTable = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [showModal, setShowModal] = useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [filters, setFilters] = useState({
+    role: "",
+    status: "",
+  });
 
   
   useEffect(() => {
@@ -50,11 +55,22 @@ const UserTable = () => {
     }
   };
 
-  const filteredUsers = users.filter((user) =>
-    `${user.username} ${user.email} ${user.role} ${user.status}`
+  const filteredUsers = users.filter((user) => {
+    // Search term filter
+    const searchMatch = `${user.username} ${user.email} ${user.role} ${user.blocked ? 'blocked' : 'active'}`
       .toLowerCase()
-      .includes(searchTerm.toLowerCase())
-  );
+      .includes(searchTerm.toLowerCase());
+    
+    // Role filter
+    const roleMatch = !filters.role || user.role === filters.role;
+    
+    // Status filter
+    const statusMatch = !filters.status || 
+      (filters.status === 'active' && !user.blocked) ||
+      (filters.status === 'blocked' && user.blocked);
+    
+    return searchMatch && roleMatch && statusMatch;
+  });
 
   const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -143,13 +159,70 @@ const UserTable = () => {
               />
               <FaSearch className="text-gray-500 mx-2" />
             </div>
-            <img
-              src="/filter.png"
-              alt="Filter"
-              className="w-10 h-10 cursor-pointer"
-            />
+            <button
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-md"
+            >
+              <img
+                src="/filter.png"
+                alt="Filter"
+                className="w-5 h-5"
+              />
+              {showFilters ? "Hide Filters" : "Filters"}
+            </button>
           </div>
         </div>
+
+        {/* Filter Panel */}
+        {showFilters && (
+          <div className="bg-gray-50 p-6 rounded-xl mb-6 border border-gray-200">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">Filter Options</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Role</label>
+                <select
+                  value={filters.role}
+                  onChange={(e) => setFilters({ ...filters, role: e.target.value })}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="">All Roles</option>
+                  <option value="admin">Admin</option>
+                  <option value="cashier">Cashier</option>
+                  <option value="user">User</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                <select
+                  value={filters.status}
+                  onChange={(e) => setFilters({ ...filters, status: e.target.value })}
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                >
+                  <option value="">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="blocked">Blocked</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex justify-end gap-4 mt-4">
+              <button
+                onClick={() => {
+                  setFilters({ role: "", status: "" });
+                  setCurrentPage(1);
+                }}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-lg transition-all duration-200"
+              >
+                Clear Filters
+              </button>
+              <button
+                onClick={() => setShowFilters(false)}
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-4 py-2 rounded-lg transition-all duration-200 shadow-md"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        )}
 
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm border-separate border-spacing-y-2">
