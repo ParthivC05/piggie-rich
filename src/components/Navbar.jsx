@@ -8,7 +8,7 @@ const Navbar = ({ toggleChatSidebar }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const isHome = location.pathname === "/";
+  const isHome = location.pathname === "/"; 
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem("token"));
@@ -20,16 +20,13 @@ const Navbar = ({ toggleChatSidebar }) => {
     navigate("/login");
   };
 
-  const navBg = isHome ? "bg-black text-white" : "bg-white text-black";
-  const linkBase = isHome
-    ? "text-white hover:text-blue-400"
-    : "text-black hover:text-blue-500";
-  const btnBase = "bg-blue-500 hover:bg-blue-600 text-white";
+  const linkBase = "uppercase text-white hover:text-yellow-400 font-semibold";
+  const activeLink = "text-yellow-400";
+  const btnBase =
+    "bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold uppercase px-6 py-2 rounded-full shadow";
 
   return (
-    <nav
-      className={`${navBg} px-4 sm:px-6 py-4 flex items-center justify-between shadow-md relative`}
-    >
+    <nav className="bg-black text-white px-4 sm:px-6 py-4 flex items-center justify-between z-50">
       <Link to="/" className="flex items-center gap-2">
         <img src={logoImg} alt="Logo" className="h-20 w-auto" />
       </Link>
@@ -37,18 +34,28 @@ const Navbar = ({ toggleChatSidebar }) => {
       <div className="md:hidden z-20">
         <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
           {isOpen ? (
-            <FaTimes className="text-2xl" />
+            <FaTimes className="text-2xl text-white" />
           ) : (
-            <FaBars className="text-2xl" />
+            <FaBars className="text-2xl text-white" />
           )}
         </button>
       </div>
 
       <div className="hidden md:flex items-center gap-6">
-        <Link to="/" className={`${linkBase} font-semibold`}>
+        <Link
+          to="/"
+          className={`${linkBase} ${
+            location.pathname === "/" ? activeLink : ""
+          }`}
+        >
           Home
         </Link>
-        <Link to="/deposit" className={linkBase}>
+        <Link
+          to="/deposit"
+          className={`${linkBase} ${
+            location.pathname === "/deposit" ? activeLink : ""
+          }`}
+        >
           Deposit
         </Link>
         {toggleChatSidebar && (
@@ -61,22 +68,24 @@ const Navbar = ({ toggleChatSidebar }) => {
                 window.Tawk_API.maximize();
               }
             }}
-            className={`${linkBase} cursor-pointer`}
+            className={linkBase}
           >
             Chat
           </button>
         )}
         {!isLoggedIn && (
-          <Link to="/register" className={linkBase}>
+          <Link
+            to="/register"
+            className={`${linkBase} ${
+              location.pathname === "/register" ? activeLink : ""
+            }`}
+          >
             Register
           </Link>
         )}
         {!isLoggedIn ? (
-          <Link
-            to="/login"
-            className={`${btnBase} px-4 py-2 rounded font-semibold`}
-          >
-            LOGIN
+          <Link to="/login" className={btnBase}>
+            Login
           </Link>
         ) : (
           <>
@@ -86,10 +95,7 @@ const Navbar = ({ toggleChatSidebar }) => {
             >
               <FaUserCircle className="text-xl" /> Profile
             </button>
-            <button
-              className={`${btnBase} px-4 py-2 rounded font-semibold hover:cursor-pointer`}
-              onClick={handleLogout}
-            >
+            <button className={btnBase} onClick={handleLogout}>
               Logout
             </button>
           </>
@@ -97,21 +103,25 @@ const Navbar = ({ toggleChatSidebar }) => {
       </div>
 
       <div
-        className={`md:hidden absolute top-full left-0 w-full ${navBg} shadow-md transition-all duration-300 ease-in-out ${
+        className={`md:hidden absolute top-full left-0 w-full bg-black text-white transition-all duration-300 ease-in-out ${
           isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
         }`}
       >
         <div className="flex flex-col px-6 py-4 gap-4">
           <Link
             to="/"
-            className={`${linkBase} text-left w-full font-semibold`}
+            className={`${linkBase} text-left w-full ${
+              location.pathname === "/" ? activeLink : ""
+            }`}
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/deposit"
-            className={`${linkBase} text-left w-full`}
+            className={`${linkBase} text-left w-full ${
+              location.pathname === "/deposit" ? activeLink : ""
+            }`}
             onClick={() => setIsOpen(false)}
           >
             Deposit
@@ -127,7 +137,7 @@ const Navbar = ({ toggleChatSidebar }) => {
                 }
                 setIsOpen(false);
               }}
-              className={`${linkBase} text-left w-full cursor-pointer`}
+              className={`${linkBase} text-left w-full`}
             >
               Chat
             </button>
@@ -135,7 +145,9 @@ const Navbar = ({ toggleChatSidebar }) => {
           {!isLoggedIn && (
             <Link
               to="/register"
-              className={`${linkBase} text-left w-full`}
+              className={`${linkBase} text-left w-full ${
+                location.pathname === "/register" ? activeLink : ""
+              }`}
               onClick={() => setIsOpen(false)}
             >
               Register
@@ -144,10 +156,10 @@ const Navbar = ({ toggleChatSidebar }) => {
           {!isLoggedIn ? (
             <Link
               to="/login"
-              className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full`}
+              className={`${btnBase} text-left w-full`}
               onClick={() => setIsOpen(false)}
             >
-              LOGIN
+              Login
             </Link>
           ) : (
             <>
@@ -161,7 +173,7 @@ const Navbar = ({ toggleChatSidebar }) => {
                 <FaUserCircle className="text-xl" /> Profile
               </button>
               <button
-                className={`${btnBase} px-4 py-2 rounded font-semibold text-left w-full hover:cursor-pointer`}
+                className={`${btnBase} text-left w-full`}
                 onClick={() => {
                   setIsOpen(false);
                   handleLogout();

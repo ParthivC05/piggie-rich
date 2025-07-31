@@ -1,18 +1,23 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { CiAt } from "react-icons/ci";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
+import loginImage from "/login-image.jpg";
 
 const LoginPage = () => {
   const [form, setForm] = useState({ username: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -41,101 +46,110 @@ const LoginPage = () => {
       toast.error("Server error.");
     }
   };
+
   return (
-    <div className="mt-3 relative min-h-screen flex flex-col lg:flex-row items-center justify-center bg-[#f6f7fb] overflow-hidden px-4">
-      <img
-        src="/group.png"
-        alt=""
-        className="absolute w-20 sm:w-24 md:w-[94px] top-6 sm:top-10 md:top-24 left-4 sm:left-5 md:left-[54px] pointer-events-none select-none"
-      />
+    <div className="min-h-screen flex">
+      {/* Left Side - Casino Background */}
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
+        <img
+          src={loginImage}
+          alt="Casino Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/20"></div>
+      </div>
 
-      <img
-        src="/vector.png"
-        alt=""
-        className="hidden lg:block absolute w-4  xl:w-6 top-24 xl:top-[183px] left-[58%] xl:left-[572px] pointer-events-none"
-      />
+      {/* Right Side - Login Form */}
+      <div className="w-full lg:w-1/2 bg-black flex items-center justify-center p-8">
+        <div className="w-full max-w-md">
+          <h2 className="text-3xl font-bold text-white mb-8 text-center">Login</h2>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Email Input */}
+            <div className="relative">
+              <input
+                id="username"
+                name="username"
+                type="text"
+                placeholder="Yourname@gmail.com"
+                required
+                value={form.username}
+                onChange={handleChange}
+                className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg px-4 py-3 pr-12 border border-gray-700 focus:border-yellow-400 focus:outline-none transition-colors"
+              />
+              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <CiAt />
+              </span>
+            </div>
 
-      <img
-        src="/group14036192.png"
-        alt=""
-        className="hidden xl:block absolute w-40 2xl:w-[300px] top-8 2xl:top-[100px] left-[70%] 2xl:left-[800px] pointer-events-none"
-      />
-      <form
-        onSubmit={handleSubmit}
-        className="mt-3 relative z-10 bg-white w-full max-w-sm sm:max-w-sm md:max-w-md p-6 sm:p-8 rounded-xl shadow-lg"
-      >
-        <h2 className="text-2xl font-bold text-center mb-1">Log in account</h2>
-        <p className="text-center text-gray-500 mb-6">
-          Welcome back! Please enter your details.
-        </p>
-        <div className="relative mb-4">
-          <label
-            htmlFor="username"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Email / Phone
-          </label>
-          <input
-            id="username"
-            name="username"
-            placeholder="Enter Email"
-            required
-            value={form.username}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2 pr-10"
-          />
-          <span className="absolute right-3 top-9 text-gray-400">
-            <CiAt />
-          </span>
-        </div>
+            {/* Password Input */}
+            <div className="relative">
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                required
+                value={form.password}
+                onChange={handleChange}
+                className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg px-4 py-3 pr-12 border border-gray-700 focus:border-yellow-400 focus:outline-none transition-colors"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
 
-        <div className="relative mb-2">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
-            Password
-          </label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            value={form.password}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2 pr-10"
-          />
-          <span className="absolute right-3 top-9 text-gray-400">
-            <FaEye />
-          </span>
-        </div>
+            {/* Login Button */}
+            <button
+              type="submit"
+              className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold py-3 rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-200"
+            >
+              Login
+            </button>
+          </form>
 
-        <Link to="/forgotPass">
-          <div className="text-right mb-6 text-sm text-yellow-600 hover:underline cursor-pointer">
-            Forgot Password?
+          {/* Divider */}
+          <div className="my-6 flex items-center">
+            <div className="flex-1 border-t border-gray-700"></div>
+            <span className="px-4 text-gray-400 text-sm">Or continue with</span>
+            <div className="flex-1 border-t border-gray-700"></div>
           </div>
-        </Link>
 
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-yellow-400 to-yellow-600 text-white font-semibold py-2 rounded hover:opacity-90 transition"
-        >
-          Login
-        </button>
-      </form>
+          {/* Social Login Buttons */}
+          <div className="grid grid-cols-2 gap-4">
+            <button className="flex items-center justify-center gap-2 bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors">
+              <FcGoogle className="text-xl" />
+              <span>Google</span>
+            </button>
+            <button className="flex items-center justify-center gap-2 bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors">
+              <FaFacebook className="text-xl text-blue-500" />
+              <span>Facebook</span>
+            </button>
+          </div>
 
-      <img
-        src="/group7.png"
-        alt=""
-        className="hidden sm:block absolute bottom-0 left-0 w-24 sm:w-32 md:w-40 pointer-events-none select-none"
-      />
+          {/* Terms Text */}
+          <p className="text-center text-gray-400 text-sm mt-6">
+            By registering you agree to our{" "}
+            <Link to="/terms" className="text-yellow-400 hover:text-yellow-300">
+              Terms and Conditions
+            </Link>
+          </p>
+          
+          {/* Register Link */}
+          <p className="text-center text-gray-400 text-sm mt-4">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-yellow-400 hover:text-yellow-300 underline">
+              Register here
+            </Link>
+          </p>
+        </div>
+      </div>
 
-      <img
-        src="/undraw_login_re_4vu2.png"
-        alt=""
-        className="mt-12 lg:mt-0 w-56 sm:w-64 md:w-80 md:top-[130px] lg:w-[410px] lg:absolute lg:top-147 lg:-translate-y-1/2 lg:right-0 pointer-events-none select-none"
-      />
+      <ToastContainer />
     </div>
   );
 };

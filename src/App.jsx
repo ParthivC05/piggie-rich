@@ -16,14 +16,13 @@ import ForgotPage from "./pages/ForgotPass";
 import ResetPassPage from "./pages/ResetPass";
 import RegisterPage from "./pages/RegisterPage";
 import { useEffect, useState } from "react";
-// import ChatSidebar from "./pages/ChatSidebar";
 import ProfilePage from "./pages/ProfilePage";
 import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-// --- Admin Panel imports ---
+  // --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
 import UserList from "./admin/pages/UserList";
 import UserDetail from "./admin/pages/UserDetails";
@@ -46,7 +45,6 @@ function AppContent() {
   const toggleChatSidebar = () => setIsChatOpen((prev) => !prev);
 
   useEffect(() => {
-    // Don't load chat in admin panel, login, or register pages
     const noChatPages = ["/admin", "/login", "/register"];
     const shouldLoadChat = !noChatPages.some((page) =>
       location.pathname.startsWith(page)
@@ -54,43 +52,40 @@ function AppContent() {
 
     let script = null;
 
-    // if (shouldLoadChat) {
-    //   // Check if script already exists to avoid duplicates
-    //   const existingScript = document.querySelector('script[src*="tawk.to"]');
-    //   if (!existingScript) {
-    //     script = document.createElement("script");
-    //     script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
-    //     script.async = true;
-    //     script.charset = "UTF-8";
-    //     script.setAttribute("crossorigin", "*");
-    //     document.body.appendChild(script);
-    //   }
+    if (shouldLoadChat) {
+      const existingScript = document.querySelector('script[src*="tawk.to"]');
+      if (!existingScript) {
+        script = document.createElement("script");
+        script.src = "https://embed.tawk.to/6864c5d5988cbd190bbeb076/1iv4q9ion";
+        script.async = true;
+        script.charset = "UTF-8";
+        script.setAttribute("crossorigin", "*");
+        document.body.appendChild(script);
+      }
 
-    //   // const setupTawkListeners = () => {
-    //   //   if (window.Tawk_API) {
-    //   //     window.Tawk_API.onChatStarted = function () {
-    //   //       console.log("Chat started!");
-    //   //     };
-    //   //     window.Tawk_API.onChatEnded = function () {
-    //   //       console.log("Chat ended!");
-    //   //     };
-    //   //     window.Tawk_API.onMessageReceived = function (message) {
-    //   //       console.log("Message received from agent:", message);
-    //   //     };
-    //   //   } else {
-    //   //     setTimeout(setupTawkListeners, 500);
-    //   //   }
-    //   // };
-    //   setupTawkListeners();
-    // }
+      const setupTawkListeners = () => {
+        if (window.Tawk_API) {
+          window.Tawk_API.onChatStarted = function () {
+            console.log("Chat started!");
+          };
+          window.Tawk_API.onChatEnded = function () {
+            console.log("Chat ended!");
+          };
+          window.Tawk_API.onMessageReceived = function (message) {
+            console.log("Message received from agent:", message);
+          };
+        } else {
+          setTimeout(setupTawkListeners, 500);
+        }
+      };
+      setupTawkListeners();
+    }
 
     return () => {
-      // Only remove the script we created in this effect
       if (script && script.parentNode) {
         try {
           script.parentNode.removeChild(script);
         } catch (error) {
-          // Script might have been removed by another effect or doesn't exist
           console.log(
             "Script cleanup: Script already removed or doesn't exist"
           );
@@ -104,19 +99,16 @@ function AppContent() {
     location.pathname === "/game-room" ||
     location.pathname === "/profile" ||
     location.pathname === "/register" ||
-    location.pathname === "/login" ||
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
   const showFooter =
     location.pathname === "/" ||
     location.pathname === "/game-room" ||
-    location.pathname === "/login" ||
     location.pathname === "/register" ||
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
-  // Don't show chat on admin, login, or register pages
   const noChatPages = ["/admin", "/login", "/register"];
   const shouldShowChat = !noChatPages.some((page) =>
     location.pathname.startsWith(page)
@@ -129,7 +121,6 @@ function AppContent() {
       )}
 
       <Routes>
-        {/* Public Routes - Wrapped in ProtectedRoute */}
         <Route
           path="/"
           element={
@@ -167,7 +158,6 @@ function AppContent() {
         <Route path="/reset-password/:token" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* Protected Routes - Login Required */}
         <Route
           path="/deposit"
           element={

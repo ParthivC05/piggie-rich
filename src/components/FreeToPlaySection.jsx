@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FaArrowRight } from 'react-icons/fa';
 
 const FreeToPlaySection = () => {
   const [games, setGames] = useState([]);
@@ -25,29 +26,38 @@ const FreeToPlaySection = () => {
 
   return (
     <section className="bg-black text-white px-4 py-16">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">FREE TO PLAY</h2>
-        <p className="text-gray-300 max-w-3xl mx-auto">
-          Play Free games with no download required, no registration, and no purchase necessary.
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center gap-4 mb-12">
+          <h2 className="text-4xl md:text-5xl font-bold text-white uppercase">FREE TO PLAY</h2>
+          <FaArrowRight className="text-2xl text-white" />
+        </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 lg:px-52 lg:pt-12 mx-auto">
-        {games.slice(0, 12).map((game, index) => (
-          <div key={game.id || index} className="flex flex-col items-center">
-            <img
-              src={game.image || game.thumb || "https://via.placeholder.com/200x120?text=Game+Image"}
-              alt={game.name || game.title}
-              className="w-full h-40 object-contain rounded shadow-md"
-            />
-            <button
-              className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded font-semibold hover:cursor-pointer"
-              onClick={() => navigate('/game-room')}
-            >
-              PLAY FREE
-            </button>
-          </div>
-        ))}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+          {games.slice(0, 12).map((game, index) => (
+            <div key={game.id || index} className="group relative">
+              <div className="relative overflow-hidden rounded-lg">
+                <img
+                  src={game.image || game.thumb || "https://via.placeholder.com/200x120?text=Game+Image"}
+                  alt={game.name || game.title}
+                  className="w-full h-32 md:h-40 object-cover rounded-lg transition-transform duration-300 group-hover:scale-105"
+                />
+                
+                <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <button
+                    className="bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold px-6 py-3 rounded-full transition-all duration-200 shadow-lg transform scale-90 group-hover:scale-100"
+                    onClick={() => navigate('/game-room')}
+                  >
+                    PLAY NOW
+                  </button>
+                </div>
+              </div>
+              
+              <p className="text-white text-sm md:text-base font-semibold mt-3 text-center truncate">
+                {game.name || game.title || `Game ${index + 1}`}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

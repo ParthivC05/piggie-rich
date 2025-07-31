@@ -5,17 +5,17 @@ import FreeToPlaySection from "../components/FreeToPlaySection";
 import SweepstakesPlatforms from "../components/SweepStakes";
 import HowToPlay from "../components/HowToPlay";
 import Footer from "../components/Footer";
+import RedemptionRules from "../components/RedemptionRules";
 
 const HomePage = () => {
   return (
     <div>
       
-      {/* <Navbar /> */}
       <HeroSection />
       <FreeToPlaySection />
       <SweepstakesPlatforms />
       <HowToPlay/>
-      {/* <Footer/> */}
+      <RedemptionRules/>
     </div>
   );
 };
