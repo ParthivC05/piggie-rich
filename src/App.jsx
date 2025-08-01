@@ -45,7 +45,7 @@ function AppContent() {
   const toggleChatSidebar = () => setIsChatOpen((prev) => !prev);
 
   useEffect(() => {
-    const noChatPages = ["/admin", "/login", "/register"];
+    const noChatPages = ["/admin", "/cashier", "/login", "/register", "/forgotPass", "/reset-password"];
     const shouldLoadChat = !noChatPages.some((page) =>
       location.pathname.startsWith(page)
     );
@@ -109,7 +109,7 @@ function AppContent() {
     location.pathname === "/terms" ||
     location.pathname === "/privacy";
 
-  const noChatPages = ["/admin", "/login", "/register"];
+  const noChatPages = ["/admin", "/cashier", "/login", "/register", "/forgotPass", "/reset-password"];
   const shouldShowChat = !noChatPages.some((page) =>
     location.pathname.startsWith(page)
   );

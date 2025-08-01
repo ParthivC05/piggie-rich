@@ -3,7 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { FaChevronDown, FaCreditCard } from "react-icons/fa";
+import { FaChevronDown, FaCreditCard, FaArrowLeft } from "react-icons/fa";
 
 const staticGames = [
   "ULTRAPANDA/ULTRAMONSTER",
@@ -90,6 +90,17 @@ const DepositPage = () => {
       <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
         {!paid ? (
           <div className="w-full max-w-2xl bg-black rounded-lg">
+            {/* Back Button */}
+            <div className="mb-6">
+              <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 text-yellow-400 hover:text-yellow-300 transition-colors"
+              >
+                <FaArrowLeft className="text-sm" />
+                <span>Back</span>
+              </button>
+            </div>
+            
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-white mb-2">Piggi Rich Deposit</h1>
               <p className="text-white text-sm">

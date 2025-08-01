@@ -20,18 +20,19 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const validate = () => {
-    if (!form.firstName.trim()) return "First Name is required.";
-    if (!form.lastName.trim()) return "Last Name is required.";
-    if (!form.username.trim()) return "Username is required.";
-    if (!form.phone.trim()) return "Phone is required.";
-    if (!/^\d{10,}$/.test(form.phone)) return "Phone must be at least 10 digits.";
-    if (!form.email.trim()) return "Email is required.";
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return "Invalid email address.";
-    if (form.email !== form.confirmEmail) return "Emails do not match.";
-    if (!form.password) return "Password is required.";
-    if (form.password.length < 6) return "Password must be at least 6 characters.";
-    if (form.password !== form.confirmPassword) return "Passwords do not match.";
-    if (!form.dob) return "Date of Birth is required.";
+    // Check only the fields that are present in the current form state
+    if (form.hasOwnProperty('firstName') && !form.firstName.trim()) return "First Name is required.";
+    if (form.hasOwnProperty('lastName') && !form.lastName.trim()) return "Last Name is required.";
+    if (form.hasOwnProperty('username') && !form.username.trim()) return "Username is required.";
+    if (form.hasOwnProperty('phone') && !form.phone.trim()) return "Phone is required.";
+    if (form.hasOwnProperty('phone') && !/^\d{10,}$/.test(form.phone)) return "Phone must be at least 10 digits.";
+    if (form.hasOwnProperty('email') && !form.email.trim()) return "Email is required.";
+    if (form.hasOwnProperty('email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return "Invalid email address.";
+    if (form.hasOwnProperty('email') && form.hasOwnProperty('confirmEmail') && form.email !== form.confirmEmail) return "Emails do not match.";
+    if (form.hasOwnProperty('password') && !form.password) return "Password is required.";
+    if (form.hasOwnProperty('password') && form.password.length < 6) return "Password must be at least 6 characters.";
+    if (form.hasOwnProperty('password') && form.hasOwnProperty('confirmPassword') && form.password !== form.confirmPassword) return "Passwords do not match.";
+    if (form.hasOwnProperty('dob') && !form.dob) return "Date of Birth is required.";
     if (!agreeToTerms) return "You must agree to Terms and Conditions.";
     return null;
   };

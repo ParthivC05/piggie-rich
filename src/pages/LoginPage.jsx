@@ -18,9 +18,23 @@ const LoginPage = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+  const validate = () => {
+    // Check only the fields that are present in the current form state
+    if (form.hasOwnProperty('username') && !form.username.trim()) return "Username is required.";
+    if (form.hasOwnProperty('password') && !form.password) return "Password is required.";
+    return null;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
+    
+    const error = validate();
+    if (error) {
+      toast.error(error);
+      return;
+    }
+    
     try {
       const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/login`, {
         method: "POST",
@@ -82,26 +96,36 @@ const LoginPage = () => {
               </span>
             </div>
 
-            {/* Password Input */}
-            <div className="relative">
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Password"
-                required
-                value={form.password}
-                onChange={handleChange}
-                className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg px-4 py-3 pr-12 border border-gray-700 focus:border-yellow-400 focus:outline-none transition-colors"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
+                         {/* Password Input */}
+             <div className="relative">
+               <input
+                 id="password"
+                 name="password"
+                 type={showPassword ? "text" : "password"}
+                 placeholder="Password"
+                 required
+                 value={form.password}
+                 onChange={handleChange}
+                 className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg px-4 py-3 pr-12 border border-gray-700 focus:border-yellow-400 focus:outline-none transition-colors"
+               />
+               <button
+                 type="button"
+                 onClick={() => setShowPassword(!showPassword)}
+                 className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+               >
+                 {showPassword ? <FaEyeSlash /> : <FaEye />}
+               </button>
+             </div>
+
+                           {/* Forgot Password Link */}
+              <div className="text-right">
+                <Link 
+                  to="/forgotPass" 
+                  className="text-yellow-400 hover:text-yellow-300 text-sm underline"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
 
             {/* Login Button */}
             <button
