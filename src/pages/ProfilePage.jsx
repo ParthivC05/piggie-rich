@@ -5,6 +5,8 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  console.log(user)
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -30,7 +32,7 @@ const ProfilePage = () => {
   if (!user) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="text-xl">Loading profile...</div>
+          <div className="text-xl">Loading profile...</div>
       </div>
     );
   }

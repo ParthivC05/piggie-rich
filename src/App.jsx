@@ -21,6 +21,14 @@ import Footer from "./components/Footer";
 import TermsAndConditions from "./pages/TermsPage";
 import PrivacyPolicy from "./pages/PrivacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AllGames from "./pages/AllGames";
+import NewGames from "./pages/NewGames";
+import OnlineGames from "./pages/OnlineGames";
+import AboutUs from "./pages/AboutUs";
+import Chat from "./pages/Chat";
+import CasinoPlatform from "./pages/CasinoPlatform";
+import GameStudio from "./pages/GameStudio";
+import LandBased from "./pages/LandBased";
 
   // --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
@@ -35,6 +43,8 @@ import CashierUserList from "./cashier/UserList";
 import CashierUserDetails from "./cashier/CashierUserDetails";
 import CashierTransactions from "./cashier/Transactions";
 import EditUser from "./admin/pages/EditUser";
+
+
 
 function AppContent() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -100,14 +110,28 @@ function AppContent() {
     location.pathname === "/profile" ||
     location.pathname === "/register" ||
     location.pathname === "/terms" ||
-    location.pathname === "/privacy";
+    location.pathname === "/privacy" ||
+    location.pathname==="/about"||
+    location.pathname==="/games"||
+    location.pathname==="/new-games"||
+    location.pathname==="/online-games"||
+    location.pathname==="/land-based"||
+    location.pathname==="/casino-platform"||
+    location.pathname==="/game-studio";
 
   const showFooter =
     location.pathname === "/" ||
     location.pathname === "/game-room" ||
     location.pathname === "/register" ||
     location.pathname === "/terms" ||
-    location.pathname === "/privacy";
+    location.pathname === "/privacy"||
+    location.pathname==="/about"||
+    location.pathname==="/games"||
+    location.pathname==="/new-games"||
+    location.pathname==="/online-games"||
+    location.pathname==="/land-based"||
+    location.pathname==="/casino-platform"||
+    location.pathname==="/game-studio";
 
   const noChatPages = ["/admin", "/cashier", "/login", "/register", "/forgotPass", "/reset-password"];
   const shouldShowChat = !noChatPages.some((page) =>
@@ -153,6 +177,73 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/games"
+          element={
+            <ProtectedRoute>
+              < AllGames/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/new-games"
+          element={
+            <ProtectedRoute>
+              < NewGames/>
+            </ProtectedRoute>
+          }
+        />
+
+          <Route
+          path="/online-games"
+          element={
+            <ProtectedRoute>
+              < OnlineGames/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/land-based"
+          element={
+            <ProtectedRoute>
+              < LandBased/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/about"
+          element={
+            <ProtectedRoute>
+              < AboutUs/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              < Chat/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/casino-platform"
+          element={
+            <ProtectedRoute>
+              < CasinoPlatform/>
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/game-studio"
+          element={
+            <ProtectedRoute>
+              < GameStudio/>
+            </ProtectedRoute>
+          }
+        />
+        
+        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotPass" element={<ForgotPage />} />
         <Route path="/reset-password/:token" element={<ResetPassPage />} />
