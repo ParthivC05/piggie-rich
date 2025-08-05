@@ -103,9 +103,12 @@ const Navbar = ({ toggleChatSidebar }) => {
       </div>
 
       <div
-        className={`md:hidden absolute top-full left-0 w-full bg-black text-white transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
+           className={`
+    md:hidden fixed top-0 left-0 z-40 h-full w-64 p-5 text-white bg-black overflow-y-auto
+    transition-transform duration-300
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0 md:static md:min-h-screen
+  `}
       >
         <div className="flex flex-col px-6 py-4 gap-4">
           <Link
@@ -156,7 +159,7 @@ const Navbar = ({ toggleChatSidebar }) => {
           {!isLoggedIn ? (
             <Link
               to="/login"
-              className={`${btnBase} text-left w-full`}
+              className={`${btnBase} text-left ml-[-7px] w-full`}
               onClick={() => setIsOpen(false)}
             >
               Login

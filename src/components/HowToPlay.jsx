@@ -24,7 +24,7 @@ const HowToPlay = () => {
             <div>
               <h3 className="text-xl font-semibold text-white mb-4">Sweepstakes Gaming</h3>
               <p className="text-gray-300 leading-relaxed">
-                Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, Piggie Rich is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className="font-bold text-white">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className="font-bold text-white">VOID WHERE PROHIBITED BY LAW</span>.
+                Where the thrill of Sweepstakes gaming comes alive in every click! Born from a vision to revolutionize online gaming, whaiwhaisweeps is more than just a gaming platform. The information you provide will only be used to administer this promotion. <span className="font-bold text-white">NO PURCHASE NECESSARY</span> to enter Sweepstakes. <span className="font-bold text-white">VOID WHERE PROHIBITED BY LAW</span>.
               </p>
             </div>
 

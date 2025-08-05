@@ -46,8 +46,18 @@ const UserList = () => {
     setFilter({ ...filter, [e.target.name]: e.target.value });
 
   const handleFilterSubmit = (e) => {
-    e.preventDefault();
-    fetchUsers();
+    e.preventDefault()
+    console.log(users)
+    console.log(filter)
+
+    const filterItems = users.filter((user)=>{
+      if(user.email=== filter.email || user.username===filter.username || user.role===filter.role){
+        return user
+      }
+    })
+
+console.log(filterItems);
+setUsers(filterItems)
   };
 
   const clearFilters = () => {
@@ -73,6 +83,8 @@ const UserList = () => {
     return roleConfig[role] || "bg-gray-100 text-gray-800";
   };
 
+  console.log(filter)
+  console.log(users)
   return (
     <div className="p-6">
       <div className="bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 text-white rounded-3xl p-6 sm:p-8 mb-8 sm:mb-10 shadow-lg">

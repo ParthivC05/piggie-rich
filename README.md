@@ -1,4 +1,4 @@
-Piggie Rich/
+whaiwhaisweeps/
 ├── public/                  # Static assets (images, icons, etc.)
 │   ├── buffalo.webp
 │   ├── cash-eruption.jpg
