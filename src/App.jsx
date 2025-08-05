@@ -25,10 +25,10 @@ import AllGames from "./pages/AllGames";
 import NewGames from "./pages/NewGames";
 import OnlineGames from "./pages/OnlineGames";
 import AboutUs from "./pages/AboutUs";
-import Chat from "./pages/Chat";
 import CasinoPlatform from "./pages/CasinoPlatform";
 import GameStudio from "./pages/GameStudio";
 import LandBased from "./pages/LandBased";
+import AdminProfile from "./admin/pages/AdminProfile";
 
   // --- Admin Panel imports ---
 import AdminDashboard from "./admin/pages/Dashboard";
@@ -218,14 +218,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-         <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              < Chat/>
-            </ProtectedRoute>
-          }
-        />
+        
          <Route
           path="/casino-platform"
           element={
@@ -248,6 +241,7 @@ function AppContent() {
         <Route path="/forgotPass" element={<ForgotPage />} />
         <Route path="/reset-password/:token" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/adminProfile" element={<AdminProfile/>}/>
 
         <Route
           path="/deposit"
