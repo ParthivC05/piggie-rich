@@ -241,7 +241,7 @@ function AppContent() {
         <Route path="/forgotPass" element={<ForgotPage />} />
         <Route path="/reset-password/:token" element={<ResetPassPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/adminProfile" element={<AdminProfile/>}/>
+     
 
         <Route
           path="/deposit"
@@ -334,6 +334,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/admin/adminprofile"
+          element={
+            <ProtectedRoute>
+              <AdminProfile/>
+            </ProtectedRoute>
+          }
+        />
+          
 
         <Route path="/cashier" element={<CashierLayout />}>
           <Route path="users" element={<CashierUserList />} />

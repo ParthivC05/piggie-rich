@@ -21,7 +21,7 @@ function AdminHeader() {
   const navigate = useNavigate()
 
   const showAdminProfile = () => {
-  navigate("/adminProfile")
+  navigate("/admin/adminProfile")
   }
 
   return (

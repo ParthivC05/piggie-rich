@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { jwtDecode } from "jwt-decode"
 import { useState } from "react";
+import AdminLayout from "../components/AdminLayout";
 
 const AdminProfile = () => {
 
@@ -36,15 +37,19 @@ const AdminProfile = () => {
 
      if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <AdminLayout>
+            <div className="min-h-screen flex items-center justify-center bg-gray-100">
           <div className="text-xl">Loading profile...</div>
       </div>
+        </AdminLayout>
+      
     );
   }
 
     return(
         <>
- <div className="min-h-screen flex items-center justify-center bg-gray-100">
+ <AdminLayout>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Profile</h2>
         <div className="mb-3"><strong>Username:</strong> {user.username}</div>
@@ -55,6 +60,7 @@ const AdminProfile = () => {
         <div className="mb-3"><strong>Date of Birth:</strong> {user.dob}</div>
       </div>
     </div>
+ </AdminLayout>
         </>
     )
 }
