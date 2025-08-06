@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaSearch, FaFilter } from "react-icons/fa";
 
@@ -7,6 +7,7 @@ const API = import.meta.env.VITE_AUTH_API_URL;
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [filterData,setFilterData] = useState(users)
   const [filter, setFilter] = useState({
     username: "",
     email: "",
@@ -31,6 +32,7 @@ const UserList = () => {
       );
       const data = await res.json();
       setUsers(data.users || []);
+      setFilterData(data.users || [])
     } catch (error) {
       console.error("Error fetching users:", error);
     } finally {
@@ -45,20 +47,29 @@ const UserList = () => {
   const handleFilterChange = (e) =>
     setFilter({ ...filter, [e.target.name]: e.target.value });
 
-  const handleFilterSubmit = (e) => {
-    e.preventDefault()
-    console.log(users)
-    console.log(filter)
+const handleFilterSubmit = (e) => {
+  e.preventDefault();
 
-    const filterItems = users.filter((user)=>{
-      if(user.email=== filter.email || user.username===filter.username || user.role===filter.role){
-        return user
-      }
-    })
+  const filteredUsers = users.filter((user) => {
+    const usernameMatch = !filter.username || user.username === filter.username;
+    const emailMatch = !filter.email || user.email === filter.email;
+    const roleMatch = !filter.role || user.role === filter.role;
+    const statusMatch =
+      !filter.status ||
+      (filter.status === "active" && !user.blocked) ||
+      (filter.status === "blocked" && user.blocked);
 
-console.log(filterItems);
-setUsers(filterItems)
-  };
+    // All active filters must match
+    return usernameMatch && emailMatch && roleMatch && statusMatch;
+  });
+
+
+  setFilterData(filteredUsers)
+  
+};
+
+console.log(filterData)
+
 
   const clearFilters = () => {
     setFilter({
@@ -196,7 +207,7 @@ setUsers(filterItems)
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
               <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading users...</p>
             </div>
-          ) : users.length === 0 ? (
+          ) : filterData.length === 0 ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">👥</div>
               <p className="text-lg sm:text-xl text-gray-600">No users found</p>
@@ -213,7 +224,9 @@ setUsers(filterItems)
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-sm">
-                {users.map((user, idx) => (
+                {
+                  showFilters ?
+filterData.map((user, idx) => (
                   <tr key={user._id} className={`hover:bg-gray-50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
                     <td className="px-3 py-3 sm:px-6 sm:py-4 break-words">
                       <div className="font-semibold text-gray-900">{user.username}</div>
@@ -242,7 +255,39 @@ setUsers(filterItems)
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))
+                  :
+users.map((user, idx) => (
+                  <tr key={user._id} className={`hover:bg-gray-50 transition-colors ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4 break-words">
+                      <div className="font-semibold text-gray-900">{user.username}</div>
+                      <div className="text-xs text-gray-500">{user.email}</div>
+                      {user.firstName && user.lastName && (
+                        <div className="text-xs text-gray-400">{user.firstName} {user.lastName}</div>
+                      )}
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getRoleBadge(user.role)}`}>
+                        {user.role}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${getStatusBadge(user.blocked)}`}>
+                        {user.blocked ? "Blocked" : "Active"}
+                      </span>
+                    </td>
+                    <td className="px-3 py-3 sm:px-6 sm:py-4">
+                      <button 
+                        onClick={() => navigate(`/cashier/users/${user._id}`)}
+                        className="text-purple-600 hover:text-purple-800 transition-colors p-2 rounded-lg hover:bg-purple-50"
+                        title="View Details"
+                      >
+                        <FaEye className="text-lg" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+                }
               </tbody>
             </table>
           )}

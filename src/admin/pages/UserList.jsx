@@ -69,9 +69,11 @@ const UserTable = () => {
       (filters.status === 'active' && !user.blocked) ||
       (filters.status === 'blocked' && user.blocked);
     
+      console.log(searchMatch,roleMatch,statusMatch)
     return searchMatch && roleMatch && statusMatch;
   });
 
+  console.log(filteredUsers)
   const totalPages = Math.ceil(filteredUsers.length / rowsPerPage);
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = Math.min(startIndex + rowsPerPage, filteredUsers.length);
