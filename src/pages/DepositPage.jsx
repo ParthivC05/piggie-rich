@@ -234,13 +234,7 @@ const DepositPage = () => {
                 />
               )}
 
-              <div className="space-y-2">
-                <p className="text-white text-sm">Or pay with card</p>
-                <button className="w-full bg-gray-800 text-white border border-gray-700 rounded-lg px-4 py-3 flex items-center justify-center gap-3 hover:bg-gray-700 transition-colors">
-                  <FaCreditCard className="text-white" />
-                  <span>Debit or Credit Card</span>
-                </button>
-              </div>
+           
             </div>
 
             <div className="text-center space-y-2">

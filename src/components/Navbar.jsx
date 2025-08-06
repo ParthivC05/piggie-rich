@@ -110,7 +110,7 @@ const Navbar = ({ toggleChatSidebar }) => {
     md:translate-x-0 md:static md:min-h-screen
   `}
       >
-        <div className="flex flex-col px-6 py-4 gap-4">
+        <div className="flex flex-col px-1 py-4 gap-4">
           <Link
             to="/"
             className={`${linkBase} text-left w-full ${
@@ -167,7 +167,7 @@ const Navbar = ({ toggleChatSidebar }) => {
           ) : (
             <>
               <button
-                className="flex items-center gap-2 px-4 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300 hover:cursor-pointer"
+                className="flex items-center gap-2 px-1 py-2 rounded font-semibold bg-gray-200 text-black hover:bg-gray-300 hover:cursor-pointer"
                 onClick={() => {
                   setIsOpen(false);
                   navigate("/profile");

@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin', 'cashier'], default: 'user' },
   blocked: { type: Boolean, default: false },
   resetToken: String,
-  resetTokenExpire: Date
+  resetTokenExpire: Date,
+  currentToken:String
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -54,12 +54,20 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
+
+    //save Token in Database
+    
+    user.currentToken=token
+    await user.save()
+
     res.json({
       token,
       user: {
         username: user.username,
         email: user.email,
         role: user.role,
+        activeToken:user.currentToken
+        ``
       },
     });
   } catch (err) {

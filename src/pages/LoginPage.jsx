@@ -42,6 +42,7 @@ const LoginPage = () => {
         body: JSON.stringify(form),
       });
       const data = await res.json();
+      console.log(data)
       if (res.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
