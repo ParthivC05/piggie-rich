@@ -10,7 +10,12 @@ module.exports = async (req, res, next) => {
     req.userId = decoded.userId;
     req.role = decoded.role;
 
-   
+    const user = await User.findById(decoded.userId);
+
+    
+    if (!user || user.token !== token) {
+      return res.status(401).json({ error: "Token has expired or is invalid" });
+    }
 
     next();
   } catch {

@@ -36,6 +36,7 @@ exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
+    console.log(username,password)
    
     
     if (!username || !password)
@@ -57,6 +58,8 @@ exports.login = async (req, res) => {
       { expiresIn: '1h' }
     );
 
+    user.currentToken = token;
+await user.save();
    
     
     
