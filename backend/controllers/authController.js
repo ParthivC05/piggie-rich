@@ -35,6 +35,8 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
+
+   
     
     if (!username || !password)
       return res.status(400).json({ error: 'Username and password required.' });
@@ -55,10 +57,9 @@ exports.login = async (req, res) => {
       { expiresIn: '1h' }
     );
 
-    //save Token in Database
+   
     
-    user.currentToken=token
-    await user.save()
+    
 
     res.json({
       token,
@@ -66,11 +67,11 @@ exports.login = async (req, res) => {
         username: user.username,
         email: user.email,
         role: user.role,
-        activeToken:user.currentToken
-        ``
       },
     });
   } catch (err) {
+    console.log(err)
+    console.log("backend error")
     res.status(500).json({ error: 'Server error' });
   }
 };

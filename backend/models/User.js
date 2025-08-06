@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   blocked: { type: Boolean, default: false },
   resetToken: String,
   resetTokenExpire: Date,
-  currentToken:String
+ 
 });
 
 module.exports = mongoose.model('User', userSchema);

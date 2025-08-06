@@ -10,11 +10,7 @@ module.exports = async (req, res, next) => {
     req.userId = decoded.userId;
     req.role = decoded.role;
 
-    const user = await User.findById(decoded.userId);
-
-    if (!user || user.currentToken !== token) {
-      return res.status(401).json({ error: 'Session expired or invalid' });
-    }
+   
 
     next();
   } catch {
