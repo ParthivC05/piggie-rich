@@ -144,17 +144,7 @@ const LoginPage = () => {
             <div className="flex-1 border-t border-gray-700"></div>
           </div>
 
-          {/* Social Login Buttons */}
-          <div className="grid grid-cols-2 gap-4">
-            <button className="flex items-center justify-center gap-2 bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors">
-              <FcGoogle className="text-xl" />
-              <span>Google</span>
-            </button>
-            <button className="flex items-center justify-center gap-2 bg-gray-800 text-white py-3 rounded-lg hover:bg-gray-700 transition-colors">
-              <FaFacebook className="text-xl text-blue-500" />
-              <span>Facebook</span>
-            </button>
-          </div>
+       
 
           {/* Terms Text */}
           <p className="text-center text-gray-400 text-sm mt-6">
