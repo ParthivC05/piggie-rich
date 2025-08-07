@@ -70,6 +70,7 @@ await user.save();
         username: user.username,
         email: user.email,
         role: user.role,
+        
       },
     });
   } catch (err) {

@@ -94,7 +94,7 @@ console.log(filterData)
     return roleConfig[role] || "bg-gray-100 text-gray-800";
   };
 
-  console.log(filter)
+  
   console.log(users)
   return (
     <div className="p-6">
@@ -207,7 +207,7 @@ console.log(filterData)
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
               <p className="mt-4 text-gray-600 text-sm sm:text-base">Loading users...</p>
             </div>
-          ) : filterData.length === 0 ? (
+          ) : filterData.length === 0 && showFilters ? (
             <div className="text-center py-12">
               <div className="text-6xl mb-4">👥</div>
               <p className="text-lg sm:text-xl text-gray-600">No users found</p>
