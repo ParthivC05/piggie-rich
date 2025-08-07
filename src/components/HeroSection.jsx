@@ -36,12 +36,15 @@ const HeroSection = () => {
                 Register
               </button>
             )}
-            <button
+     
+            {
+              isLoggedIn ? "" : <button
               className="bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold px-8 py-3 rounded-full transition-all duration-200 shadow-lg"
               onClick={() => navigate("/login")}
             >
               Login
             </button>
+            }
           </div>
         </div>
       </div>
