@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FaSearch, FaFilter, FaEye, FaTimes } from "react-icons/fa";
+import {  FaFilter, FaEye, FaTimes } from "react-icons/fa";
+import { IoMdRefresh } from "react-icons/io";
+
 
 const API = import.meta.env.VITE_AUTH_API_URL;
 
@@ -7,7 +9,7 @@ const CashierTransactions = () => {
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState({
-    userId: "",
+    userName: "",
     game: "",
     minAmount: "",
     maxAmount: "",
@@ -33,6 +35,7 @@ const CashierTransactions = () => {
         }
       );
       const data = await res.json();
+      console.log(data.deposits)
       setDeposits(data.deposits || []);
     } catch (error) {
       console.error("Error fetching deposits:", error);
@@ -50,12 +53,13 @@ const CashierTransactions = () => {
 
   const handleFilterSubmit = (e) => {
     e.preventDefault();
+    console.log(filter)
     fetchDeposits();
   };
 
   const clearFilters = () => {
     setFilter({
-      userId: "",
+      userName: "",
       game: "",
       minAmount: "",
       maxAmount: "",
@@ -97,11 +101,13 @@ const CashierTransactions = () => {
   };
 
   return (
-    <div className="p-6">
-      <div className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400 text-white rounded-3xl p-6 sm:p-8 mb-8 sm:mb-10 shadow-lg">
-        <h1 className="text-3xl sm:text-5xl font-black tracking-tight drop-shadow-lg">💰 Transactions</h1>
-        <p className="text-base sm:text-xl mt-2 opacity-90">View all deposit transactions</p>
-      </div>
+    <>
+  
+    <div className="p-6 ">
+              <div className="bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-400  text-white rounded-3xl p-6 sm:p-8 mb-8 sm:mb-10 shadow-lg">
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight drop-shadow-lg">💰 Transactions</h1>
+            <p className="text-base sm:text-xl mt-2 opacity-90">View all deposit transactions</p>
+          </div>
 
       <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-2xl space-y-8 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]">
 
@@ -118,7 +124,7 @@ const CashierTransactions = () => {
               onClick={fetchDeposits}
               className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg"
             >
-              <FaSearch />
+             <IoMdRefresh />
               Refresh
             </button>
           </div>
@@ -139,7 +145,7 @@ const CashierTransactions = () => {
           <form onSubmit={handleFilterSubmit} className="bg-gray-50 p-6 rounded-2xl space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { label: "User ID", name: "userId", type: "text", placeholder: "Search by User ID" },
+                { label: "Username", name: "userName", type: "text", placeholder: "Search by User Name" },
                 { label: "Game", name: "game", type: "text", placeholder: "Search by Game" },
                 { label: "Min Amount", name: "minAmount", type: "number", placeholder: "Min Amount" },
                 { label: "Max Amount", name: "maxAmount", type: "number", placeholder: "Max Amount" },
@@ -371,6 +377,8 @@ const CashierTransactions = () => {
         </div>
       )}
     </div>
+
+  </>
   );
 };
 

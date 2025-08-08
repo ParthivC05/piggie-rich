@@ -6,7 +6,7 @@ const Transactions = () => {
   const [deposits, setDeposits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState({
-    userId: "",
+    userName: "",
     game: "",
     minAmount: "",
     maxAmount: "",
@@ -56,7 +56,7 @@ const Transactions = () => {
 
   const clearFilters = () => {
     setFilter({
-      userId: "",
+      userName: "",
       game: "",
       minAmount: "",
       maxAmount: "",
@@ -143,10 +143,10 @@ const Transactions = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               <input
                 type="text"
-                name="userId"
-                value={filter.userId}
+                name="userName"
+                value={filter.userName}
                 onChange={handleFilterChange}
-                placeholder="Search by User ID"
+                placeholder="Search by UserName"
                 className="w-full border border-gray-300 rounded-xl px-4 py-2"
               />
 

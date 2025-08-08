@@ -14,6 +14,11 @@ function ForgotPass() {
     setMessage("");
 
     try {
+
+      if(username!==username.trim()){
+setMessage("Spaces are not allowed at the beginning or end");
+      return; 
+      }
       const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

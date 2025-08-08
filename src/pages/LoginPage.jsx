@@ -86,15 +86,13 @@ const LoginPage = () => {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Yourname@gmail.com"
+                placeholder="Username"
                 required
                 value={form.username}
                 onChange={handleChange}
                 className="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg px-4 py-3 pr-12 border border-gray-700 focus:border-yellow-400 focus:outline-none transition-colors"
               />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <CiAt />
-              </span>
+             
             </div>
 
                          {/* Password Input */}

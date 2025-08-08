@@ -54,17 +54,17 @@ const RedemptionRules = () => {
               />
             </div>
             <div className="space-y-4 text-gray-200 flex-grow">
-              <p>You must double the amount of your deposit as your minimum redeem.</p>
-              <p>We redeem to zero so you play off all points over your redeem amount.</p>
+              <p>1.You must double the amount of your deposit as your minimum redeem.</p>
+              <p>2.We redeem to zero so you play off all points over your redeem amount.</p>
               
               <div className="space-y-2">
-                <p>Minimum deposit $10</p>
-                <p>Maximum redeem $500 per 24 hours</p>
-                <p>Zero dollar deposit equals zero dollar redemption</p>
-                <p>In-game free play/bonuses are nonredeemable</p>
+                <p>3.Minimum deposit $10</p>
+                <p>4.Maximum redeem $500 per 24 hours</p>
+                <p>5.Zero dollar deposit equals zero dollar redemption</p>
+                <p>6.In-game free play/bonuses are nonredeemable</p>
               </div>
               
-              <p className="mt-4">Redeems are fulfilled via PayPal between 10AM - 10PM EST</p>
+              <p className="mt-4">7.Redeems are fulfilled via PayPal between 10AM - 10PM EST</p>
             </div>
           </div>
         </div>

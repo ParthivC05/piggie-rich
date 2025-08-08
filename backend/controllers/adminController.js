@@ -87,10 +87,12 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.getDeposits = async (req, res) => {
-  const { userId, game, minAmount, maxAmount, startDate, endDate, status } = req.query;
-  const filter = {};
   
-  if (userId) filter.userId = userId;
+  const { userName, game, minAmount, maxAmount, startDate, endDate, status } = req.query;
+  const filter = {};
+ 
+
+  if (userName) filter.gameUsername = { $regex: userName, $options: 'i' };
   if (game) filter.game = { $regex: game, $options: 'i' };
   if (minAmount) filter.amount = { ...filter.amount, $gte: Number(minAmount) };
   if (maxAmount) filter.amount = { ...filter.amount, $lte: Number(maxAmount) };
@@ -100,7 +102,8 @@ exports.getDeposits = async (req, res) => {
     if (startDate) filter.createdAt.$gte = new Date(startDate);
     if (endDate) filter.createdAt.$lte = new Date(endDate);
   }
-  
+
+
   const deposits = await Deposit.find(filter)
     .populate('userId', 'username email firstName lastName')
     .sort({ createdAt: -1 });
