@@ -91,7 +91,7 @@ const CashierUserDetails = () => {
               <FaEnvelope className="text-purple-600" />
               <div>
                 <span className="font-semibold text-gray-600">Email:</span>
-                <div className="font-bold text-gray-900">{user.email}</div>
+                <div className=" font-bold  text-gray-900 break-all">{user.email}</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
