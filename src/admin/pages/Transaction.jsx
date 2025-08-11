@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AdminLayout from "../components/AdminLayout";
 import { FaSearch, FaFilter, FaDownload, FaEye, FaTimes } from "react-icons/fa";
+import { IoMdRefresh } from "react-icons/io";
 
 const Transactions = () => {
   const [deposits, setDeposits] = useState([]);
@@ -114,7 +115,7 @@ const Transactions = () => {
               onClick={fetchDeposits}
               className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 text-gray-800 px-6 py-2 rounded-xl shadow"
             >
-              <FaSearch />
+           <IoMdRefresh/> 
               Refresh
             </button>
           </div>

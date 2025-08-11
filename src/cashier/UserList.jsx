@@ -1,6 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaSearch, FaFilter } from "react-icons/fa";
+import { FaEye, FaFilter } from "react-icons/fa";
+import { IoMdRefresh } from "react-icons/io";
 
 const API = import.meta.env.VITE_AUTH_API_URL;
 
@@ -118,7 +119,7 @@ console.log(filterData)
               onClick={fetchUsers}
               className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-3 rounded-xl transition-all duration-300 shadow-lg"
             >
-              <FaSearch />
+            <IoMdRefresh/>
               Refresh
             </button>
           </div>

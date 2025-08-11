@@ -83,8 +83,14 @@ await user.save();
 exports.forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
+    console.log(email)
 
-    const user = await User.findOne({ email });
+    const user = await  User.findOne({
+      $or:[
+        {email:email},
+        {phone:email}
+      ]
+    });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
