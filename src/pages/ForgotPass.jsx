@@ -30,11 +30,13 @@ setMessage("Spaces are not allowed at the beginning or end");
       if (res.ok) {
         setMessage(data.message);
         
-        if (data.token) {
-          setTimeout(() => {
-            navigate(`/reset-password/${data.token}`);
-          }, 2000);
-        }
+        // if (data.token) {
+        //   // setTimeout(() => {
+        //   //   navigate(`/reset-password/${data.token}`);
+        //   // }, 2000);
+          
+        // }
+
       } else {
         setMessage(data.message || "Something went wrong. Please try again.");
       }

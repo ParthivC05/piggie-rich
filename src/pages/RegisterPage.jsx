@@ -33,6 +33,8 @@ const RegisterPage = () => {
     if (form.hasOwnProperty('password') && form.password.length < 6) return "Password must be at least 6 characters.";
     if (form.hasOwnProperty('password') && form.hasOwnProperty('confirmPassword') && form.password !== form.confirmPassword) return "Passwords do not match.";
     if (form.hasOwnProperty('dob') && !form.dob) return "Date of Birth is required.";
+    if (form.hasOwnProperty('dob') && new Date(form.dob) > new Date()) return "Date of Birth cannot be in the future.";
+
     if (!agreeToTerms) return "You must agree to Terms and Conditions.";
     return null;
   };

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
+
 exports.register = async (req, res) => {
   try {
     const { username, password, dob, firstName, lastName, email, phone, role } = req.body;
@@ -101,12 +102,40 @@ exports.forgotPassword = async (req, res) => {
     await user.save();
 
     const resetUrl = `${'https://www.waiwaisweeps.com/' || 'http://localhost:5173'}/reset-password/${token}`;
-    
-    res.status(200).json({ 
+
+     const transporter = nodemailer.createTransport({
+      service: "Gmail", 
+      auth: {
+        user: process.env.EMAIL_USER, // Gmail email
+        pass: process.env.EMAIL_PASS  // Gmail app password
+      }
+    });
+
+     const mailOptions = {
+      from: `Waiwai Sweeps <${process.env.EMAIL_USER}>`,
+      to: user.email,
+      subject: "Password Reset Request",
+      html: `
+        <p>Hello ${user.username || ''},</p>
+        <p>You requested to reset your password. Click the link below to reset it:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
+        
+      `
+    };
+
+    //sending mail
+     await  transporter.sendMail(mailOptions);
+
+       res.status(200).json({ 
       message: "Reset link generated successfully",
       resetUrl: resetUrl,
-      token: token
-    });
+      token: token,
+      
+    })
+
+  
+
+    
 
   } catch (error) {
     console.error("Password reset failed:", error);
