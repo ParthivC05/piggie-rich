@@ -51,6 +51,7 @@ const RegisterPage = () => {
       return;
     }
     setLoading(true);
+   
     try {
       const res = await fetch(`${import.meta.env.VITE_AUTH_API_URL}/register`, {
         method: "POST",
