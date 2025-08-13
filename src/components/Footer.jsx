@@ -45,19 +45,19 @@ const Footer = () => {
               <div className="space-y-2 pl-5">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/games" className="text-white text-sm hover:text-yellow-400">All Game</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">All Game</Link>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/new-games" className="text-white text-sm hover:text-yellow-400">New Game</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">New Game</Link>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/online-games" className="text-white text-sm hover:text-yellow-400">Online Game</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">Online Game</Link>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/land-based" className="text-white text-sm hover:text-yellow-400">Land Based</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">Land Based</Link>
                 </div>
               </div>
             </div>
@@ -107,11 +107,11 @@ const Footer = () => {
               <div className="space-y-2 pl-5">
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/casino-platform" className="text-white text-sm hover:text-yellow-400">Casino Platform</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">Casino Platform</Link>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-1 h-1 bg-white"></div>
-                  <Link to="/game-studio" className="text-white text-sm hover:text-yellow-400">Game Studio</Link>
+                  <Link to="/game-room" className="text-white text-sm hover:text-yellow-400">Game Studio</Link>
                 </div>
               </div>
             </div>
