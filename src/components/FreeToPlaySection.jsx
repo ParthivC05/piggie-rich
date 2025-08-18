@@ -5,6 +5,7 @@ import { FaArrowRight } from 'react-icons/fa';
 const FreeToPlaySection = () => {
   const [games, setGames] = useState([]);
   const navigate = useNavigate();
+   const isLoggedIn = !!localStorage.getItem("token");
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_GAMES_API_URL;
@@ -23,6 +24,15 @@ const FreeToPlaySection = () => {
       })
       .catch(() => setGames([]));
   }, []);
+
+  const playNow = () => {
+    if(isLoggedIn){
+      navigate("/game-room")
+    }
+    else{
+      navigate("/login")
+    }
+  }
 
   return (
     <section className="bg-black text-white px-4 py-16">
@@ -45,7 +55,7 @@ const FreeToPlaySection = () => {
                 <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <button
                     className="bg-gradient-to-b from-yellow-400 to-yellow-600 hover:from-yellow-500 hover:to-yellow-700 text-white font-bold px-6 py-3 rounded-full transition-all duration-200 shadow-lg transform scale-90 group-hover:scale-100"
-                    onClick={() => navigate('/game-room')}
+                    onClick={playNow}
                   >
                     PLAY NOW
                   </button>

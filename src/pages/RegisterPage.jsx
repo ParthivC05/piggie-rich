@@ -25,6 +25,7 @@ const RegisterPage = () => {
     if (form.hasOwnProperty('lastName') && !form.lastName.trim()) return "Last Name is required.";
     if (form.hasOwnProperty('username') && !form.username.trim()) return "Username is required.";
     if (form.hasOwnProperty('phone') && !form.phone.trim()) return "Phone is required.";
+    if (form.hasOwnProperty('username') && form.username.includes(" ")) return "Username cannot contain spaces inside!"
     if (form.hasOwnProperty('phone') && !/^\d{10,}$/.test(form.phone)) return "Phone must be at least 10 digits.";
     if (form.hasOwnProperty('email') && !form.email.trim()) return "Email is required.";
     if (form.hasOwnProperty('email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return "Invalid email address.";
@@ -63,7 +64,7 @@ const RegisterPage = () => {
         toast.success("Registration successful!");
         setTimeout(() => navigate("/login"), 1500);
       } else {
-        toast.error(data.error || "Registration failed.");
+         toast.error(data.error || "Registration failed.");
       }
     } catch (err) {
       toast.error("Server error.");
@@ -131,6 +132,7 @@ const RegisterPage = () => {
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-yellow-400 focus:outline-none transition-colors"
                 value={form.phone}
                 onChange={handleChange}
+                type="number"
               />
             </div>
           </div>
