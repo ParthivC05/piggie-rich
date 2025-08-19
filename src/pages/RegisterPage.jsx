@@ -28,8 +28,11 @@ const RegisterPage = () => {
     if (form.hasOwnProperty('username') && form.username.includes(" ")) return "Username cannot contain spaces inside!"
     if (form.hasOwnProperty('phone') && !/^\d{10,}$/.test(form.phone)) return "Phone must be at least 10 digits.";
     if (form.hasOwnProperty('email') && !form.email.trim()) return "Email is required.";
-    if (form.hasOwnProperty('email') && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return "Invalid email address.";
-    if (form.hasOwnProperty('email') && form.hasOwnProperty('confirmEmail') && form.email !== form.confirmEmail) return "Emails do not match.";
+   if (form.hasOwnProperty('email') && 
+    !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(form.email)) {
+    return "Invalid email address.";
+}
+if (form.hasOwnProperty('email') && form.hasOwnProperty('confirmEmail') && form.email !== form.confirmEmail) return "Emails do not match.";
     if (form.hasOwnProperty('password') && !form.password) return "Password is required.";
     if (form.hasOwnProperty('password') && form.password.length < 6) return "Password must be at least 6 characters.";
     if (form.hasOwnProperty('password') && form.hasOwnProperty('confirmPassword') && form.password !== form.confirmPassword) return "Passwords do not match.";
